@@ -13,7 +13,7 @@ public class GalagaGame extends JPanel implements ActionListener {
     private ArrayList<EnemyShip> enemyShips;
     private ArrayList<RandomMovingEnemy> randomMovingEnemies;
     private Random random;
-
+// ubah uabha uabah 
     public GalagaGame() {
         timer = new Timer(10, this);
         timer.start();
