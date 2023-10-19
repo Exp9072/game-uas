@@ -44,7 +44,7 @@ public class GalagaGame extends JPanel implements ActionListener {
         moveRandomMovingEnemies();
         repaint();
     }
-//akjalkjad;kljda;djas
+//akjalkjad;kljda;djasamnadm,nasdm,n
     private void moveRandomMovingEnemies() {
         for (RandomMovingEnemy enemy : randomMovingEnemies) {
             enemy.moveRandomly(random);
