@@ -25,7 +25,7 @@ public class GalagaGame extends JPanel implements ActionListener {
         enemyShips.add(new EnemyShip(300, 100)); // Static enemy
 
         randomMovingEnemies = new ArrayList<>();
-        randomMovingEnemies.add(new RandomMovingEnemy(200, 200, 1, 0, 800, new Random())); // Randomly moving enemy with larger movements
+        randomMovingEnemies.add(new RandomMovingEnemy(200, 200, 1, 0, 800, new Random())); // Randomly moving enemy 
 
         addKeyListener(new KeyAdapter() {
             @Override
@@ -89,7 +89,7 @@ public class GalagaGame extends JPanel implements ActionListener {
         frame.setSize(800, 600);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
-        frame.getContentPane().setPreferredSize(new Dimension(850, 600)); // Set the size of the content pane
+        frame.getContentPane().setPreferredSize(new Dimension(850, 600)); // Set the size of the content 
         frame.pack(); // Pack the frame to adjust to the preferred size
         
         game.initializePlayerShip(frame.getWidth());
