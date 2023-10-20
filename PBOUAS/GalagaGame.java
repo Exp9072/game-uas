@@ -13,7 +13,7 @@ public class GalagaGame extends JPanel implements ActionListener {
     private ArrayList<EnemyShip> enemyShips;
     private ArrayList<RandomMovingEnemy> randomMovingEnemies;
     private Random random;
-// ubah uabha uabah 
+
     public GalagaGame() {
         timer = new Timer(10, this);
         timer.start();
@@ -32,6 +32,11 @@ public class GalagaGame extends JPanel implements ActionListener {
             public void keyPressed(KeyEvent e) {
                 playerShip.handleInput(e.getKeyCode());
             }
+        
+            @Override
+            public void keyReleased(KeyEvent e) {
+                playerShip.handleKeyRelease(e.getKeyCode());
+            }
         });
         setFocusable(true);
 
@@ -41,10 +46,11 @@ public class GalagaGame extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         // Update game logic
+        playerShip.update();
         moveRandomMovingEnemies();
         repaint();
     }
-//akjalkjad;kljda;djasamnadm,nasdm,n
+
     private void moveRandomMovingEnemies() {
         for (RandomMovingEnemy enemy : randomMovingEnemies) {
             enemy.moveRandomly(random);
@@ -85,31 +91,53 @@ public class GalagaGame extends JPanel implements ActionListener {
         private int x, y;
         private int width, height;
         private int speed;
-
+        private boolean movingLeft;
+        private boolean movingRight;
+    
         public PlayerShip(int x, int y) {
             this.x = x;
             this.y = y;
             this.width = 40;
             this.height = 40;
-            this.speed = 5;
+            this.speed = 3;
+            this.movingLeft = false;
+            this.movingRight = false;
         }
-
+    
         public void moveLeft() {
             x -= speed;
         }
-
+    
         public void moveRight() {
             x += speed;
         }
-
+    
         public void handleInput(int keyCode) {
             if (keyCode == KeyEvent.VK_LEFT) {
-                moveLeft();
+                movingLeft = true;
+                movingRight = false;
             } else if (keyCode == KeyEvent.VK_RIGHT) {
-                moveRight();
+                movingRight = true;
+                movingLeft = false;
             }
         }
 
+        public void handleKeyRelease(int keyCode) {
+            if (keyCode == KeyEvent.VK_LEFT) {
+                movingLeft = false;
+            } else if (keyCode == KeyEvent.VK_RIGHT) {
+                movingRight = false;
+            }
+        }
+    
+        public void update() {
+            if (movingLeft) {
+                moveLeft();
+            } else if (movingRight) {
+                moveRight();
+            }
+        }
+    
         public void draw(Graphics g) {
             g.setColor(Color.blue);
             g.fillRect(x, y, width, height);
@@ -141,6 +169,10 @@ public class GalagaGame extends JPanel implements ActionListener {
         private int direction;
         private int minRange;
         private int maxRange;
+        private int lastDirectionChange;
+        private int minMove;
+        private int maxMove;
+        private int currentMove;
 
         public RandomMovingEnemy(int x, int y, int speed, int minRange, int maxRange, Random random) {
             this.x = x;
@@ -151,20 +183,43 @@ public class GalagaGame extends JPanel implements ActionListener {
             this.direction = 1;
             this.minRange = minRange;
             this.maxRange = maxRange;
+            this.lastDirectionChange = 0;
+            this.minMove = 50; // Minimum step
+            this.maxMove = 250; // Maximum step
+            this.currentMove = getRandomMove(random);
         }
 
         public void moveRandomly(Random random) {
-            if (random.nextBoolean()) {
-                direction = -direction;
+            if (lastDirectionChange >= currentMove) {
+                if (random.nextBoolean()) {
+                    direction = -direction;
+                    lastDirectionChange = 0;
+                    currentMove = getRandomMove(random);
+                }
+            } else {
+                lastDirectionChange++;
             }
+            
+            // Check if the enemy is near the screen boundaries and reverse direction if necessary
+            if (x <= minRange || x >= maxRange) {
+                direction = -direction;
+                lastDirectionChange = 0;
+                currentMove = getRandomMove(random);
+            }
+
             x += speed * direction;
             x = Math.min(maxRange, Math.max(minRange, x));
+        }
+
+        private int getRandomMove(Random random) {
+            return random.nextInt(maxMove - minMove + 1) + minMove;
         }
 
         public void draw(Graphics g) {
             g.setColor(Color.green);
             g.fillRect(x, y, width, height);
         }
+
         public int getX() {
             return x;
         }
