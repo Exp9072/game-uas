@@ -15,6 +15,8 @@ public class PlayerShip {
         this.lives = 3; // Set the initial number of lives
     }
 
+    
+
     public void moveLeft() {
         x -= speed;
     }

@@ -18,7 +18,7 @@ public class GalagaGame extends JPanel implements ActionListener {
         timer = new Timer(10, this);
         timer.start();
 
-        playerShip = new PlayerShip(380, 500);
+        playerShip = new PlayerShip(380, 500, getWidth());
 
         enemyShips = new ArrayList<>();
         enemyShips.add(new EnemyShip(100, 100)); // Static enemy
@@ -39,8 +39,12 @@ public class GalagaGame extends JPanel implements ActionListener {
             }
         });
         setFocusable(true);
-
+        requestFocusInWindow();
         random = new Random(); // Initialize the random object
+    }
+
+    public void initializePlayerShip(int screenWidth) {
+        playerShip = new PlayerShip(380, 500, screenWidth);
     }
 
     @Override
@@ -74,7 +78,7 @@ public class GalagaGame extends JPanel implements ActionListener {
     }
 
     private void drawLocationIndicator(Graphics g, int x, int y) {
-        g.setColor(Color.white);
+        g.setColor(Color.black);
         g.drawString("Enemy X-Position: " + x, x, y);
     }
 
@@ -85,31 +89,43 @@ public class GalagaGame extends JPanel implements ActionListener {
         frame.setSize(800, 600);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
+        frame.getContentPane().setPreferredSize(new Dimension(850, 600)); // Set the size of the content pane
+        frame.pack(); // Pack the frame to adjust to the preferred size
+        
+        game.initializePlayerShip(frame.getWidth());
     }
 
     static class PlayerShip {
         private int x, y;
         private int width, height;
         private int speed;
+        private int screenWidth;
         private boolean movingLeft;
         private boolean movingRight;
     
-        public PlayerShip(int x, int y) {
+        public PlayerShip(int x, int y, int screenWidth) {
             this.x = x;
             this.y = y;
             this.width = 40;
             this.height = 40;
             this.speed = 3;
+            this.screenWidth = screenWidth;
             this.movingLeft = false;
             this.movingRight = false;
         }
     
         public void moveLeft() {
-            x -= speed;
+            if (x - speed >= 0) {
+                x -= speed;
+                System.out.println("Left");
+            }
         }
     
         public void moveRight() {
-            x += speed;
+            if (x + speed + width <= screenWidth - 10) {
+                x += speed;
+                System.out.println("Right");
+            }
         }
     
         public void handleInput(int keyCode) {
@@ -229,6 +245,23 @@ public class GalagaGame extends JPanel implements ActionListener {
 
 
 
+/* 
+Menurut gpt POINT 10,11,12 BLM 
+1. Pengantar Java OOP  | Y
+2. Kerangka Program OOP | Y
+3. Dasar Pemrograman Java | Y
+4. Struktur Kontrol  | Y
+5. Array | Y
+6. Method | Y
+7. Encapsulation | Y
+8. Inheritance | Y
+9. Polimorfisme | Y
+10. Static & Final Variable | N ?
+11. Exception Handling | N ?
+12. Abstract Class & Interface | N ?
+13. Java Collection | Y
+14. GUI | Y
+*/
 
 
 
