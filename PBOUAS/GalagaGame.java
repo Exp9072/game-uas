@@ -323,3 +323,20 @@ public class GalagaGame extends JPanel implements ActionListener {
         }
     }
 }
+
+/* 
+1. Pengantar Java OOP | Y
+2. Kerangka Program OOP | Y
+3. Dasar Pemrograman Java | Y
+4. Struktur Kontrol | Y
+5. Array | Y
+6. Method | Y
+7. Encapsulation | Y
+8. Inheritance | Y
+9. Polimorfisme | Y
+! 10. Static & Final Variable | N
+! 11. Exception Handling | N
+! 12. Abstract Class & Interface | N
+13. Java Collection | Y
+14. GUI | Y
+*/
