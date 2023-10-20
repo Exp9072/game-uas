@@ -18,21 +18,25 @@ public class GalagaGame extends JPanel implements ActionListener {
         timer = new Timer(10, this);
         timer.start();
 
+        // Membuat kapal pemain (player ship)
         playerShip = new PlayerShip(380, 500, getWidth());
 
+        // Menginisialisasi daftar kapal musuh statis
         enemyShips = new ArrayList<>();
-        enemyShips.add(new EnemyShip(100, 100)); // Static enemy
-        enemyShips.add(new EnemyShip(300, 100)); // Static enemy
+        enemyShips.add(new EnemyShip(100, 100)); // Kapal musuh statis
+        enemyShips.add(new EnemyShip(300, 100)); // Kapal musuh statis
 
+        // Menginisialisasi daftar kapal musuh yang bergerak acak
         randomMovingEnemies = new ArrayList<>();
-        randomMovingEnemies.add(new RandomMovingEnemy(200, 200, 1, 0, 800, new Random())); // Randomly moving enemy 
+        randomMovingEnemies.add(new RandomMovingEnemy(200, 200, 1, 0, 800, new Random())); // Kapal musuh yang bergerak acak
 
+        // Menyiapkan penanganan input dari keyboard
         addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
                 playerShip.handleInput(e.getKeyCode());
             }
-        
+
             @Override
             public void keyReleased(KeyEvent e) {
                 playerShip.handleKeyRelease(e.getKeyCode());
@@ -40,21 +44,23 @@ public class GalagaGame extends JPanel implements ActionListener {
         });
         setFocusable(true);
         requestFocusInWindow();
-        random = new Random(); // Initialize the random object
+        random = new Random(); // Menginisialisasi objek random
     }
 
+    // Menginisialisasi kapal pemain berdasarkan lebar layar
     public void initializePlayerShip(int screenWidth) {
         playerShip = new PlayerShip(380, 500, screenWidth);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        // Update game logic
+        // Memperbarui logika permainan
         playerShip.update();
         moveRandomMovingEnemies();
         repaint();
     }
 
+    // Menggerakkan kapal musuh yang bergerak acak
     private void moveRandomMovingEnemies() {
         for (RandomMovingEnemy enemy : randomMovingEnemies) {
             enemy.moveRandomly(random);
@@ -65,33 +71,37 @@ public class GalagaGame extends JPanel implements ActionListener {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
+        // Menggambar kapal pemain
         playerShip.draw(g);
 
+        // Menggambar kapal musuh statis
         for (EnemyShip enemy : enemyShips) {
             enemy.draw(g);
         }
 
+        // Menggambar kapal musuh yang bergerak acak
         for (RandomMovingEnemy enemy : randomMovingEnemies) {
             enemy.draw(g);
-            drawLocationIndicator(g, enemy.getX(), 570); // Display enemy's x-position at the bottom
+            drawLocationIndicator(g, enemy.getX(), 570); // Menampilkan posisi x musuh di bagian bawah
         }
     }
 
+    // Menggambar indikator lokasi
     private void drawLocationIndicator(Graphics g, int x, int y) {
         g.setColor(Color.black);
-        g.drawString("Enemy X-Position: " + x, x, y);
+        g.drawString("Posisi X Musuh: " + x, x, y);
     }
 
     public static void main(String[] args) {
-        JFrame frame = new JFrame("Galaga Game");
+        JFrame frame = new JFrame("Permainan Galaga");
         GalagaGame game = new GalagaGame();
         frame.add(game);
         frame.setSize(800, 600);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
-        frame.getContentPane().setPreferredSize(new Dimension(850, 600)); // Set the size of the content 
-        frame.pack(); // Pack the frame to adjust to the preferred size
-        
+        frame.getContentPane().setPreferredSize(new Dimension(850, 600)); // Mengatur ukuran konten
+        frame.pack(); // Mengatur ukuran frame sesuai dengan ukuran yang diinginkan
+
         game.initializePlayerShip(frame.getWidth());
     }
 
@@ -102,7 +112,7 @@ public class GalagaGame extends JPanel implements ActionListener {
         private int screenWidth;
         private boolean movingLeft;
         private boolean movingRight;
-    
+
         public PlayerShip(int x, int y, int screenWidth) {
             this.x = x;
             this.y = y;
@@ -113,21 +123,22 @@ public class GalagaGame extends JPanel implements ActionListener {
             this.movingLeft = false;
             this.movingRight = false;
         }
-    
+
+        // Bergerak ke kiri
         public void moveLeft() {
             if (x - speed >= 0) {
                 x -= speed;
-                System.out.println("Left");
             }
         }
-    
+
+        // Bergerak ke kanan
         public void moveRight() {
             if (x + speed + width <= screenWidth - 10) {
                 x += speed;
-                System.out.println("Right");
             }
         }
-    
+
+        // Menangani input dari keyboard
         public void handleInput(int keyCode) {
             if (keyCode == KeyEvent.VK_LEFT) {
                 movingLeft = true;
@@ -138,6 +149,7 @@ public class GalagaGame extends JPanel implements ActionListener {
             }
         }
 
+        // Menangani pelepasan tombol keyboard
         public void handleKeyRelease(int keyCode) {
             if (keyCode == KeyEvent.VK_LEFT) {
                 movingLeft = false;
@@ -145,7 +157,8 @@ public class GalagaGame extends JPanel implements ActionListener {
                 movingRight = false;
             }
         }
-    
+
+        // Memperbarui pergerakan kapal pemain
         public void update() {
             if (movingLeft) {
                 moveLeft();
@@ -153,7 +166,8 @@ public class GalagaGame extends JPanel implements ActionListener {
                 moveRight();
             }
         }
-    
+
+        // Menggambar kapal pemain
         public void draw(Graphics g) {
             g.setColor(Color.blue);
             g.fillRect(x, y, width, height);
@@ -171,13 +185,13 @@ public class GalagaGame extends JPanel implements ActionListener {
             this.height = 40;
         }
 
+        // Menggambar kapal musuh
         public void draw(Graphics g) {
             g.setColor(Color.red);
             g.fillRect(x, y, width, height);
         }
     }
 
-    
     static class RandomMovingEnemy {
         private int x, y;
         private int width, height;
@@ -200,11 +214,12 @@ public class GalagaGame extends JPanel implements ActionListener {
             this.minRange = minRange;
             this.maxRange = maxRange;
             this.lastDirectionChange = 0;
-            this.minMove = 50; // Minimum step
-            this.maxMove = 250; // Maximum step
+            this.minMove = 50; // Langkah minimum
+            this.maxMove = 250; // Langkah maksimum
             this.currentMove = getRandomMove(random);
         }
 
+        // Menggerakkan musuh secara acak
         public void moveRandomly(Random random) {
             if (lastDirectionChange >= currentMove) {
                 if (random.nextBoolean()) {
@@ -215,8 +230,8 @@ public class GalagaGame extends JPanel implements ActionListener {
             } else {
                 lastDirectionChange++;
             }
-            
-            // Check if the enemy is near the screen boundaries and reverse direction if necessary
+
+            // Periksa jika musuh berada dekat dengan batas layar dan balikkan arah jika perlu
             if (x <= minRange || x >= maxRange) {
                 direction = -direction;
                 lastDirectionChange = 0;
@@ -227,20 +242,24 @@ public class GalagaGame extends JPanel implements ActionListener {
             x = Math.min(maxRange, Math.max(minRange, x));
         }
 
+        // Menghasilkan perpindahan acak
         private int getRandomMove(Random random) {
             return random.nextInt(maxMove - minMove + 1) + minMove;
         }
 
+        // Menggambar musuh yang bergerak acak
         public void draw(Graphics g) {
             g.setColor(Color.green);
             g.fillRect(x, y, width, height);
         }
 
+        // Mendapatkan posisi X musuh
         public int getX() {
             return x;
         }
     }
 }
+
 
 
 
@@ -256,9 +275,9 @@ Menurut gpt POINT 10,11,12 BLM
 7. Encapsulation | Y
 8. Inheritance | Y
 9. Polimorfisme | Y
-10. Static & Final Variable | N ?
-11. Exception Handling | N ?
-12. Abstract Class & Interface | N ?
+! 10. Static & Final Variable | N ?
+! 11. Exception Handling | N ?
+! 12. Abstract Class & Interface | N ?
 13. Java Collection | Y
 14. GUI | Y
 */

@@ -1,21 +1,19 @@
 import java.awt.*;
 
 public class PlayerShip {
-    private int x, y; // Current position of the player ship
-    private int width, height; // Dimensions of the player ship
-    private int speed; // Movement speed
-    private int lives; // Number of lives the player has
+    private int x, y; // Posisi saat ini dari kapal pemain
+    private int width, height; // Dimensi kapal pemain
+    private int speed; // Kecepatan pergerakan
+    private int lives; // Jumlah nyawa pemain
 
     public PlayerShip(int x, int y) {
         this.x = x;
         this.y = y;
-        this.width = 40; // Set your desired dimensions
-        this.height = 40; // Set your desired dimensions
-        this.speed = 5; // Set your desired speed
-        this.lives = 3; // Set the initial number of lives
+        this.width = 40; // Atur dimensi yang diinginkan
+        this.height = 40; // Atur dimensi yang diinginkan
+        this.speed = 5; // Atur kecepatan yang diinginkan
+        this.lives = 3; // Atur jumlah nyawa awal
     }
-
-    
 
     public void moveLeft() {
         x -= speed;
@@ -26,8 +24,8 @@ public class PlayerShip {
     }
 
     public void draw(Graphics g) {
-        // Draw the player ship on the screen using graphics context (g)
-        g.setColor(Color.blue); // Set the ship's color
-        g.fillRect(x, y, width, height); // Draw a rectangle as the ship
+        // Menggambar kapal pemain pada layar menggunakan konteks grafik (g)
+        g.setColor(Color.blue); // Atur warna kapal
+        g.fillRect(x, y, width, height); // Menggambar persegi panjang sebagai kapal
     }
 }
