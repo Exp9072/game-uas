@@ -12,7 +12,7 @@ public class Collision {
                     laser.getX() + laser.getWidth() > enemy.getX() &&
                     laser.getY() < enemy.getY() + enemy.getHeight() &&
                     laser.getY() + laser.getHeight() > enemy.getY()) {
-                    // Collision detected, handle the logic here
+                    
                     lasersToRemove.add(laser);
                     enemiesToRemove.add(enemy);
                 }
