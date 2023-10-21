@@ -1,28 +1,28 @@
 import java.awt.*;
 
 public class Laser {
-    private int x, y;
-    private int width, height;
-    private int speed;
+    private int x, y; // Koordinat x dan y dari laser
+    private int width, height; // Lebar dan tinggi laser
+    private int speed; // Kecepatan laser
 
     public Laser(int x, int y) {
         this.x = x;
         this.y = y;
-        this.width = 5; // Set the laser width
-        this.height = 15; // Set the laser height
-        this.speed = 5; // Set the laser speed
+        this.width = 5; // Mengatur lebar laser
+        this.height = 15; // Mengatur tinggi laser
+        this.speed = 5; // Mengatur kecepatan laser
     }
 
     public void move() {
-        y -= speed; // Move the laser upwards
+        y -= speed; // Pindahkan laser ke atas
     }
 
     public void draw(Graphics g) {
-        g.setColor(Color.PINK); // Set the laser color
-        g.fillRect(x, y, width, height); // Draw the laser
+        g.setColor(Color.PINK); // Mengatur warna laser
+        g.fillRect(x, y, width, height); // Gambar laser
     }
 
     public int getY() {
-        return y;
+        return y; // Mengembalikan posisi y laser
     }
 }
