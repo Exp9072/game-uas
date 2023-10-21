@@ -12,6 +12,7 @@ public class GalagaGame extends JPanel implements ActionListener {
     private PlayerShip playerShip; // Objek kapal pemain
     private ArrayList<Enemy> enemies; // Gunakan daftar musuh generik
     private ArrayList<Laser> lasers; // Daftar proyektil laser yang ditembakkan oleh pemain
+    private Collision collisionDetector; // Create an instance of CollisionDetector
     private Random random; // Objek Random untuk menghasilkan nilai acak
 
     public GalagaGame() {
@@ -45,6 +46,7 @@ public class GalagaGame extends JPanel implements ActionListener {
         });
         setFocusable(true); // Mengatur fokus panel game
         requestFocusInWindow(); // Meminta fokus ke jendela game
+        collisionDetector = new Collision(); // Initialize CollisionDetector
         random = new Random(); // Inisialisasi objek Random untuk digunakan dalam permainan
 
     }
@@ -58,6 +60,7 @@ public class GalagaGame extends JPanel implements ActionListener {
         playerShip.update(); // Memperbarui kapal pemain
         moveRandomMovingEnemies(); // Memindahkan musuh yang bergerak acak
         updateLasers(); // Memperbarui posisi laser dan menghapus laser yang telah melewati layar
+        Collision.checkCollisions(lasers, enemies); // Initialize the Collision class
         repaint(); // Melakukan penggambaran ulang tampilan game
     }
 

@@ -25,4 +25,16 @@ public class Laser {
     public int getY() {
         return y; // Mengembalikan posisi y laser
     }
+
+    public int getX() {
+        return x; // Return the x-coordinate of the laser
+    }
+
+    public int getWidth() {
+        return width; // Return the width of the laser
+    }
+
+    public int getHeight() {
+        return height; // Return the height of the laser
+    }
 }

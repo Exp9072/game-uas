@@ -66,14 +66,18 @@ public class PlayerShip {
     }
 
     public int getX() {
-        return x; // Dapatkan posisi x pemain
-    }
-
-    public int getWidth() {
-        return width; // Dapatkan lebar kapal pemain
+        return x;
     }
 
     public int getY() {
-        return y; // Dapatkan posisi y pemain
+        return y;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
     }
 }
