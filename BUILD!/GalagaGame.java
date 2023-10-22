@@ -12,27 +12,38 @@ public class GalagaGame extends JPanel implements ActionListener {
     private PlayerShip playerShip; // Objek kapal pemain
     private ArrayList<Enemy> enemies; // Gunakan daftar musuh generik
     private ArrayList<Laser> lasers; // Daftar proyektil laser yang ditembakkan oleh pemain
-    private ArrayList<Laser> enemyLasers;
+    private ArrayList<Laser> enemyLasers; // Daftar proyektil laser yang ditembakkan oleh musuh
     private Collision collisionDetector; // Create an instance of CollisionDetector
     private Random random; // Objek Random untuk menghasilkan nilai acak
 
     public GalagaGame() {
-         // Membuat objek Timer yang akan mengatur pembaruan game setiap 10 milidetik
+        // Membuat objek Timer yang akan mengatur pembaruan game secara berkala
         timer = new Timer(10, this);
         timer.start();
 
         // Membuat objek PlayerShip dan menentukan posisinya awal
         playerShip = new PlayerShip(380, 500, getWidth());
-        lasers = new ArrayList<>();
+        lasers = new ArrayList<>(); // Daftar proyektil laser yang ditembakkan oleh pemain
 
         // Membuat daftar objek musuh (enemies) dan menambahkan dua kapal musuh ke dalamnya
         enemies = new ArrayList<>();
         enemies.add(new StaticEnemy(100, 100)); // Contoh musuh statis
         enemies.add(new StaticEnemy(250, 100)); // Contoh musuh statis
-        random = new Random();
-        enemies.add(new RandomMovingEnemy(200, 200, 1, 0, 800, 1000, random)); // Contoh musuh yang bergerak acak
-        enemyLasers = new ArrayList<>();
 
+        // Membuat objek Random untuk menghasilkan nilai acak
+        random = new Random();
+
+        enemies.add(new RandomMovingEnemy(200, 200, 1, 0, 800, 1000, random)); // Contoh musuh yang bergerak acak
+        enemyLasers = new ArrayList<>(); // Daftar proyektil laser musuh
+
+        // Memulai timer penembakan untuk musuh yang bergerak secara acak
+        for (Enemy enemy : enemies) {
+            if (enemy instanceof RandomMovingEnemy) {
+                ((RandomMovingEnemy) enemy).startShootingTimer();
+            }
+        }
+
+        // Menangani input dari pemain (keyboard)
         addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
@@ -48,16 +59,13 @@ public class GalagaGame extends JPanel implements ActionListener {
             }
         });
 
-        
         setFocusable(true); // Mengatur fokus panel game
         requestFocusInWindow(); // Meminta fokus ke jendela game
-        collisionDetector = new Collision(); // Initialize CollisionDetector
-        // Inisialisasi objek Random untuk digunakan dalam permainan
-
+        collisionDetector = new Collision(); // Memulai CollisionDetector
     }
 
-   public void initializePlayerShip(int screenWidth) {
-    playerShip = new PlayerShip(380, 500, screenWidth); // Menginisialisasi kapal pemain dengan posisi awal dan lebar layar
+    public void initializePlayerShip(int screenWidth) {
+        playerShip = new PlayerShip(380, 500, screenWidth); // Menginisialisasi kapal pemain dengan posisi awal dan lebar layar
     }
 
     @Override
@@ -65,6 +73,7 @@ public class GalagaGame extends JPanel implements ActionListener {
         playerShip.update(); // Memperbarui kapal pemain
         moveRandomMovingEnemies(); // Memindahkan musuh yang bergerak acak
         updateLasers();
+
         // Update the positions of player ship lasers
         for (Laser laser : lasers) {
             laser.move(-1); // Update player ship laser position
@@ -75,14 +84,19 @@ public class GalagaGame extends JPanel implements ActionListener {
             if (enemy instanceof StaticEnemy) {
                 ArrayList<Laser> enemyLasers = ((StaticEnemy) enemy).getEnemyLasers();
                 for (Laser laser : enemyLasers) {
-                    laser.move(1); // Update enemy laser position
+                    laser.move(1); // Update posisi laser StaticEnemy
+                }
+            } else if (enemy instanceof RandomMovingEnemy) {
+                ArrayList<Laser> enemyLasers = ((RandomMovingEnemy) enemy).getEnemyLasers();
+                for (Laser laser : enemyLasers) {
+                    laser.move(1); // Update posisi laser RandomMovingEnemy
                 }
             }
         }
-        Collision.checkCollisions(lasers, enemies, playerShip); // Initialize the Collision class
+        Collision.checkCollisions(lasers, enemies, playerShip); // MemulaiCollision class
+
         if (playerShip.getHealth() <= 0) {
-            playerShip.destroy();  // Destroy the player ship
-            // You may also want to handle game over logic here
+            playerShip.destroy();  // Hilangkan player ship
         }
         repaint(); // Melakukan penggambaran ulang tampilan game
     }
@@ -90,27 +104,13 @@ public class GalagaGame extends JPanel implements ActionListener {
     private void updateLasers() {
         ArrayList<Laser> lasersToRemove = new ArrayList<>();
         for (Laser laser : lasers) {
-            laser.move(-1); // Update player ship laser position
+            laser.move(-1); // Update posisi laser
             if (laser.getY() < 0) {
-                lasersToRemove.add(laser); // Mark lasers that have gone off the screen
+                lasersToRemove.add(laser); // Catat laser yang keluar dari screen
             }
         }
-        // Update enemy lasers
-        for (Enemy enemy : enemies) {
-            if (enemy instanceof StaticEnemy) {
-                ArrayList<Laser> enemyLasers = ((StaticEnemy) enemy).getEnemyLasers();
-                ArrayList<Laser> enemyLasersToRemove = new ArrayList<>();
-                
-                for (Laser enemyLaser : enemyLasers) {
-                    enemyLaser.move(1); // Update enemy laser position
-                    if (enemyLaser.getY() > getHeight()) {
-                        enemyLasersToRemove.add(enemyLaser); // Mark enemy lasers that have gone off the screen
-                    }
-                }
-                enemyLasers.removeAll(enemyLasersToRemove); // Remove enemy lasers that have gone off the screen
-            }
-        }
-        lasers.removeAll(lasersToRemove); // Menghapus laser yang telah keluar dari layar
+
+        lasers.removeAll(lasersToRemove); // Hapus laser yang keluar dari screen
     }
 
     private void moveRandomMovingEnemies() {
@@ -135,12 +135,21 @@ public class GalagaGame extends JPanel implements ActionListener {
             enemy.draw(g); // Menggambar musuh
             drawLocationIndicator(g, enemy.getX(), 570);
         }
-        
+
         for (Enemy enemy : enemies) {
-            enemy.draw(g); // Draw enemies
+            enemy.draw(g); // Gambar kapal enemies
+
+            // Periksa apakah musuh tersebut adalah instansi dari RandomMovingEnemy dan gambar proyektil lasernya.
+            if (enemy instanceof RandomMovingEnemy) {
+                ArrayList<Laser> enemyLasers = ((RandomMovingEnemy) enemy).getEnemyLasers();
+                for (Laser laser : enemyLasers) {
+                    laser.draw(g);
+                }
+            }
+
             if (enemy instanceof StaticEnemy) {
                 drawLocationIndicator(g, enemy.getX(), 570);
-                ArrayList<Laser> enemyLasers = ((StaticEnemy) enemy).getEnemyLasers(); // Get the enemy lasers
+                ArrayList<Laser> enemyLasers = ((StaticEnemy) enemy).getEnemyLasers(); // Ambil enemy lasers
                 for (Laser laser : ((StaticEnemy) enemy).getEnemyLasers()) {
                     laser.draw(g);
                 }
@@ -148,16 +157,15 @@ public class GalagaGame extends JPanel implements ActionListener {
         }
 
         if (playerShip.getHealth() > 0) {
-            playerShip.draw(g); // Draw the player ship if health is greater than 0
+            playerShip.draw(g); // Gambar player ship ijika health > 0
         } else {
-            playerShip.destroy(); // Destroy the player ship when health reaches 0
+            playerShip.destroy(); //Hilangkan player ship saat health = 0
         }
 
         for (Laser laser : lasers) {
             laser.draw(g); // Menggambar laser
         }
     }
-        
 
     private void drawLocationIndicator(Graphics g, int x, int y) {
         g.setColor(Color.black);

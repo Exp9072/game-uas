@@ -7,14 +7,13 @@ import java.util.ArrayList;
 // Import kelas-kelas yang diperlukan dari paket java.awt
 public abstract class Enemy {
     // Deklarasi variabel instance yang akan digunakan untuk mengelola posisi dan ukuran musuh
-    protected int x, y;
-    protected int width, height;
-    protected int health;
-    long currentTime = System.currentTimeMillis();
-    protected Timer shootingTimer;
-    protected int shootingInterval;
-    protected ArrayList<Laser> enemyLasers;
-
+    protected int x, y; // Koordinat x dan y musuh
+    protected int width, height; // Lebar dan tinggi musuh
+    protected int health; // Kesehatan musuh
+    long currentTime = System.currentTimeMillis(); // Waktu saat ini
+    protected Timer shootingTimer; // Timer untuk menembakkan laser
+    protected int shootingInterval; // Interval penembakan
+    protected ArrayList<Laser> enemyLasers; // Daftar laser musuh
 
     // Konstruktor kelas Enemy
     public Enemy(int x, int y, int width, int height) {
@@ -25,11 +24,9 @@ public abstract class Enemy {
         this.width = 40;
         // Menginisialisasi tinggi dengan nilai 40
         this.height = 40;
-        this.health = 1;
-        this.enemyLasers = new ArrayList<>();
-        this.shootingInterval = 3000;
-
-        
+        this.health = 1; // Menginisialisasi kesehatan musuh dengan 1
+        this.enemyLasers = new ArrayList<>(); // Inisialisasi daftar laser musuh
+        this.shootingInterval = 3000; // Mengatur interval penembakan
     }
 
     // Metode getter untuk mendapatkan nilai x
@@ -37,20 +34,25 @@ public abstract class Enemy {
         return x;
     }
 
+    // Metode getter untuk mendapatkan nilai y
     public int getY() {
         return y;
     }
 
+    // Metode getter untuk mendapatkan lebar musuh
     public int getWidth() {
         return width;
     }
 
+    // Metode getter untuk mendapatkan tinggi musuh
     public int getHeight() {
         return height;
     }
 
+    // Metode abstrak yang akan diimplementasikan oleh subclass untuk menentukan perilaku penembakan
     public abstract void shoot();
 
+    // Metode yang digunakan untuk memeriksa apakah musuh bertabrakan dengan kapal pemain
     public boolean collidesWith(PlayerShip playerShip) {
         // Check if this enemy collides with the player's ship
         return x < playerShip.getX() + playerShip.getWidth() &&
@@ -59,7 +61,7 @@ public abstract class Enemy {
                y + height > playerShip.getY();
     }
 
-    // Metode abstrak yang akan diimplementasikan oleh subclass
+    // Metode abstrak yang akan diimplementasikan oleh subclass untuk menentukan perilaku pergerakan musuh
     public abstract void move();
 
     // Metode untuk menggambar musuh
