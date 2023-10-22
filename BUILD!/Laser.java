@@ -1,9 +1,11 @@
-import java.awt.*;
+import java.awt.Graphics;
+import java.awt.Color;
 
 public class Laser {
     private int x, y; // Koordinat x dan y dari laser
     private int width, height; // Lebar dan tinggi laser
     private int speed; // Kecepatan laser
+    private boolean collided;
 
     public Laser(int x, int y) {
         this.x = x;
@@ -13,8 +15,8 @@ public class Laser {
         this.speed = 5; // Mengatur kecepatan laser
     }
 
-    public void move() {
-        y -= speed; // Pindahkan laser ke atas
+    public void move(int direction) {
+        y += direction * speed; // Move the laser based on the specified direction
     }
 
     public void draw(Graphics g) {
@@ -36,5 +38,11 @@ public class Laser {
 
     public int getHeight() {
         return height; // Return the height of the laser
+    }
+    public boolean hasCollided() {
+        return collided;
+    }
+    public void setCollided(boolean collided) {
+        this.collided = collided;
     }
 }

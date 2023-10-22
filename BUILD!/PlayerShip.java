@@ -6,8 +6,11 @@ public class PlayerShip {
     private int width, height; // Lebar dan tinggi kapal pemain
     private int speed; // Kecepatan pemain
     private int screenWidth; // Lebar layar
+    private int health; // Nyawa Pemain
+    private boolean destroyed;
     private boolean movingLeft; // Pemain bergerak ke kiri
     private boolean movingRight; // Pemain bergerak ke kanan
+
 
     public PlayerShip(int x, int y, int screenWidth) {
         this.x = x;
@@ -15,9 +18,18 @@ public class PlayerShip {
         this.width = 40; // Setel lebar kapal pemain
         this.height = 40; // Setel tinggi kapal pemain
         this.speed = 3; // Setel kecepatan pemain
+        this.health = 3; // Setel nyawa pemain
         this.screenWidth = screenWidth;
+        this.destroyed = false; // Awalanya tidak mati
         this.movingLeft = false; // Awalnya tidak bergerak ke kiri
         this.movingRight = false; // Awalnya tidak bergerak ke kanan
+    }
+
+    public void decreaseHealth(int amount) {
+        health -= amount;
+        if (health <= 0) {
+            destroyed = true;
+        }
     }
 
     public void moveLeft() {
@@ -80,4 +92,19 @@ public class PlayerShip {
     public int getHeight() {
         return height;
     }
+
+    public int getHealth() {
+        return health; 
+    }
+    public boolean isDestroyed() {
+        return destroyed;
+    }
+    public void destroy() {
+        destroyed = true;
+        health = 0;  // Reset health to 0
+        // Set the player ship's position off-screen to hide it
+        x = -getWidth();
+        y = -getHeight();
+    }
+    
 }

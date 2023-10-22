@@ -1,4 +1,8 @@
 import java.awt.*;
+import javax.swing.Timer;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 // Import kelas-kelas yang diperlukan dari paket java.awt
 public abstract class Enemy {
@@ -6,6 +10,11 @@ public abstract class Enemy {
     protected int x, y;
     protected int width, height;
     protected int health;
+    long currentTime = System.currentTimeMillis();
+    protected Timer shootingTimer;
+    protected int shootingInterval;
+    protected ArrayList<Laser> enemyLasers;
+
 
     // Konstruktor kelas Enemy
     public Enemy(int x, int y, int width, int height) {
@@ -17,6 +26,10 @@ public abstract class Enemy {
         // Menginisialisasi tinggi dengan nilai 40
         this.height = 40;
         this.health = 1;
+        this.enemyLasers = new ArrayList<>();
+        this.shootingInterval = 3000;
+
+        
     }
 
     // Metode getter untuk mendapatkan nilai x
@@ -28,7 +41,6 @@ public abstract class Enemy {
         return y;
     }
 
-
     public int getWidth() {
         return width;
     }
@@ -36,6 +48,8 @@ public abstract class Enemy {
     public int getHeight() {
         return height;
     }
+
+    public abstract void shoot();
 
     public boolean collidesWith(PlayerShip playerShip) {
         // Check if this enemy collides with the player's ship

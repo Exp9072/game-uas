@@ -13,7 +13,7 @@ public class Laser {
         this.speed = 5; // Mengatur kecepatan pergerakan tembakan laser.
     }
 
-    public void move() {
+    public void move(int i) {
         y -= speed; // Memindahkan tembakan laser ke atas (berlawanan dengan arah Y positif).
     }
 
@@ -24,5 +24,8 @@ public class Laser {
 
     public int getY() {
         return y; // Mengambil koordinat Y dari tembakan laser.
+    }
+
+    public static void add(Laser laser) {
     }
 }

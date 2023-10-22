@@ -1,5 +1,8 @@
 import java.awt.*;
 import java.util.Random;
+import javax.swing.Timer;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class RandomMovingEnemy extends Enemy {
     private int speed; // Kecepatan pergerakan musuh
@@ -11,7 +14,8 @@ public class RandomMovingEnemy extends Enemy {
     private int maxMove; // Jarak maksimum perubahan arah
     private int currentMove; // Jarak perubahan arah saat ini
 
-    public RandomMovingEnemy(int x, int y, int speed, int minRange, int maxRange, Random random) {
+
+    public RandomMovingEnemy(int x, int y, int speed, int minRange, int maxRange, int shootingInterval, Random random) {
         super(x, y, 40, 40); // Memanggil konstruktor kelas dasar (Enemy) dengan posisi awal dan ukuran musuh
         this.speed = speed;
         this.direction = 1; // Arah awal pergerakan
@@ -20,7 +24,18 @@ public class RandomMovingEnemy extends Enemy {
         this.lastDirectionChange = 0; // Awalnya belum ada perubahan arah
         this.minMove = 50; // Jarak minimum perubahan arah
         this.maxMove = 250; // Jarak maksimum perubahan arah
+        this.shootingInterval = 1000;
         this.currentMove = getRandomMove(random); // Mendapatkan jarak perubahan arah acak
+
+        shootingTimer = new Timer(shootingInterval, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                shoot();
+            }
+        });
+        
+        shootingTimer.start();
+
     }
 
     public void move() {
@@ -28,6 +43,7 @@ public class RandomMovingEnemy extends Enemy {
         // Misalnya, Anda dapat menggunakan logika yang sama dengan moveRandomly
         moveRandomly(new Random());
     }
+    
 
     public void moveRandomly(Random random) {
         if (lastDirectionChange >= currentMove) {
@@ -61,5 +77,12 @@ public class RandomMovingEnemy extends Enemy {
 
     public int getX() {
         return x; // Mendapatkan posisi horizontal musuh
+    }
+
+    @Override
+    public void shoot() {
+        // Implement the shooting logic for random moving enemies
+        Laser laser = new Laser(x + width / 2, y + height);
+        enemyLasers.add(laser);
     }
 }
