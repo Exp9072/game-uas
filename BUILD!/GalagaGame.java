@@ -18,6 +18,7 @@ public class GalagaGame extends JPanel implements ActionListener {
     private boolean keybool;
     private Timer delayTimer;
     private boolean delayAktif;
+    private Timer spacebarDelayTimer;
     
     public GalagaGame() {
         // Membuat objek Timer yang akan mengatur pembaruan game secara berkala
@@ -25,6 +26,7 @@ public class GalagaGame extends JPanel implements ActionListener {
         timer.start();
         keybool = false;
         delayAktif = false;
+        spacebarDelayTimer = null;
 
         // Membuat objek PlayerShip dan menentukan posisinya awal
         playerShip = new PlayerShip(380, 500, getWidth());
@@ -55,8 +57,9 @@ public class GalagaGame extends JPanel implements ActionListener {
                 playerShip.handleInput(e.getKeyCode());
                 if (e.getKeyCode() == KeyEvent.VK_SPACE) {
                     if (keybool == false) {
+                        keybool = true;
                         lasers.add(new Laser(playerShip.getX() + playerShip.getWidth() / 2, playerShip.getY()));
-                        int delay = 1000; // Delay in milliseconds
+                        int delay = 3000; // Delay in milliseconds
                         Timer spacebarDelayTimer = new Timer(delay, new ActionListener() {
                             @Override
                             public void actionPerformed(ActionEvent e) {
@@ -66,15 +69,19 @@ public class GalagaGame extends JPanel implements ActionListener {
                         });
                         spacebarDelayTimer.setRepeats(false); // Ensure the timer fires only once
                         spacebarDelayTimer.start();
-                        keybool = true;
                     }
                 }
             }
-        
             @Override
             public void keyReleased(KeyEvent e) {
-                keybool = false;
-                playerShip.handleKeyRelease(e.getKeyCode()); // Menangani pelepasan tombol kunci pemain
+                if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+                    if (spacebarDelayTimer != null) {
+                        spacebarDelayTimer.stop(); // Stop the timer if spacebar is released
+                        spacebarDelayTimer = null; // Reset the timer reference
+                        keybool = false;
+                        playerShip.handleKeyRelease(e.getKeyCode()); // Menangani pelepasan tombol kunci pemain
+                    }
+                }
             }
         } );
 
