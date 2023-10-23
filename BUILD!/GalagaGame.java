@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
-import java.util.Random;
+import java.util.Random;    
 
 public class GalagaGame extends JPanel implements ActionListener {
     private Timer timer; // Objek Timer untuk mengatur pembaruan game secara berkala
@@ -15,11 +15,16 @@ public class GalagaGame extends JPanel implements ActionListener {
     private ArrayList<Laser> enemyLasers; // Daftar proyektil laser yang ditembakkan oleh musuh
     private Collision collisionDetector; // Create an instance of CollisionDetector
     private Random random; // Objek Random untuk menghasilkan nilai acak
-
+    private boolean keybool;
+    private Timer delayTimer;
+    private boolean delayAktif;
+    
     public GalagaGame() {
         // Membuat objek Timer yang akan mengatur pembaruan game secara berkala
         timer = new Timer(10, this);
         timer.start();
+        keybool = false;
+        delayAktif = false;
 
         // Membuat objek PlayerShip dan menentukan posisinya awal
         playerShip = new PlayerShip(380, 500, getWidth());
@@ -49,15 +54,29 @@ public class GalagaGame extends JPanel implements ActionListener {
             public void keyPressed(KeyEvent e) {
                 playerShip.handleInput(e.getKeyCode());
                 if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-                    lasers.add(new Laser(playerShip.getX() + playerShip.getWidth() / 2, playerShip.getY()));
+                    if (keybool == false) {
+                        lasers.add(new Laser(playerShip.getX() + playerShip.getWidth() / 2, playerShip.getY()));
+                        int delay = 1000; // Delay in milliseconds
+                        Timer spacebarDelayTimer = new Timer(delay, new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent e) {
+                                System.out.println("TEST 3");
+                                keybool = false;
+                            }
+                        });
+                        spacebarDelayTimer.setRepeats(false); // Ensure the timer fires only once
+                        spacebarDelayTimer.start();
+                        keybool = true;
+                    }
                 }
             }
-
+        
             @Override
             public void keyReleased(KeyEvent e) {
+                keybool = false;
                 playerShip.handleKeyRelease(e.getKeyCode()); // Menangani pelepasan tombol kunci pemain
             }
-        });
+        } );
 
         setFocusable(true); // Mengatur fokus panel game
         requestFocusInWindow(); // Meminta fokus ke jendela game

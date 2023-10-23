@@ -18,7 +18,7 @@ public class MainApplication {
  
 /* 
 1. Pengantar Java OOP | Y
-2. Kerangka Program OOP | Y
+2. Kerangka Program OOP | Y                          
 3. Dasar Pemrograman Java | Y
 4. Struktur Kontrol | Y
 5. Array | Y
