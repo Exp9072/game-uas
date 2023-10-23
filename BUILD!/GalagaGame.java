@@ -15,17 +15,18 @@ public class GalagaGame extends JPanel implements ActionListener {
     private ArrayList<Laser> enemyLasers; // Daftar proyektil laser yang ditembakkan oleh musuh
     private Collision collisionDetector; // Create an instance of CollisionDetector
     private Random random; // Objek Random untuk menghasilkan nilai acak
-    private boolean keybool;
-    private Timer delayTimer;
-    private boolean delayAktif;
-    private Timer spacebarDelayTimer;
+    private boolean keybool; // Deklarasi variabel keybool sebagai boolean.
+    private Timer spacebarDelayTimer; // Deklarasi variabel spacebarDelayTimer sebagai objek Timer.
     
     public GalagaGame() {
-        // Membuat objek Timer yang akan mengatur pembaruan game secara berkala
-        timer = new Timer(10, this);
-        timer.start();
+        // Membuat objek Timer dengan delay 10 milidetik yang akan memicu "this" (biasanya objek saat ini) setiap 10 milidetik.
+        timer = new Timer(10, this); //Set timer 10
+        timer.start(); // Memulai timer.
+
+        // Inisialisasi keybool sebagai false, ini menandakan bahwa awalnya tidak ada kunci yang sedang ditekan.
         keybool = false;
-        delayAktif = false;
+
+        // Inisialisasi spacebarDelayTimer ke null. Timer ini akan digunakan untuk mengatur penundaan setelah penggunaan tombol "spacebar."
         spacebarDelayTimer = null;
 
         // Membuat objek PlayerShip dan menentukan posisinya awal
@@ -56,19 +57,20 @@ public class GalagaGame extends JPanel implements ActionListener {
             public void keyPressed(KeyEvent e) {
                 playerShip.handleInput(e.getKeyCode());
                 if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+                    // Memeriksa apakah keybool saat ini bernilai false
                     if (keybool == false) {
-                        keybool = true;
+                        keybool = true; // Mengatur keybool ke true untuk mencegah penggunaan spacebar lagi
                         lasers.add(new Laser(playerShip.getX() + playerShip.getWidth() / 2, playerShip.getY()));
-                        int delay = 3000; // Delay in milliseconds
+                        int delay = 2000; // Penundaan dalam milidetik
                         Timer spacebarDelayTimer = new Timer(delay, new ActionListener() {
                             @Override
                             public void actionPerformed(ActionEvent e) {
                                 System.out.println("TEST 3");
-                                keybool = false;
+                                keybool = false; // Mengatur keybool kembali ke false setelah timer berakhir
                             }
                         });
-                        spacebarDelayTimer.setRepeats(false); // Ensure the timer fires only once
-                        spacebarDelayTimer.start();
+                        spacebarDelayTimer.setRepeats(false); // Memastikan timer hanya berjalan sekali
+                        spacebarDelayTimer.start(); // Memulai Timer
                     }
                 }
             }
@@ -78,10 +80,10 @@ public class GalagaGame extends JPanel implements ActionListener {
                     if (spacebarDelayTimer != null) {
                         spacebarDelayTimer.stop(); // Stop the timer if spacebar is released
                         spacebarDelayTimer = null; // Reset the timer reference
-                        keybool = false;
-                        playerShip.handleKeyRelease(e.getKeyCode()); // Menangani pelepasan tombol kunci pemain
+                        keybool = false; // Mengatur keybool kembali ke false
                     }
                 }
+                playerShip.handleKeyRelease(e.getKeyCode()); // Menangani pelepasan tombol kunci pemain
             }
         } );
 
