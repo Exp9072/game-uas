@@ -1,5 +1,5 @@
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JFrame;
+import java.awt.Dimension;
 
 public class MainApplication {
     public static void main(String[] args) {
@@ -36,3 +36,5 @@ public class MainApplication {
 13. Java Collection | Y
 14. GUI | Y
 */
+
+//864 lines

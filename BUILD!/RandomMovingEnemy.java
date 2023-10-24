@@ -1,6 +1,8 @@
 // batas screen rusak
+// batas height bawah kurang panjang
 
-import java.awt.*;
+import java.awt.Graphics;
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Random;
 import javax.swing.Timer;

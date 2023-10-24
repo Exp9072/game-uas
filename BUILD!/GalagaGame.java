@@ -1,5 +1,8 @@
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.Timer;
+import javax.swing.JPanel;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -17,6 +20,7 @@ public class GalagaGame extends JPanel implements ActionListener {
     private Random random; // Objek Random untuk menghasilkan nilai acak
     private boolean keybool; // Deklarasi variabel keybool sebagai boolean.
     private Timer spacebarDelayTimer; // Deklarasi variabel spacebarDelayTimer sebagai objek Timer.
+    private Respawn respawn;
     
     public GalagaGame() {
         // Membuat objek Timer dengan delay 10 milidetik yang akan memicu "this" (biasanya objek saat ini) setiap 10 milidetik.
@@ -43,6 +47,8 @@ public class GalagaGame extends JPanel implements ActionListener {
 
         enemies.add(new RandomMovingEnemy(200, -50, 1, 0, 800, 1000, random)); // Contoh musuh yang bergerak acak
         enemyLasers = new ArrayList<>(); // Daftar proyektil laser musuh
+
+        respawn = new Respawn(enemies, random);
 
         // Memulai timer penembakan untuk musuh yang bergerak secara acak
         for (Enemy enemy : enemies) {
@@ -132,6 +138,11 @@ public class GalagaGame extends JPanel implements ActionListener {
 
         if (playerShip.getHealth() <= 0) {
             playerShip.destroy();  // Hilangkan player ship
+        }
+
+        if (enemies.isEmpty()) {
+            // Respawn enemies when all enemies are destroyed
+            respawn.respawnEnemies();
         }
         repaint(); // Melakukan penggambaran ulang tampilan game
     }
