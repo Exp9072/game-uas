@@ -151,7 +151,8 @@ public class GalagaGame extends JPanel implements ActionListener {
     private void moveRandomMovingEnemies() {
         for (Enemy enemy : enemies) {
             if (enemy instanceof RandomMovingEnemy) {
-                ((RandomMovingEnemy) enemy).moveRandomly(random); // Memindahkan musuh yang bergerak acak
+                ((RandomMovingEnemy) enemy).moveRandomlyLeftRight(random); // Memindahkan musuh yang bergerak acak
+                ((RandomMovingEnemy) enemy).moveRandomlyUpDown(random); // Move up and down
             }
         }
     }

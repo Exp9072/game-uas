@@ -20,11 +20,13 @@ public class RandomMovingEnemy extends Enemy {
     private Timer shootingTimer; // Timer untuk menembak
     private int destinationY;
     private Timer moveTimer;
+    private int UpDirection;
 
 
     public RandomMovingEnemy(int x, int y, int speed, int minRange, int maxRange, int shootingInterval, Random random) {
         super(x, y, 40, 40); // Memanggil konstruktor kelas dasar (Enemy) dengan posisi awal dan ukuran musuh
         this.speed = speed;
+        this.UpDirection = 1;
         this.direction = 1; // Arah awal pergerakan
         this.minRange = minRange; // Batas minimum horizontal
         this.maxRange = maxRange; // Batas maksimum horizontal
@@ -68,17 +70,21 @@ public class RandomMovingEnemy extends Enemy {
             y++; // Move downward until reaching the destinationY
         } else {
             moveTimer.stop(); // Stop the move timer when the destination is reached
-            moveRandomly(new Random());
+            moveRandomlyLeftRight(new Random());
+            moveRandomlyUpDown(new Random());
         }
     }
-
+    
     // Metode untuk menggerakkan musuh secara acak
-    public void moveRandomly(Random random) {
+    public void moveRandomlyLeftRight(Random random) {
         if (lastDirectionChange >= currentMove) {
             if (random.nextBoolean()) {
                 direction = -direction; // Mengubah arah pergerakan secara acak
                 lastDirectionChange = 0; // Mereset waktu sejak perubahan arah
                 currentMove = getRandomMove(random); // Mendapatkan jarak perubahan arah secara acak
+            }
+            if (random.nextBoolean()){
+                UpDirection = -UpDirection;
             }
         } else {
             lastDirectionChange++;
@@ -92,6 +98,35 @@ public class RandomMovingEnemy extends Enemy {
 
         x += speed * direction; // Memindahkan musuh
         x = Math.min(maxRange, Math.max(minRange, x)); // Memastikan posisi tetap dalam batasan horizontal
+    }
+
+    public void moveRandomlyUpDown(Random random) {
+        if (lastDirectionChange >= currentMove) {
+            if (random.nextBoolean()) {
+                direction = -direction; // Change the horizontal direction randomly
+                lastDirectionChange = 0; // Reset the time since the last direction change
+                currentMove = getRandomMove(random); // Get a random change distance
+            }
+            if (random.nextBoolean()) {
+                UpDirection = -UpDirection; // Change the vertical direction randomly
+            }
+        } else {
+            lastDirectionChange++;
+        }
+    
+        if (x <= minRange || x >= maxRange) {
+            direction = -direction; // Change the horizontal direction if it reaches horizontal boundaries
+            lastDirectionChange = 0; // Reset the time since the last direction change
+            currentMove = getRandomMove(random); // Get a random change distance
+        }
+    
+        if (y <= 0 || y >= destinationY) {
+            UpDirection = -UpDirection; // Change the vertical direction if it reaches vertical boundaries
+        }
+    
+        x += speed * direction; // Move horizontally
+        y += speed * UpDirection; // Move vertically
+        x = Math.min(maxRange, Math.max(minRange, x)); // Ensure that the position stays within horizontal boundaries
     }
 
     // Metode untuk mendapatkan jarak perubahan arah secara acak
