@@ -18,6 +18,9 @@ public class RandomMovingEnemy extends Enemy {
     private int currentMove; // Jarak perubahan arah saat ini
     private ArrayList<Laser> enemyLasers; // ArrayList untuk mengelola laser musuh
     private Timer shootingTimer; // Timer untuk menembak
+    private int destinationY;
+    private Timer moveTimer;
+
 
     public RandomMovingEnemy(int x, int y, int speed, int minRange, int maxRange, int shootingInterval, Random random) {
         super(x, y, 40, 40); // Memanggil konstruktor kelas dasar (Enemy) dengan posisi awal dan ukuran musuh
@@ -30,6 +33,7 @@ public class RandomMovingEnemy extends Enemy {
         this.maxMove = 250; // Jarak maksimum perubahan arah
         this.shootingInterval = shootingInterval;
         this.currentMove = getRandomMove(random); // Mendapatkan jarak perubahan arah secara acak
+        this.destinationY = 200;
         enemyLasers = new ArrayList<>();
         shootingTimer = new Timer(shootingInterval, new ActionListener() {
             @Override
@@ -40,6 +44,16 @@ public class RandomMovingEnemy extends Enemy {
         
         shootingTimer.start();
 
+        // Initialize the move timer to control enemy movement
+        moveTimer = new Timer(5, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                move();
+            }
+        });
+        moveTimer.start(); // Start the move timer
+    
+
     }
     
     // Metode untuk mendapatkan daftar laser musuh
@@ -49,9 +63,13 @@ public class RandomMovingEnemy extends Enemy {
 
     // Metode untuk menggerakkan musuh
     public void move() {
-        // Implementasikan logika pergerakan untuk musuh yang bergerak secara acak di sini
-        // Misalnya, Anda dapat menggunakan logika yang sama dengan moveRandomly
-        moveRandomly(new Random());
+        if (y < destinationY) {
+            System.out.println(destinationY);
+            y++; // Move downward until reaching the destinationY
+        } else {
+            moveTimer.stop(); // Stop the move timer when the destination is reached
+            moveRandomly(new Random());
+        }
     }
 
     // Metode untuk menggerakkan musuh secara acak

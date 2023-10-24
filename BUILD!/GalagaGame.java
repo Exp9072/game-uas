@@ -30,18 +30,18 @@ public class GalagaGame extends JPanel implements ActionListener {
         spacebarDelayTimer = null;
 
         // Membuat objek PlayerShip dan menentukan posisinya awal
-        playerShip = new PlayerShip(380, 500, getWidth());
+        playerShip = new PlayerShip(380, 500, getWidth(), getHeight());
         lasers = new ArrayList<>(); // Daftar proyektil laser yang ditembakkan oleh pemain
 
         // Membuat daftar objek musuh (enemies) dan menambahkan dua kapal musuh ke dalamnya
         enemies = new ArrayList<>();
-        enemies.add(new StaticEnemy(100, 100)); // Contoh musuh statis
-        enemies.add(new StaticEnemy(250, 100)); // Contoh musuh statis
+        enemies.add(new StaticEnemy(100, -100)); // Contoh musuh statis
+        enemies.add(new StaticEnemy(250, -100)); // Contoh musuh statis
 
         // Membuat objek Random untuk menghasilkan nilai acak
         random = new Random();
 
-        enemies.add(new RandomMovingEnemy(200, 200, 1, 0, 800, 1000, random)); // Contoh musuh yang bergerak acak
+        enemies.add(new RandomMovingEnemy(200, -50, 1, 0, 800, 1000, random)); // Contoh musuh yang bergerak acak
         enemyLasers = new ArrayList<>(); // Daftar proyektil laser musuh
 
         // Memulai timer penembakan untuk musuh yang bergerak secara acak
@@ -52,6 +52,7 @@ public class GalagaGame extends JPanel implements ActionListener {
         }
 
         // Menangani input dari pemain (keyboard)
+        // catch handeling null ubah
         addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
@@ -61,7 +62,7 @@ public class GalagaGame extends JPanel implements ActionListener {
                     if (keybool == false) {
                         keybool = true; // Mengatur keybool ke true untuk mencegah penggunaan spacebar lagi
                         lasers.add(new Laser(playerShip.getX() + playerShip.getWidth() / 2, playerShip.getY()));
-                        int delay = 2000; // Penundaan dalam milidetik
+                        int delay = 1000; // Penundaan dalam milidetik
                         Timer spacebarDelayTimer = new Timer(delay, new ActionListener() {
                             @Override
                             public void actionPerformed(ActionEvent e) {
@@ -92,8 +93,8 @@ public class GalagaGame extends JPanel implements ActionListener {
         collisionDetector = new Collision(); // Memulai CollisionDetector
     }
 
-    public void initializePlayerShip(int screenWidth) {
-        playerShip = new PlayerShip(380, 500, screenWidth); // Menginisialisasi kapal pemain dengan posisi awal dan lebar layar
+    public void initializePlayerShip(int screenWidth, int screenHeight) {
+        playerShip = new PlayerShip(380, 500, screenWidth, screenHeight); // Menginisialisasi kapal pemain dengan posisi awal dan lebar layar
     }
 
     @Override
@@ -105,6 +106,12 @@ public class GalagaGame extends JPanel implements ActionListener {
         // Update the positions of player ship lasers
         for (Laser laser : lasers) {
             laser.move(-1); // Update player ship laser position
+        }
+        
+        for (Enemy enemy : enemies) {
+            if (enemy.getY() < 0) {
+                enemy.move(); // Move the enemy down
+            }
         }
 
         // Update the positions of enemy lasers
@@ -161,7 +168,9 @@ public class GalagaGame extends JPanel implements ActionListener {
 
         for (Enemy enemy : enemies) {
             enemy.draw(g); // Menggambar musuh
+            int xPosistion = enemy.getX();
             drawLocationIndicator(g, enemy.getX(), 570);
+
         }
 
         for (Enemy enemy : enemies) {

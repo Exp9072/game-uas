@@ -12,13 +12,13 @@ public class MainApplication {
         frame.getContentPane().setPreferredSize(new Dimension(700, 1035)); // Mengatur dimensi konten frame
         frame.pack(); // Paksa frame untuk mengikuti ukuran kontennya
 
-        game.initializePlayerShip(frame.getWidth()); // Memanggil metode untuk menginisialisasi kapal pemain
+        game.initializePlayerShip(frame.getWidth(), frame.getHeight()); // Memanggil metode untuk menginisialisasi kapal pemain
     }
 }
  
 
 // 700 1035 (16:10)
-//
+// 700 925 (16:9)
 
 /* 
 1. Pengantar Java OOP | Y
