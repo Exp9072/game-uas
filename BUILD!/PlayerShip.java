@@ -19,8 +19,8 @@ public class PlayerShip {
     public PlayerShip(int x, int y, int screenWidth, int screenHeight) {
         this.x = x;
         this.y = y;
-        this.width = 40; // Setel lebar kapal pemain
-        this.height = 40; // Setel tinggi kapal pemain
+        this.width = 32; // Setel lebar kapal pemain
+        this.height = 32; // Setel tinggi kapal pemain
         this.speed = 3; // Setel kecepatan pemain
         this.health = 3; // Setel nyawa pemain
         this.screenWidth = screenWidth;
@@ -44,7 +44,7 @@ public class PlayerShip {
     public void moveLeft() {
         if (x - speed >= 0) {
             x -= speed; // Pindahkan pemain ke kiri
-            System.out.println("Kiri"); // Debug: Cetak pesan "Kiri"
+            //System.out.println("Kiri"); // Debug: Cetak pesan "Kiri"
         }
     }
 
@@ -52,21 +52,21 @@ public class PlayerShip {
     public void moveRight() {
         if (x + speed + width <= screenWidth - 8) {
             x += speed; // Pindahkan pemain ke kanan
-            System.out.println("Kanan"); // Debug: Cetak pesan "Kanan"
+            //System.out.println("Kanan"); // Debug: Cetak pesan "Kanan"
         }
     }
 
     public void moveUp() {
         if (y - speed >= 0) {
             y -= speed; // Pindahkan pemain ke atas
-            System.out.println("Atas"); // Debug: Cetak pesan "Atas"
+            //System.out.println("Atas"); // Debug: Cetak pesan "Atas"
         }
     }
 
     public void moveDown() {
         if (y + speed + height <= screenHeight - 8) {
             y += speed; // Pindahkan pemain ke bawah
-            System.out.println("Bawah"); // Debug: Cetak pesan "Bawah"
+            //System.out.println("Bawah"); // Debug: Cetak pesan "Bawah"
         }
     }
 
@@ -78,13 +78,13 @@ public class PlayerShip {
         } else if (keyCode == KeyEvent.VK_RIGHT) {
             movingRight = true; // Tangani input pemain ke kanan
             movingLeft = false; // Setel pemain tidak bergerak ke kiri
-        }else if (keyCode == KeyEvent.VK_UP) {
+        } else if (keyCode == KeyEvent.VK_UP) {
             movingUp = true; // Tangani input pemain ke atas
             movingDown = false; // Setel pemain tidak bergerak ke bawah
         } else if (keyCode == KeyEvent.VK_DOWN) {
             movingDown = true; // Tangani input pemain ke bawah
             movingUp = false; // Setel pemain tidak bergerak ke atas
-            System.out.println("downnnnnb");
+            //System.out.println("Down");
         }
     }
 

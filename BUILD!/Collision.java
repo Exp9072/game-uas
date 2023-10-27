@@ -42,7 +42,7 @@ public class Collision {
                                 playerShip.decreaseHealth(1); // Mengurangi kesehatan pemain
                                 enemyLaser.setCollided(true); // Menandai laser musuh sebagai bertabrakan
                                 enemyLasersToRemove.add(enemyLaser); // Menandai laser musuh untuk dihapus
-                                System.out.println("Test 1");
+                                //System.out.println("Test 1");
                             }
                         }
                 }
@@ -70,7 +70,7 @@ public class Collision {
                                 playerShip.decreaseHealth(1); // Mengurangi kesehatan pemain
                                 enemyLaser.setCollided(true); // Menandai laser musuh sebagai bertabrakan
                                 enemyLasersToRemove.add(enemyLaser); // Menandai laser musuh untuk dihapus
-                                System.out.println("Test 2");
+                                //System.out.println("Test 2");
                             }
                         }
                 }

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class StaticEnemy extends Enemy {
     private Timer shootingTimer; // Timer for shooting
-    private int shootingDelay = 3000; // Shooting delay in milliseconds
+    private int shootingDelay = 2000; // Shooting delay in milliseconds
     private ArrayList<Laser> enemyLasers; // ArrayList to manage enemy lasers
     private int destinationY;
     private Timer moveTimer;
@@ -24,7 +24,7 @@ public class StaticEnemy extends Enemy {
 
         shootingTimer.start(); // Start the shooting timer
         // Initialize the move timer to control enemy movement
-        moveTimer = new Timer(35, new ActionListener() {
+        moveTimer = new Timer(15, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 move();
@@ -42,7 +42,7 @@ public class StaticEnemy extends Enemy {
     @Override
     public void move() {
         if (y < destinationY) {
-            System.out.println(destinationY);
+            //System.out.println(destinationY);
             y++; // Move downward until reaching the destinationY
         } else {
             moveTimer.stop(); // Stop the move timer when the destination is reached
@@ -52,7 +52,7 @@ public class StaticEnemy extends Enemy {
     // Implementasi metode abstrak untuk mengeksekusi penembakan
     @Override
     public void shoot() {
-        System.out.println("StaticEnemy ID " + this.hashCode() + " is shooting");
+        //System.out.println("StaticEnemy ID " + this.hashCode() + " is shooting");
 
         // Implementasi logika penembakan untuk musuh statis
         Laser laser = new Laser(x + width / 2, y + height);

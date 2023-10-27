@@ -1,3 +1,4 @@
+ 
 import javax.swing.Timer;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,9 +28,10 @@ public class Respawn {
     }
 
         public void respawnEnemies() {
-        int numStaticEnemies = random.nextInt(4) + 2; /
-        int numRandomMovingEnemies = random.nextInt(3) + 1; 
-
+            int numStaticEnemies = random.nextInt(2) + 2; 
+            int numRandomMovingEnemies = random.nextInt(3) + 1; 
+            //int numRandomMovingEnemies = 1;
+            //int numStaticEnemies =0;
         for (int i = 0; i < numStaticEnemies; i++) {
             int xPosition = random.nextInt(700); 
             int yPosition = -random.nextInt(100) - 50; 
@@ -43,4 +45,8 @@ public class Respawn {
         }
     }
 }
+
+
+
+
 

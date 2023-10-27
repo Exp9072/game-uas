@@ -1,8 +1,6 @@
 import java.awt.Graphics;
 import java.awt.Color;
 import javax.swing.Timer;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 // Import kelas-kelas yang diperlukan dari paket java.awt

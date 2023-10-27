@@ -1,16 +1,28 @@
 import javax.swing.JFrame;
 import java.awt.Dimension;
+import java.awt.Toolkit;
 
 public class MainApplication {
     public static void main(String[] args) {
-        JFrame frame = new JFrame("Galaga Game"); // Membuat instance JFrame dengan judul "Galaga Game"
+        JFrame frame = new JFrame("Star-Hawk Invasion"); // Membuat instance JFrame dengan judul "Galaga Game"
         GalagaGame game = new GalagaGame(); // Membuat instance GalagaGame
         frame.add(game); // Menambahkan instance GalagaGame ke dalam frame
-        frame.setSize(700, 1035); // Mengatur ukuran frame
+        
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Mengatur aksi penutupan frame
+        //frame.getContentPane().setPreferredSize(new Dimension(700, 1035)); // Mengatur dimensi konten frame
+        //frame.pack(); // Paksa frame untuk mengikuti ukuran kontennya
+
+        // Membuat lokasi frame berada di tengah-tengah layar
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int width = screenSize.width;
+        int height = screenSize.height;
+        frame.setSize(width, height);
+        int x = (screenSize.width - frame.getWidth()) / 2;
+        int y = (screenSize.height - frame.getHeight()) / 2;
+        frame.setLocation(x, y); // Menetapkan lokasi GUI
+
+        frame.setResizable(false); // Matikan tombol fullscreen
         frame.setVisible(true); // Menampilkan frame
-        frame.getContentPane().setPreferredSize(new Dimension(700, 1035)); // Mengatur dimensi konten frame
-        frame.pack(); // Paksa frame untuk mengikuti ukuran kontennya
 
         game.initializePlayerShip(frame.getWidth(), frame.getHeight()); // Memanggil metode untuk menginisialisasi kapal pemain
     }

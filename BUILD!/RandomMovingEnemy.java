@@ -49,13 +49,13 @@ public class RandomMovingEnemy extends Enemy {
         shootingTimer.start();
 
         // Initialize the move timer to control enemy movement
-        moveTimer = new Timer(5, new ActionListener() {
+        moveTimer = new Timer(50, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 move();
             }
         });
-        moveTimer.start(); // Start the move timer
+            moveTimer.start(); // Start the move timer
     
 
     }
@@ -68,7 +68,7 @@ public class RandomMovingEnemy extends Enemy {
     // Metode untuk menggerakkan musuh
     public void move() {
         if (y < destinationY) {
-            System.out.println(destinationY);
+            //System.out.println(destinationY);
             y++; // Move downward until reaching the destinationY
         } else {
             moveTimer.stop(); // Stop the move timer when the destination is reached
@@ -129,6 +129,7 @@ public class RandomMovingEnemy extends Enemy {
         x += speed * direction; // Move horizontally
         y += speed * UpDirection; // Move vertically
         x = Math.min(maxRange, Math.max(minRange, x)); // Ensure that the position stays within horizontal boundaries
+        //System.out.println("GERAK");
     }
 
     // Metode untuk mendapatkan jarak perubahan arah secara acak
@@ -150,7 +151,7 @@ public class RandomMovingEnemy extends Enemy {
     // Metode untuk mengeksekusi penembakan musuh
     @Override
     public void shoot() {
-        System.out.println("RandomMovingEnemy ID " + this.hashCode() + " is shooting");
+        //System.out.println("RandomMovingEnemy ID " + this.hashCode() + " is shooting");
 
         // Implementasi logika penembakan untuk musuh yang bergerak secara acak
         Laser laser = new Laser(x + width / 2, y + height);
