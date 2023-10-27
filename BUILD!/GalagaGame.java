@@ -32,9 +32,12 @@ public class GalagaGame extends JPanel implements ActionListener {
 
         // Inisialisasi spacebarDelayTimer ke null. Timer ini akan digunakan untuk mengatur penundaan setelah penggunaan tombol "spacebar."
         spacebarDelayTimer = null;
-
         // Membuat objek PlayerShip dan menentukan posisinya awal
-        playerShip = new PlayerShip(380, 500, getWidth(), getHeight());
+        int sectionWidth = getWidth() / 3;
+        int playerShipX = sectionWidth; // Set player ship's initial position in the left white section
+        playerShip = new PlayerShip(playerShipX, 500, sectionWidth, getHeight());
+        // Membuat objek PlayerShip dan menentukan posisinya awal
+        //playerShip = new PlayerShip(380, 500, getWidth(), getHeight());
         lasers = new ArrayList<>(); // Daftar proyektil laser yang ditembakkan oleh pemain
         
         // Membuat daftar objek musuh (enemies) dan menambahkan dua kapal musuh ke dalamnya
@@ -113,6 +116,7 @@ public class GalagaGame extends JPanel implements ActionListener {
         for (Laser laser : lasers) {
             laser.move(-1); // Update player ship laser position
         }
+
         
         for (Enemy enemy : enemies) {
             if (enemy.getY() < 0) {

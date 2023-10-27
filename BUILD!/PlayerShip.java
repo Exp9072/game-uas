@@ -17,8 +17,8 @@ public class PlayerShip {
 
     // Konstruktor kelas PlayerShip
     public PlayerShip(int x, int y, int screenWidth, int screenHeight) {
-        this.x = x;
-        this.y = y;
+        this.x = screenWidth / 3 + (screenWidth / 3 - width) / 2; // Set it to the middle of the white section
+    this.y = screenHeight - 200 - height; // Spawn 200 pixels above the bottom
         this.width = 32; // Setel lebar kapal pemain
         this.height = 32; // Setel tinggi kapal pemain
         this.speed = 3; // Setel kecepatan pemain
@@ -42,7 +42,7 @@ public class PlayerShip {
 
     // Metode untuk memindahkan pemain ke kiri
     public void moveLeft() {
-        if (x - speed >= 0) {
+        if (x - speed >= screenWidth / 3 -8) {
             x -= speed; // Pindahkan pemain ke kiri
             //System.out.println("Kiri"); // Debug: Cetak pesan "Kiri"
         }
@@ -50,7 +50,7 @@ public class PlayerShip {
 
     // Metode untuk memindahkan pemain ke kanan
     public void moveRight() {
-        if (x + speed + width <= screenWidth - 8) {
+        if (x + speed + width <= 2 * screenWidth/3 - 8) {
             x += speed; // Pindahkan pemain ke kanan
             //System.out.println("Kanan"); // Debug: Cetak pesan "Kanan"
         }
