@@ -70,7 +70,7 @@ public class GalagaGame extends JPanel implements ActionListener {
         // Membuat objek Random untuk menghasilkan nilai acak
 
         enemyLasers = new ArrayList<>(); // Daftar proyektil laser musuh
-        System.out.println("section width = " + sectionWidth);
+        //System.out.println("section width = " + sectionWidth);
 
         respawn = new Respawn(enemies, random, sectionWidth);
 
@@ -211,7 +211,7 @@ public class GalagaGame extends JPanel implements ActionListener {
         for (Enemy enemy : enemies) {
             enemy.draw(g); // Menggambar musuh
             int xPosistion = enemy.getX();
-            drawLocationIndicator(g, enemy.getX(), 570);
+            //drawLocationIndicator(g, enemy.getX(), 570);
 
         }
 
@@ -301,11 +301,11 @@ public class GalagaGame extends JPanel implements ActionListener {
         enemies.add(new StaticEnemy(x, y));
         enemies.add(new StaticEnemy(x + 150, y));
     }
-*/
-
+    
     private void drawLocationIndicator(Graphics g, int x, int y) {
         g.setColor(Color.black);
         g.drawString("Enemy X-Position: " + x, x, y); // Menggambar indikator posisi musuh bergerak acak
     }
+*/
 
 }

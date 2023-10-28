@@ -11,7 +11,7 @@ public class StaticEnemy extends Enemy {
     private Timer moveTimer;
 
     public StaticEnemy(int sectionX, int screenHeight, int enemyWidth) {
-         super(sectionX, screenHeight - 200 - enemyWidth, enemyWidth, enemyWidth); // Memanggil konstruktor kelas induk dengan koordinat x, y, lebar 40, dan tinggi 40
+        super(sectionX, screenHeight - 200 - enemyWidth, enemyWidth, enemyWidth); // Memanggil konstruktor kelas induk dengan koordinat x, y, lebar 40, dan tinggi 40
         enemyLasers = new ArrayList<>();
         // Initialize the shooting timer
         this.destinationY = 100;
@@ -24,7 +24,7 @@ public class StaticEnemy extends Enemy {
 
         shootingTimer.start(); // Start the shooting timer
         // Initialize the move timer to control enemy movement
-        moveTimer = new Timer(5, new ActionListener() {
+        moveTimer = new Timer(30, new ActionListener() { // UBAH DELAY UNTUK MENGURANGI LAGG
             @Override
             public void actionPerformed(ActionEvent e) {
                 move();
@@ -43,7 +43,7 @@ public class StaticEnemy extends Enemy {
     public void move() {
         if (y < destinationY) {
             //System.out.println(destinationY);
-            y++; // Move downward until reaching the destinationY
+            y += 3; // Move downward until reaching the destinationY
         } else {
             moveTimer.stop(); // Stop the move timer when the destination is reached
         }

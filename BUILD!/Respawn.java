@@ -16,7 +16,7 @@ public class Respawn {
         this.random = new Random();
         
 
-        respawnTimer = new Timer(2000, new ActionListener() {
+        respawnTimer = new Timer(50, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 respawnEnemies();
@@ -35,15 +35,15 @@ public class Respawn {
 
     public void respawnEnemies() {
         int numStaticEnemies = random.nextInt(2) + 2;
-        int numRandomMovingEnemies = random.nextInt(3) + 2;
+        int numRandomMovingEnemies = random.nextInt(2) + 1;
         int sectionWidth = screenWidth / 3 - 40; // Width of the middle (white) section
-        int minSpawnX = sectionWidth;
+        int minSpawnX = sectionWidth + 8;
         int maxSpawnX = 2 * sectionWidth;
-        System.out.println("RESPAWN DEBUG");
-        System.out.println("minSpawnX = " + minSpawnX);
-        System.out.println("maxSpawnX = " + maxSpawnX);
-        System.out.println("sectionWith = " + sectionWidth);
-        System.out.println("screenWidth = " + screenWidth);
+        //System.out.println("RESPAWN DEBUG");
+        //System.out.println("minSpawnX = " + minSpawnX);
+        //System.out.println("maxSpawnX = " + maxSpawnX);
+        //System.out.println("sectionWith = " + sectionWidth);
+        //System.out.println("screenWidth = " + screenWidth);
 
         for (int i = 0; i < numStaticEnemies; i++) {
             int xPosition = minSpawnX + random.nextInt(maxSpawnX - minSpawnX);; // Spawn within the middle section
@@ -54,7 +54,7 @@ public class Respawn {
         for (int i = 0; i < numRandomMovingEnemies; i++) {
             int xPosition = minSpawnX + random.nextInt(maxSpawnX - minSpawnX); // Spawn within the middle section
             int yPosition = -random.nextInt(100) - 50;
-            enemies.add(new RandomMovingEnemy(xPosition, yPosition, 1, 0, screenWidth - 20, 1000, random));
+            enemies.add(new RandomMovingEnemy(xPosition, yPosition, 1, 0, screenWidth - 20, 2000, random));
         }
     }     
 }

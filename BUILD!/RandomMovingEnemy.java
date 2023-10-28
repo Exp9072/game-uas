@@ -36,7 +36,7 @@ public class RandomMovingEnemy extends Enemy {
         this.middleSectionEndX =  2 * screenWidth / 3 - 40;
         this.middleSectionStartX = screenWidth/3 - 8;
         this.screenWidth = screenWidth;
-        System.out.println("screenwidth randommovingenemy = " + screenWidth);
+        //System.out.println("screenwidth randommovingenemy = " + screenWidth);
         this.UpDirection = 1;
         this.direction = 1; // Arah awal pergerakan
         this.minRange = middleSectionStartX; // Batas minimum horizontal
@@ -104,8 +104,8 @@ public class RandomMovingEnemy extends Enemy {
         }
 
         if (x <= minRange || x >= maxRange) {
-            System.out.println("min range = " + minRange);
-            System.out.println("max range = " + maxRange);
+            //System.out.println("min range = " + minRange);
+            //System.out.println("max range = " + maxRange);
             direction = -direction; // Mengubah arah pergerakan jika mencapai batas horizontal
             lastDirectionChange = 0; // Mereset waktu sejak perubahan arah
             currentMove = getRandomMove(random); // Mendapatkan jarak perubahan arah secara acak
@@ -153,7 +153,7 @@ public class RandomMovingEnemy extends Enemy {
             return random.nextInt(maxMove - minMove + 1) + minMove; // Mendapatkan jarak perubahan arah secara acak
         } else {
             // Handle the case where the 'random' object is null
-            System.err.println("Random object is null");
+            //System.err.println("Random object is null");
             return (new Random()).nextInt(maxMove - minMove + 1) + minMove; // or any default value you prefer
         }
     }
