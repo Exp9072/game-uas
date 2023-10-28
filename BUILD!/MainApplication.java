@@ -1,6 +1,7 @@
 import javax.swing.JFrame;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class MainApplication {
@@ -20,14 +21,17 @@ public class MainApplication {
         frame.setSize(width, height);
         int x = (screenSize.width - frame.getWidth()) / 2;
         int y = (screenSize.height - frame.getHeight()) / 2;
-        frame.setLocation(x, y); // Menetapkan lokasi GUI
+        frame.setLocation(x, y); // Menetapkan lokasi GU I
 
         frame.setResizable(false); // Matikan tombol fullscreen
         frame.setVisible(true); // Menampilkan frame
-
-        game.initializePlayerShip(frame.getWidth(), frame.getHeight()); // Memanggil metode untuk menginisialisasi kapal pemain
+        
         Random random = new Random(); // Initialize a valid Random object
+        ArrayList<Enemy> enemies = game.getEnemies();
+        game.initializePlayerShip(frame.getWidth(), frame.getHeight()); // Memanggil metode untuk menginisialisasi kapal pemain
         game.initializeRandomMovingEnemy(frame.getWidth(), frame.getHeight(), random);
+        game.initializeRespawn(enemies, random, frame.getWidth());
+
     }
 }
  

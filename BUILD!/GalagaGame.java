@@ -29,7 +29,8 @@ public class GalagaGame extends JPanel implements ActionListener {
         // Membuat objek Timer dengan delay 10 milidetik yang akan memicu "this" (biasanya objek saat ini) setiap 10 milidetik.
         timer = new Timer(10, this); //Set timer 10
         timer.start(); // Memulai timer.
-
+        
+        random = new Random();
         // Inisialisasi keybool sebagai false, ini menandakan bahwa awalnya tidak ada kunci yang sedang ditekan.
         keybool = false;
 
@@ -67,12 +68,11 @@ public class GalagaGame extends JPanel implements ActionListener {
 
 
         // Membuat objek Random untuk menghasilkan nilai acak
-        random = new Random();
 
         enemyLasers = new ArrayList<>(); // Daftar proyektil laser musuh
         System.out.println("section width = " + sectionWidth);
 
-        respawn = new Respawn(enemies, random);
+        respawn = new Respawn(enemies, random, sectionWidth);
 
         // Memulai timer penembakan untuk musuh yang bergerak secara acak
         for (Enemy enemy : enemies) {
@@ -206,7 +206,7 @@ public class GalagaGame extends JPanel implements ActionListener {
 
         g.setColor(Color.BLACK);
         g.setFont(new Font("Arial", Font.PLAIN, 20));
-        g.drawString("Health: " + playerShip.getHealth(), 10, 30);
+        g.drawString("Health: " + playerShip.getHealth(), sectionWidth, 30);
 
         for (Enemy enemy : enemies) {
             enemy.draw(g); // Menggambar musuh
@@ -259,6 +259,17 @@ public class GalagaGame extends JPanel implements ActionListener {
         enemies.add(new RandomMovingEnemy(enemyX1, sectionEnemy, 1, sectionWidth, screenWidth, 1500, random));
         
     }
+
+    public void initializeRespawn(ArrayList<Enemy> enemies, Random random, int screenWidth) {
+        int sectionWidth = screenWidth / 3;
+        respawn = new Respawn(enemies, random, sectionWidth);
+        respawn.setScreenWidth(screenWidth);
+    }
+
+    public ArrayList<Enemy> getEnemies() {
+        return enemies;
+    }
+    
 
     private void updateLasers() {
         ArrayList<Laser> lasersToRemove = new ArrayList<>();

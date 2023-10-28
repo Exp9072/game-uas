@@ -9,10 +9,12 @@ public class Respawn {
     private ArrayList<Enemy> enemies;
     private Random random;
     private Timer respawnTimer;
+    private int screenWidth;
 
-    public Respawn(ArrayList<Enemy> enemies, Random random) {
+    public Respawn(ArrayList<Enemy> enemies, Random random, int screenWidth) {
         this.enemies = enemies;
-        this.random = random;
+        this.random = new Random();
+        
 
         respawnTimer = new Timer(2000, new ActionListener() {
             @Override
@@ -23,16 +25,25 @@ public class Respawn {
         respawnTimer.setRepeats(false);
     }
 
+    public void setScreenWidth(int screenWidth) {
+        this.screenWidth = screenWidth;
+    }
+
     public void startRespawnTimer() {
         respawnTimer.start();
     }
 
     public void respawnEnemies() {
         int numStaticEnemies = random.nextInt(2) + 2;
-        int numRandomMovingEnemies = random.nextInt(3) + 1;
-        int sectionWidth = 1800 / 3; // Width of the middle (white) section
+        int numRandomMovingEnemies = random.nextInt(3) + 2;
+        int sectionWidth = screenWidth / 3 - 40; // Width of the middle (white) section
         int minSpawnX = sectionWidth;
         int maxSpawnX = 2 * sectionWidth;
+        System.out.println("RESPAWN DEBUG");
+        System.out.println("minSpawnX = " + minSpawnX);
+        System.out.println("maxSpawnX = " + maxSpawnX);
+        System.out.println("sectionWith = " + sectionWidth);
+        System.out.println("screenWidth = " + screenWidth);
 
         for (int i = 0; i < numStaticEnemies; i++) {
             int xPosition = minSpawnX + random.nextInt(maxSpawnX - minSpawnX);; // Spawn within the middle section
@@ -43,11 +54,9 @@ public class Respawn {
         for (int i = 0; i < numRandomMovingEnemies; i++) {
             int xPosition = minSpawnX + random.nextInt(maxSpawnX - minSpawnX); // Spawn within the middle section
             int yPosition = -random.nextInt(100) - 50;
-           //enemies.add(new RandomMovingEnemy(xPosition, yPosition, 1, 0, 800, 1000, random));
+            enemies.add(new RandomMovingEnemy(xPosition, yPosition, 1, 0, screenWidth - 20, 1000, random));
         }
-    }
-    
-        
+    }     
 }
 
 

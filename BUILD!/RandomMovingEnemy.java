@@ -33,7 +33,7 @@ public class RandomMovingEnemy extends Enemy {
     public RandomMovingEnemy(int x, int y, int speed, int minRange, int screenWidth, int shootingInterval, Random random) {
         super(x, y, 40, 40); // Memanggil konstruktor kelas dasar (Enemy) dengan posisi awal dan ukuran musuh
         this.speed = speed;
-        this.middleSectionEndX =  2 * screenWidth / 3 - 8;
+        this.middleSectionEndX =  2 * screenWidth / 3 - 40;
         this.middleSectionStartX = screenWidth/3 - 8;
         this.screenWidth = screenWidth;
         System.out.println("screenwidth randommovingenemy = " + screenWidth);
