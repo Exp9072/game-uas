@@ -23,21 +23,31 @@ public class RandomMovingEnemy extends Enemy {
     private int destinationY;
     private Timer moveTimer;
     private int UpDirection;
+    private int middleSectionStartX; // Left boundary of the middle section
+    private int middleSectionEndX;   // Right boundary of the middle section
+    private int screenHeight;
+    private int screenWidth;
+    private Random random;
 
 
-    public RandomMovingEnemy(int x, int y, int speed, int minRange, int maxRange, int shootingInterval, Random random) {
+    public RandomMovingEnemy(int x, int y, int speed, int minRange, int screenWidth, int shootingInterval, Random random) {
         super(x, y, 40, 40); // Memanggil konstruktor kelas dasar (Enemy) dengan posisi awal dan ukuran musuh
         this.speed = speed;
+        this.middleSectionEndX =  2 * screenWidth / 3 - 8;
+        this.middleSectionStartX = screenWidth/3 - 8;
+        this.screenWidth = screenWidth;
+        System.out.println("screenwidth randommovingenemy = " + screenWidth);
         this.UpDirection = 1;
         this.direction = 1; // Arah awal pergerakan
-        this.minRange = minRange; // Batas minimum horizontal
-        this.maxRange = maxRange; // Batas maksimum horizontal
+        this.minRange = middleSectionStartX; // Batas minimum horizontal
+        this.maxRange = middleSectionEndX; // Batas maksimum horizontal
         this.lastDirectionChange = 0; // Awalnya belum ada perubahan arah
-        this.minMove = 50; // Jarak minimum perubahan arah
-        this.maxMove = 250; // Jarak maksimum perubahan arah
+        this.minMove = 250; // Jarak minimum perubahan arah
+        this.maxMove = 550; // Jarak maksimum perubahan arah
         this.shootingInterval = shootingInterval;
         this.currentMove = getRandomMove(random); // Mendapatkan jarak perubahan arah secara acak
         this.destinationY = 200;
+        this.random = random;
         enemyLasers = new ArrayList<>();
         shootingTimer = new Timer(shootingInterval, new ActionListener() {
             @Override
@@ -49,7 +59,7 @@ public class RandomMovingEnemy extends Enemy {
         shootingTimer.start();
 
         // Initialize the move timer to control enemy movement
-        moveTimer = new Timer(50, new ActionListener() {
+        moveTimer = new Timer(5, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 move();
@@ -59,7 +69,8 @@ public class RandomMovingEnemy extends Enemy {
     
 
     }
-    
+
+   
     // Metode untuk mendapatkan daftar laser musuh
     public ArrayList<Laser> getEnemyLasers() {
         return enemyLasers;
@@ -93,6 +104,8 @@ public class RandomMovingEnemy extends Enemy {
         }
 
         if (x <= minRange || x >= maxRange) {
+            System.out.println("min range = " + minRange);
+            System.out.println("max range = " + maxRange);
             direction = -direction; // Mengubah arah pergerakan jika mencapai batas horizontal
             lastDirectionChange = 0; // Mereset waktu sejak perubahan arah
             currentMove = getRandomMove(random); // Mendapatkan jarak perubahan arah secara acak
@@ -102,7 +115,9 @@ public class RandomMovingEnemy extends Enemy {
         x = Math.min(maxRange, Math.max(minRange, x)); // Memastikan posisi tetap dalam batasan horizontal
     }
 
+
     public void moveRandomlyUpDown(Random random) {
+        //System.out.println("random value = " + random);
         if (lastDirectionChange >= currentMove) {
             if (random.nextBoolean()) {
                 direction = -direction; // Change the horizontal direction randomly
@@ -134,7 +149,13 @@ public class RandomMovingEnemy extends Enemy {
 
     // Metode untuk mendapatkan jarak perubahan arah secara acak
     private int getRandomMove(Random random) {
-        return random.nextInt(maxMove - minMove + 1) + minMove; // Mendapatkan jarak perubahan arah secara acak
+        if (random != null) {
+            return random.nextInt(maxMove - minMove + 1) + minMove; // Mendapatkan jarak perubahan arah secara acak
+        } else {
+            // Handle the case where the 'random' object is null
+            System.err.println("Random object is null");
+            return (new Random()).nextInt(maxMove - minMove + 1) + minMove; // or any default value you prefer
+        }
     }
 
     // Metode untuk menggambar musuh
@@ -162,4 +183,5 @@ public class RandomMovingEnemy extends Enemy {
     public void startShootingTimer() {
         shootingTimer.start();
     }
+
 }

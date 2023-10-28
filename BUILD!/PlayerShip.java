@@ -18,7 +18,8 @@ public class PlayerShip {
     // Konstruktor kelas PlayerShip
     public PlayerShip(int x, int y, int screenWidth, int screenHeight) {
         this.x = screenWidth / 3 + (screenWidth / 3 - width) / 2; // Set it to the middle of the white section
-    this.y = screenHeight - 200 - height; // Spawn 200 pixels above the bottom
+        this.y = screenHeight - 200 - height; // Spawn 200 pixels above the bottom
+        System.out.println("screen widht player ship = " + screenWidth);
         this.width = 32; // Setel lebar kapal pemain
         this.height = 32; // Setel tinggi kapal pemain
         this.speed = 3; // Setel kecepatan pemain

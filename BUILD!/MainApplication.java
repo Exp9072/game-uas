@@ -1,6 +1,7 @@
 import javax.swing.JFrame;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.util.Random;
 
 public class MainApplication {
     public static void main(String[] args) {
@@ -25,6 +26,8 @@ public class MainApplication {
         frame.setVisible(true); // Menampilkan frame
 
         game.initializePlayerShip(frame.getWidth(), frame.getHeight()); // Memanggil metode untuk menginisialisasi kapal pemain
+        Random random = new Random(); // Initialize a valid Random object
+        game.initializeRandomMovingEnemy(frame.getWidth(), frame.getHeight(), random);
     }
 }
  

@@ -13,6 +13,7 @@ import java.util.Random;
 public class GalagaGame extends JPanel implements ActionListener {
     private Timer timer; // Objek Timer untuk mengatur pembaruan game secara berkala
     private PlayerShip playerShip; // Objek kapal pemain
+    private RandomMovingEnemy randomMovingEnemy;
     private ArrayList<Enemy> enemies; // Gunakan daftar musuh generik
     private ArrayList<Laser> lasers; // Daftar proyektil laser yang ditembakkan oleh pemain
     private ArrayList<Laser> enemyLasers; // Daftar proyektil laser yang ditembakkan oleh musuh
@@ -21,6 +22,8 @@ public class GalagaGame extends JPanel implements ActionListener {
     private boolean keybool; // Deklarasi variabel keybool sebagai boolean.
     private Timer spacebarDelayTimer; // Deklarasi variabel spacebarDelayTimer sebagai objek Timer.
     private Respawn respawn;
+    private int screenWidth; // Declare screenWidth
+    private int screenHeight; // Declare screenHeight
     
     public GalagaGame() {
         // Membuat objek Timer dengan delay 10 milidetik yang akan memicu "this" (biasanya objek saat ini) setiap 10 milidetik.
@@ -37,19 +40,37 @@ public class GalagaGame extends JPanel implements ActionListener {
         int playerShipX = sectionWidth; // Set player ship's initial position in the left white section
         playerShip = new PlayerShip(playerShipX, 500, sectionWidth, getHeight());
         // Membuat objek PlayerShip dan menentukan posisinya awal
+        randomMovingEnemy = new RandomMovingEnemy(800, -50, 1, 0, screenWidth, 1500, random); // Contoh musuh yang bergerak acak
         //playerShip = new PlayerShip(380, 500, getWidth(), getHeight());
         lasers = new ArrayList<>(); // Daftar proyektil laser yang ditembakkan oleh pemain
         
         // Membuat daftar objek musuh (enemies) dan menambahkan dua kapal musuh ke dalamnya
         enemies = new ArrayList<>();
-        enemies.add(new StaticEnemy(100, -10)); // Contoh musuh statis
-        enemies.add(new StaticEnemy(250, -10)); // Contoh musuh statis
+        
+        
+        // Calculate the X positions for the enemies in the middle section
+        // Width for the enemies
+        int enemyWidth = 50; // Adjust the width as needed
+        
+
+        // X positions for enemies in the middle section
+        int enemyX1 = sectionWidth + 700; // Adjust the values as needed
+        int enemyX2 = sectionWidth * 2 + 900; // Adjust the values as needed // 1088
+        
+        // Y position for enemies in the middle section
+        int sectionEnemy = 100; // Adjust the Y position as needed
+        
+
+        enemies.add(new StaticEnemy(enemyX1, sectionEnemy, enemyWidth)); // Create the first enemy
+        enemies.add(new StaticEnemy(enemyX2, sectionEnemy, enemyWidth)); // Create the second enemy
+
+
 
         // Membuat objek Random untuk menghasilkan nilai acak
         random = new Random();
 
-        enemies.add(new RandomMovingEnemy(200, -50, 1, 0, 800, 1500, random)); // Contoh musuh yang bergerak acak
         enemyLasers = new ArrayList<>(); // Daftar proyektil laser musuh
+        System.out.println("section width = " + sectionWidth);
 
         respawn = new Respawn(enemies, random);
 
@@ -102,16 +123,13 @@ public class GalagaGame extends JPanel implements ActionListener {
         collisionDetector = new Collision(); // Memulai CollisionDetector
     }
 
-    public void initializePlayerShip(int screenWidth, int screenHeight) {
-        playerShip = new PlayerShip(380, 500, screenWidth, screenHeight); // Menginisialisasi kapal pemain dengan posisi awal dan lebar layar
-    }
-
     @Override
     public void actionPerformed(ActionEvent e) {
+        screenWidth = getWidth(); // Set screenWidth in the actionPerformed method
+        screenHeight = getHeight(); // Set screenHeight in the actionPerformed method
         playerShip.update(); // Memperbarui kapal pemain
         moveRandomMovingEnemies(); // Memindahkan musuh yang bergerak acak
         updateLasers();
-
         // Update the positions of player ship lasers
         for (Laser laser : lasers) {
             laser.move(-1); // Update player ship laser position
@@ -162,33 +180,13 @@ public class GalagaGame extends JPanel implements ActionListener {
         repaint(); // Melakukan penggambaran ulang tampilan game
     }
 
-    private void updateLasers() {
-        ArrayList<Laser> lasersToRemove = new ArrayList<>();
-        for (Laser laser : lasers) {
-            laser.move(-1); // Update posisi laser
-            if (laser.getY() < 0) {
-                lasersToRemove.add(laser); // Catat laser yang keluar dari screen
-            }
-        }
-
-        lasers.removeAll(lasersToRemove); // Hapus laser yang keluar dari screen
-    }
-
-    private void moveRandomMovingEnemies() {
-        for (Enemy enemy : enemies) {
-            if (enemy instanceof RandomMovingEnemy) {
-                ((RandomMovingEnemy) enemy).moveRandomlyLeftRight(random); // Memindahkan musuh yang bergerak acak
-                ((RandomMovingEnemy) enemy).moveRandomlyUpDown(random); // Move up and down
-            }
-        }
-    }
-
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
     // Define the section widths
     int screenWidth = getWidth();
+    //System.out.println(screenWidth);
     int sectionWidth = screenWidth / 3;
 
     // Draw the left red section
@@ -213,7 +211,7 @@ public class GalagaGame extends JPanel implements ActionListener {
         for (Enemy enemy : enemies) {
             enemy.draw(g); // Menggambar musuh
             int xPosistion = enemy.getX();
-            //drawLocationIndicator(g, enemy.getX(), 570);
+            drawLocationIndicator(g, enemy.getX(), 570);
 
         }
 
@@ -247,6 +245,45 @@ public class GalagaGame extends JPanel implements ActionListener {
             laser.draw(g); // Menggambar laser
         }
     }
+
+    public void initializePlayerShip(int screenWidth, int screenHeight) {
+        playerShip = new PlayerShip(380, 500, screenWidth, screenHeight); // Menginisialisasi kapal pemain dengan posisi awal dan lebar layar
+    }
+
+    public void initializeRandomMovingEnemy(int screenWidth, int screenHeight, Random random) {
+        int sectionWidth = screenWidth / 3;
+        int enemyX1 = sectionWidth ; // Adjust the values as needed
+        
+        int sectionEnemy = 100; // Adjust the Y position as needed
+    
+        enemies.add(new RandomMovingEnemy(enemyX1, sectionEnemy, 1, sectionWidth, screenWidth, 1500, random));
+        
+    }
+
+    private void updateLasers() {
+        ArrayList<Laser> lasersToRemove = new ArrayList<>();
+        for (Laser laser : lasers) {
+            laser.move(-1); // Update posisi laser
+            if (laser.getY() < 0) {
+                lasersToRemove.add(laser); // Catat laser yang keluar dari screen
+            }
+        }
+
+        lasers.removeAll(lasersToRemove); // Hapus laser yang keluar dari screen
+    }
+
+    private void moveRandomMovingEnemies() {
+        for (Enemy enemy : enemies) {
+            if (enemy instanceof RandomMovingEnemy) {
+                ((RandomMovingEnemy) enemy).moveRandomlyLeftRight(random); // Memindahkan musuh yang bergerak acak
+                ((RandomMovingEnemy) enemy).moveRandomlyUpDown(random); // Move up and down
+                //((RandomMovingEnemy) enemy).limitHorizontalMovement(screenWidth); // Limit horizontal movement
+                //((RandomMovingEnemy) enemy).limitVerticalMovement(screenHeight); // Limit vertical movement
+            }
+        }
+    }
+
+    
 /* 
     private void initializeEnemies(int x, int y) {
         enemies = new ArrayList<>();
@@ -254,10 +291,10 @@ public class GalagaGame extends JPanel implements ActionListener {
         enemies.add(new StaticEnemy(x + 150, y));
     }
 */
-/* 
+
     private void drawLocationIndicator(Graphics g, int x, int y) {
         g.setColor(Color.black);
         g.drawString("Enemy X-Position: " + x, x, y); // Menggambar indikator posisi musuh bergerak acak
     }
-*/
+
 }

@@ -27,24 +27,29 @@ public class Respawn {
         respawnTimer.start();
     }
 
-        public void respawnEnemies() {
-            int numStaticEnemies = random.nextInt(2) + 2; 
-            int numRandomMovingEnemies = random.nextInt(3) + 1; 
-            //int numRandomMovingEnemies = 1;
-            //int numStaticEnemies =0;
+    public void respawnEnemies() {
+        int numStaticEnemies = random.nextInt(2) + 2;
+        int numRandomMovingEnemies = random.nextInt(3) + 1;
+        int sectionWidth = 1800 / 3; // Width of the middle (white) section
+        int minSpawnX = sectionWidth;
+        int maxSpawnX = 2 * sectionWidth;
+
         for (int i = 0; i < numStaticEnemies; i++) {
-            int xPosition = random.nextInt(700); 
-            int yPosition = -random.nextInt(100) - 50; 
-            enemies.add(new StaticEnemy(xPosition, yPosition));
+            int xPosition = minSpawnX + random.nextInt(maxSpawnX - minSpawnX);; // Spawn within the middle section
+            int yPosition = -5;
+            enemies.add(new StaticEnemy(xPosition, yPosition, 40));
         }
 
         for (int i = 0; i < numRandomMovingEnemies; i++) {
-            int xPosition = random.nextInt(700); 
-            int yPosition = -random.nextInt(100) - 50; 
-            enemies.add(new RandomMovingEnemy(xPosition, yPosition, 1, 0, 800, 1000, random));
+            int xPosition = minSpawnX + random.nextInt(maxSpawnX - minSpawnX); // Spawn within the middle section
+            int yPosition = -random.nextInt(100) - 50;
+           //enemies.add(new RandomMovingEnemy(xPosition, yPosition, 1, 0, 800, 1000, random));
         }
     }
+    
+        
 }
+
 
 
 
