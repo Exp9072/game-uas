@@ -2,95 +2,84 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import java.awt.Dimension;
-import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.Toolkit;
+import java.awt.GridBagConstraints;
 import java.awt.Font;
-import java.util.ArrayList;
-import java.util.Random;
+import java.awt.Toolkit;
 
 public class MainApplication {
     public static void main(String[] args) {
-        // Membuat instance JFrame
         JFrame frame = new JFrame("Star-Hawk Invasion");
-
-        // Membuat panel utama dengan pengaturan tata letak GridBagLayout
-        JPanel mainMenu = new JPanel(new GridBagLayout());
-
-        // Membuat panel untuk tombol-tombol dengan pengaturan tata letak GridBagLayout
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new GridBagLayout());
-
-        // Menambahkan label untuk nama permainan
-        JLabel gameNameLabel = new JLabel("Star-Hawk Invasion");
-        
-        // Mengatur font label nama permainan
-        Font gameNameFont = new Font("Arial", Font.BOLD, 24);
-        gameNameLabel.setFont(gameNameFont);
-
-        // Membuat tombol "Start" dengan menggunakan kelas StartButton
-        StartButton startButton = new StartButton(frame); // Panggil StartButton.java
-
-        // Membuat tombol "Scoreboard" dengan menggunakan kelas SCRButton
-        SCRButton scoreboardButton = new SCRButton(); // Panggil SCRButton.java
-
-        // Mengatur ukuran tombol
-        Dimension buttonSize = new Dimension(200, 50);
-        startButton.setPreferredSize(buttonSize);
-        scoreboardButton.setPreferredSize(buttonSize);
-
-        // Mengubah ukuran font dan menjadikan huruf menjadi huruf besar pada tombol
-        Font buttonFont = new Font("Arial", Font.PLAIN, 20);
-        startButton.setFont(buttonFont);
-        startButton.setText(startButton.getText().toUpperCase());
-        scoreboardButton.setFont(buttonFont);
-        scoreboardButton.setText(scoreboardButton.getText().toUpperCase());
-
-        // Mengatur batasan dan tata letak komponen menggunakan GridBagConstraints
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets.set(5, 5, 5, 5); // Menambahkan jarak antara komponen
-        gbc.gridwidth = GridBagConstraints.REMAINDER;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-
-        // Menambahkan label nama permainan ke dalam panel tombol
-        buttonPanel.add(gameNameLabel, gbc);
-
-        // Menambahkan tombol "Start" dan "Scoreboard" ke dalam panel tombol
-        buttonPanel.add(startButton, gbc);
-        buttonPanel.add(scoreboardButton, gbc);
-
-        // Mengatur panel tombol agar berada di tengah secara vertikal dalam panel utama
-        gbc = new GridBagConstraints();
-        gbc.fill = GridBagConstraints.CENTER;
-        gbc.weighty = 1.0;
-
-        // Menambahkan panel tombol ke dalam panel utama
-        mainMenu.add(buttonPanel, gbc);
-
-        // Menambahkan panel utama ke dalam frame
-        frame.add(mainMenu);
-
-        // Mengatur operasi penutupan frame
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        // Mengatur dimensi frame sesuai dengan layar
+        // Create an instance of GalagaGame
+        GalagaGame game = new GalagaGame();
+
+        JPanel mainPanel = new JPanel(new GridBagLayout());
+
+        JLabel gameNameLabel = new JLabel("Star-Hawk Invasion");
+        Font gameNameFont = new Font("Arial", Font.BOLD, 96);
+        gameNameLabel.setFont(gameNameFont);
+
+        GridBagConstraints titleGbc = new GridBagConstraints();
+        titleGbc.insets.set(0, 5, 0, 5);  // Add space only to the left and right
+        titleGbc.gridwidth = GridBagConstraints.REMAINDER;
+        titleGbc.anchor = GridBagConstraints.CENTER; // Align to the center of the cell
+        titleGbc.fill = GridBagConstraints.NONE; // Don't fill the cell
+
+        mainPanel.add(gameNameLabel, titleGbc);
+
+        JPanel emptyPanel = new JPanel(); // Create an empty panel for spacing
+        GridBagConstraints emptyGbc = new GridBagConstraints();
+        emptyGbc.insets.set(0, 5, 0, 5); // Add 10 pixels of space at the top and bottom
+        emptyGbc.fill = GridBagConstraints.BOTH; // Fill both horizontally and vertically
+
+        mainPanel.add(emptyPanel, emptyGbc);
+
+        JPanel buttonPanel = new JPanel(new GridBagLayout());
+
+        StartButton startButton = new StartButton(frame, game);
+        SCRButton scoreboardButton = new SCRButton();
+        ExitButton exitButton = new ExitButton();
+
+        Dimension buttonSize = new Dimension(200, 50);
+
+        startButton.setPreferredSize(buttonSize);
+        scoreboardButton.setPreferredSize(buttonSize);
+        exitButton.setPreferredSize(buttonSize);
+
+        GridBagConstraints buttonGbc = new GridBagConstraints();
+        buttonGbc.insets.set(0, 5, 150, 5);  // Add space only at the top
+        buttonGbc.anchor = GridBagConstraints.CENTER; // Align to the center of the cell
+        buttonGbc.fill = GridBagConstraints.HORIZONTAL;
+
+        buttonPanel.add(startButton, buttonGbc);
+        buttonPanel.add(scoreboardButton, buttonGbc);
+        buttonPanel.add(exitButton, buttonGbc);
+
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.fill = GridBagConstraints.CENTER;
+
+        mainPanel.add(buttonPanel, gbc);
+
+        frame.add(mainPanel);
+
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int width = screenSize.width;
         int height = screenSize.height;
         frame.setSize(width, height);
 
-        // Mengatur posisi frame agar berada di tengah layar
         int x = (screenSize.width - frame.getWidth()) / 2;
         int y = (screenSize.height - frame.getHeight()) / 2;
         frame.setLocation(x, y);
 
-        // Menonaktifkan kemampuan merubah ukuran frame
         frame.setResizable(false);
-
-        // Menampilkan frame
         frame.setVisible(true);
     }
 }
+
+
+
 
 
 
@@ -137,9 +126,6 @@ public class MainApplication {
 }
 */
 
-
- 
-
 // 700 1035 (16:10)
 // 700 925 (16:9)
 
@@ -152,7 +138,7 @@ public class MainApplication {
 6. Method | Y
 7. Encapsulation | Y
 8. Inheritance | Y
-9. Polimorfisme | Y
+9. Polimorfisme | Y (blm tapi nanti di akhir, kayaknya)
 10. Static & Final Variable | Y (Kayaknya)
 11. Exception Handling | Y
 12. Abstract Class & Interface | Y
@@ -160,4 +146,4 @@ public class MainApplication {
 14. GUI | Y
 */
 
-// 1144 lines
+// 1164 lines

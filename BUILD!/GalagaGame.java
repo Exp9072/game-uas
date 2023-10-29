@@ -1,7 +1,12 @@
 import javax.swing.Timer;
+import javax.swing.JButton;
 import javax.swing.JPanel;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -105,6 +110,7 @@ public class GalagaGame extends JPanel implements ActionListener {
                     }
                 }
             }
+            
             @Override
             public void keyReleased(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_SPACE) {
@@ -116,6 +122,8 @@ public class GalagaGame extends JPanel implements ActionListener {
                 }
                 playerShip.handleKeyRelease(e.getKeyCode()); // Menangani pelepasan tombol kunci pemain
             }
+
+            
         } );
 
         setFocusable(true); // Mengatur fokus panel game
@@ -245,6 +253,7 @@ public class GalagaGame extends JPanel implements ActionListener {
             laser.draw(g); // Menggambar laser
         }
     }
+
 
     public void initializePlayerShip(int screenWidth, int screenHeight) {
         playerShip = new PlayerShip(380, 500, screenWidth, screenHeight); // Menginisialisasi kapal pemain dengan posisi awal dan lebar layar

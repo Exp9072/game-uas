@@ -4,17 +4,21 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Random;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
 
 public class StartButton extends JButton {
     private final JFrame frame;
+    private final GalagaGame game;
+    private Random random; // Declare the Random object
 
-    public StartButton(JFrame frame) {
+    public StartButton(JFrame frame, GalagaGame game) {
         super("Start");
-        this.frame = frame; // Store the JFrame instance
+        this.frame = frame;
+        this.game = game;
         addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Handle the "Start" button click
                 startGame();
             }
         });
@@ -23,12 +27,14 @@ public class StartButton extends JButton {
     private void startGame() {
         frame.getContentPane().removeAll();
         frame.repaint();
-        GalagaGame game = new GalagaGame();
 
         game.initializePlayerShip(frame.getWidth(), frame.getHeight());
-        Random random = new Random();
-        game.initializeRandomMovingEnemy(frame.getWidth(), frame.getHeight(), random);
+
         ArrayList<Enemy> enemies = game.getEnemies();
+        // Initialize the Random object and handle exceptions
+        
+        random = new Random();
+        game.initializeRandomMovingEnemy(frame.getWidth(), frame.getHeight(), random);
         game.initializeRespawn(enemies, random, frame.getWidth());
 
         frame.add(game);
@@ -36,4 +42,5 @@ public class StartButton extends JButton {
         frame.repaint();
         game.requestFocusInWindow();
     }
+
 }
