@@ -1,4 +1,5 @@
 Player 1: 260
-Player 1: 0
-Player 1: 15
-Player 1: 0
+Player 1: 50
+Player 1: 40
+Player 1: 30
+Player 1: 20

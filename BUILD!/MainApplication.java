@@ -1,11 +1,10 @@
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JLabel;
-import java.awt.Dimension;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Font;
-import java.awt.Toolkit;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 
 public class MainApplication {
     public static void main(String[] args) {
@@ -13,12 +12,17 @@ public class MainApplication {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         // Create an instance of GalagaGame
         GalagaGame game = new GalagaGame();
-        
+
         RTOMainMenu mainMenu = new RTOMainMenu(frame);
         game.setReturnMenu(mainMenu);
 
-        JPanel mainPanel = new JPanel(new GridBagLayout());
+        // Create the main panel that contains both the main menu and the scoreboard
+        JPanel mainPanel = new JPanel(new CardLayout());
 
+        // Create a panel for the main menu
+        JPanel mainMenuPanel = new JPanel(new GridBagLayout());
+
+        // Add your main menu components to the mainMenuPanel
         JLabel gameNameLabel = new JLabel("Star-Hawk Invasion");
         Font gameNameFont = new Font("Arial", Font.BOLD, 96);
         gameNameLabel.setFont(gameNameFont);
@@ -28,20 +32,20 @@ public class MainApplication {
         titleGbc.gridwidth = GridBagConstraints.REMAINDER;
         titleGbc.anchor = GridBagConstraints.CENTER;
         titleGbc.fill = GridBagConstraints.NONE;
-  
-        mainPanel.add(gameNameLabel, titleGbc);
+
+        mainMenuPanel.add(gameNameLabel, titleGbc);
 
         JPanel emptyPanel = new JPanel();
         GridBagConstraints emptyGbc = new GridBagConstraints();
         emptyGbc.insets.set(0, 5, 0, 5);
         emptyGbc.fill = GridBagConstraints.BOTH;
 
-        mainPanel.add(emptyPanel, emptyGbc);
+        mainMenuPanel.add(emptyPanel, emptyGbc);
 
         JPanel buttonPanel = new JPanel(new GridBagLayout());
 
         StartButton startButton = new StartButton(frame, game);
-        SCRButton scoreboardButton = new SCRButton();
+        SCRButton scoreboardButton = new SCRButton(mainMenuPanel, mainPanel);
         ExitButton exitButton = new ExitButton();
 
         Dimension buttonSize = new Dimension(200, 50);
@@ -62,10 +66,43 @@ public class MainApplication {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.CENTER;
 
-        mainPanel.add(buttonPanel, gbc);
+        mainMenuPanel.add(buttonPanel, gbc);
+
+        // Create a panel for the scoreboard
+        JPanel scoreboardPanel = new JPanel(new BorderLayout());
+
+        // Create a JTextArea to display scores
+        JTextArea scoreboardTextArea = new JTextArea(10, 40);
+        scoreboardTextArea.setEditable(false);
+
+        // Load the scores from the file and display them
+        try {
+            String filename = "SCORESAVE.txt";
+            BufferedReader reader = new BufferedReader(new FileReader(filename));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                scoreboardTextArea.append(line + "\n");
+            }
+            reader.close();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
+        JScrollPane scrollPane = new JScrollPane(scoreboardTextArea);
+        scoreboardPanel.add(scrollPane, BorderLayout.CENTER);
+
+
+        // Add the main menu panel and the scoreboard panel to the main panel
+        mainPanel.add(mainMenuPanel, "mainMenu");
+        mainPanel.add(scoreboardPanel, "scoreboard");
+
+        // Initially, set the main menu panel as visible
+        CardLayout cardLayout = (CardLayout) mainPanel.getLayout();
+        cardLayout.show(mainPanel, "mainMenu");
 
         frame.add(mainPanel);
 
+        // Rest of your code...
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int width = screenSize.width;
         int height = screenSize.height;
@@ -79,6 +116,7 @@ public class MainApplication {
         frame.setVisible(true);
     }
 }
+
 
 
 

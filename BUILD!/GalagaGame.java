@@ -338,9 +338,22 @@ public class GalagaGame extends JPanel implements ActionListener {
         String filename = "SCORESAVE.txt";
         Scoreboard scoreboard = new Scoreboard();
         scoreboard.addPoints(playerShip.getScore()); // Add the current score to the total score
-        scoreboard.saveScoreToFile(filename);
+        scoreboard.loadScoresFromFile(filename);
         
+        // Sort the loaded scores
+        scoreboard.sortScores();
+        
+        int newScore = playerShip.getScore();
+        if (scoreboard.scores.size() < 5 || newScore > scoreboard.scores.get(4)) {
+            // If the scores list has fewer than 5 scores or the new score is higher
+            // than the lowest of the top 5 scores, add the new score and sort again.
+            scoreboard.scores.add(newScore);
+            scoreboard.sortScores();
+        }
+        
+        scoreboard.saveScoreToFile(filename); // Save the sorted scores back to the file
     }
+    
 
    
     
