@@ -11,9 +11,11 @@ public class MainApplication {
     public static void main(String[] args) {
         JFrame frame = new JFrame("Star-Hawk Invasion");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
         // Create an instance of GalagaGame
         GalagaGame game = new GalagaGame();
+        
+        RTOMainMenu mainMenu = new RTOMainMenu(frame);
+        game.setReturnMenu(mainMenu);
 
         JPanel mainPanel = new JPanel(new GridBagLayout());
 
@@ -22,17 +24,17 @@ public class MainApplication {
         gameNameLabel.setFont(gameNameFont);
 
         GridBagConstraints titleGbc = new GridBagConstraints();
-        titleGbc.insets.set(0, 5, 0, 5);  // Add space only to the left and right
+        titleGbc.insets.set(0, 5, 0, 5);
         titleGbc.gridwidth = GridBagConstraints.REMAINDER;
-        titleGbc.anchor = GridBagConstraints.CENTER; // Align to the center of the cell
-        titleGbc.fill = GridBagConstraints.NONE; // Don't fill the cell
-
+        titleGbc.anchor = GridBagConstraints.CENTER;
+        titleGbc.fill = GridBagConstraints.NONE;
+  
         mainPanel.add(gameNameLabel, titleGbc);
 
-        JPanel emptyPanel = new JPanel(); // Create an empty panel for spacing
+        JPanel emptyPanel = new JPanel();
         GridBagConstraints emptyGbc = new GridBagConstraints();
-        emptyGbc.insets.set(0, 5, 0, 5); // Add 10 pixels of space at the top and bottom
-        emptyGbc.fill = GridBagConstraints.BOTH; // Fill both horizontally and vertically
+        emptyGbc.insets.set(0, 5, 0, 5);
+        emptyGbc.fill = GridBagConstraints.BOTH;
 
         mainPanel.add(emptyPanel, emptyGbc);
 
@@ -49,8 +51,8 @@ public class MainApplication {
         exitButton.setPreferredSize(buttonSize);
 
         GridBagConstraints buttonGbc = new GridBagConstraints();
-        buttonGbc.insets.set(0, 5, 150, 5);  // Add space only at the top
-        buttonGbc.anchor = GridBagConstraints.CENTER; // Align to the center of the cell
+        buttonGbc.insets.set(0, 5, 150, 5);
+        buttonGbc.anchor = GridBagConstraints.CENTER;
         buttonGbc.fill = GridBagConstraints.HORIZONTAL;
 
         buttonPanel.add(startButton, buttonGbc);
@@ -77,6 +79,8 @@ public class MainApplication {
         frame.setVisible(true);
     }
 }
+
+
 
 
 

@@ -9,7 +9,17 @@ import javax.swing.Timer;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class RandomMovingEnemy extends Enemy {
+public class
+
+
+
+
+
+
+
+
+
+    RandomMovingEnemy extends Enemy {
     private int speed; // Kecepatan pergerakan musuh
     private int direction; // Arah pergerakan (1 atau -1)
     private int minRange; // Batas minimum pergerakan horizontal

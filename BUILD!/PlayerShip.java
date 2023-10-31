@@ -14,6 +14,7 @@ public class PlayerShip {
     private boolean movingUp;
     private boolean movingDown;
     private int screenHeight;
+    private int score;
 
     // Konstruktor kelas PlayerShip
     public PlayerShip(int x, int y, int screenWidth, int screenHeight) {
@@ -31,6 +32,7 @@ public class PlayerShip {
         this.destroyed = false; // Awalnya tidak mati
         this.movingLeft = false; // Awalnya tidak bergerak ke kiri
         this.movingRight = false; // Awalnya tidak bergerak ke kanan
+        
     }
 
     // Metode untuk mengurangi kesehatan pemain
@@ -158,5 +160,13 @@ public class PlayerShip {
         // Set the player ship's position off-screen to hide it
         x = -getWidth();
         y = -getHeight();
+    }
+    
+    public int getScore() {
+        return score;
+    }
+
+    public void increaseScore(int points) {
+        score += points;
     }
 }

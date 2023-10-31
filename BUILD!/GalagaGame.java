@@ -1,5 +1,6 @@
 import javax.swing.Timer;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -29,15 +30,23 @@ public class GalagaGame extends JPanel implements ActionListener {
     private Respawn respawn;
     private int screenWidth; // Declare screenWidth
     private int screenHeight; // Declare screenHeight
+    private int score; // Added variable to store the player's score
+    private RTOMainMenu returnMenu; // Add this field
+    private boolean isGameOver = false;
     
+
     public GalagaGame() {
         // Membuat objek Timer dengan delay 10 milidetik yang akan memicu "this" (biasanya objek saat ini) setiap 10 milidetik.
         timer = new Timer(10, this); //Set timer 10
         timer.start(); // Memulai timer.
         
+        this.setReturnMenu(returnMenu);
+        
         random = new Random();
         // Inisialisasi keybool sebagai false, ini menandakan bahwa awalnya tidak ada kunci yang sedang ditekan.
         keybool = false;
+
+        score = 0;
 
         // Inisialisasi spacebarDelayTimer ke null. Timer ini akan digunakan untuk mengatur penundaan setelah penggunaan tombol "spacebar."
         spacebarDelayTimer = null;
@@ -52,6 +61,8 @@ public class GalagaGame extends JPanel implements ActionListener {
         
         // Membuat daftar objek musuh (enemies) dan menambahkan dua kapal musuh ke dalamnya
         enemies = new ArrayList<>();
+
+
         
         
         // Calculate the X positions for the enemies in the middle section
@@ -67,8 +78,8 @@ public class GalagaGame extends JPanel implements ActionListener {
         int sectionEnemy = 100; // Adjust the Y position as needed
         
 
-        enemies.add(new StaticEnemy(enemyX1, sectionEnemy, enemyWidth)); // Create the first enemy
-        enemies.add(new StaticEnemy(enemyX2, sectionEnemy, enemyWidth)); // Create the second enemy
+        //enemies.add(new StaticEnemy(enemyX1, sectionEnemy, enemyWidth)); // Create the first enemy
+        //enemies.add(new StaticEnemy(enemyX2, sectionEnemy, enemyWidth)); // Create the second enemy
 
 
 
@@ -131,6 +142,11 @@ public class GalagaGame extends JPanel implements ActionListener {
         collisionDetector = new Collision(); // Memulai CollisionDetector
     }
 
+    public void setReturnMenu(RTOMainMenu returnMenu) {
+        this.returnMenu = returnMenu;
+    }
+    
+
     @Override
     public void actionPerformed(ActionEvent e) {
         screenWidth = getWidth(); // Set screenWidth in the actionPerformed method
@@ -164,11 +180,19 @@ public class GalagaGame extends JPanel implements ActionListener {
                 }
             }
         }
-        Collision.checkCollisions(lasers, enemies, playerShip); // MemulaiCollision class
+        Collision.checkCollisions(lasers, enemies, playerShip, this); // MemulaiCollision class
 
-        if (playerShip.getHealth() <= 0) {
-            playerShip.destroy();  // Hilangkan player ship
+        
+        if (playerShip.getHealth() <= 0 && !isGameOver) {
+            playerShip.destroy();
+            updateScore();
+            
+            isGameOver = true; // Set the game over flag
+            timer.stop();
+            returnMenu.showGameOverScreen();
+            returnMenu.setVisible(true);
         }
+
 
         ArrayList<Enemy> enemiesToRemove = new ArrayList<>();
 
@@ -180,13 +204,14 @@ public class GalagaGame extends JPanel implements ActionListener {
 
         enemies.removeAll(enemiesToRemove); // Remove defeated enemies
 
-        if (enemies.isEmpty()) {
-            // Respawn enemies when all enemies are destroyed
+        if (enemies.isEmpty() && screenWidth != 0) {
+            // Respawn enemies when all enemies are destroyed and screenWidth is not 0
             respawn.respawnEnemies();
         }
-
+        paintComponents(getGraphics());
         repaint(); // Melakukan penggambaran ulang tampilan game
     }
+
 
     @Override
     public void paintComponent(Graphics g) {
@@ -215,6 +240,7 @@ public class GalagaGame extends JPanel implements ActionListener {
         g.setColor(Color.BLACK);
         g.setFont(new Font("Arial", Font.PLAIN, 20));
         g.drawString("Health: " + playerShip.getHealth(), sectionWidth, 30);
+        g.drawString("Score: " + playerShip.getScore(), sectionWidth, 60);
 
         for (Enemy enemy : enemies) {
             enemy.draw(g); // Menggambar musuh
@@ -270,6 +296,7 @@ public class GalagaGame extends JPanel implements ActionListener {
     }
 
     public void initializeRespawn(ArrayList<Enemy> enemies, Random random, int screenWidth) {
+        //System.out.println("Screen WIdth GalagaGame class = " + screenWidth);
         int sectionWidth = screenWidth / 3;
         respawn = new Respawn(enemies, random, sectionWidth);
         respawn.setScreenWidth(screenWidth);
@@ -303,6 +330,24 @@ public class GalagaGame extends JPanel implements ActionListener {
         }
     }
 
+    public void increaseScore(int points) {
+        score += points;
+    }
+
+    public void updateScore() {
+        String filename = "SCORESAVE.txt";
+        Scoreboard scoreboard = new Scoreboard();
+        scoreboard.addPoints(playerShip.getScore()); // Add the current score to the total score
+        scoreboard.saveScoreToFile(filename);
+        
+    }
+
+   
+    
+}
+
+    
+
     
 /* 
     private void initializeEnemies(int x, int y) {
@@ -316,5 +361,3 @@ public class GalagaGame extends JPanel implements ActionListener {
         g.drawString("Enemy X-Position: " + x, x, y); // Menggambar indikator posisi musuh bergerak acak
     }
 */
-
-}

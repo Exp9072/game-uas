@@ -28,13 +28,13 @@ public class StartButton extends JButton {
         frame.getContentPane().removeAll();
         frame.repaint();
 
-        game.initializePlayerShip(frame.getWidth(), frame.getHeight());
-
-        ArrayList<Enemy> enemies = game.getEnemies();
+        
         // Initialize the Random object and handle exceptions
         
+        game.initializePlayerShip(frame.getWidth(), frame.getHeight());
         random = new Random();
         game.initializeRandomMovingEnemy(frame.getWidth(), frame.getHeight(), random);
+        ArrayList<Enemy> enemies = game.getEnemies();
         game.initializeRespawn(enemies, random, frame.getWidth());
 
         frame.add(game);
