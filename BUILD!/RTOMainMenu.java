@@ -5,9 +5,11 @@ import java.awt.event.ActionListener;
 
 public class RTOMainMenu extends JPanel {
     private final JFrame frame;
+    private JPanel mainMenuPanel;
 
-    public RTOMainMenu(JFrame frame) {
+    public RTOMainMenu(JFrame frame, JPanel mainMenuPanel) {
         this.frame = frame;
+        this.mainMenuPanel = mainMenuPanel;
 
         setLayout(new GridBagLayout());
         setBackground(Color.BLACK);
@@ -33,11 +35,7 @@ public class RTOMainMenu extends JPanel {
 
     public void returnToMainMenu() {
         frame.getContentPane().removeAll(); // Remove all components from the content pane
-
-        // Create a new main menu panel and set it as the content
-        RTOMainMenu mainMenu = new RTOMainMenu(frame);
-        frame.getContentPane().add(mainMenu);
-
+        frame.getContentPane().add(mainMenuPanel); // Add the original main menu panel
         frame.getContentPane().revalidate(); // Revalidate the components hierarchy
         frame.getContentPane().repaint(); // Repaint the frame
     }

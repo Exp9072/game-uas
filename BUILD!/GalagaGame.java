@@ -159,6 +159,11 @@ public class GalagaGame extends JPanel implements ActionListener {
             laser.move(-1); // Update player ship laser position
         }
 
+        if (isGameOver) {
+            resetGame();
+            isGameOver = false;  // Reset the game over flag
+        }
+
         
         for (Enemy enemy : enemies) {
             if (enemy.getY() < 0) {
@@ -330,6 +335,17 @@ public class GalagaGame extends JPanel implements ActionListener {
         }
     }
 
+    public void resetGame(){
+        enemies.clear();
+        lasers.clear();
+        initializePlayerShip(screenWidth, screenHeight);
+        initializeRandomMovingEnemy(screenWidth, screenHeight, random);
+        initializeRespawn(enemies, random, screenWidth);
+        timer.start();
+        score = 0;
+
+    }
+
     public void increaseScore(int points) {
         score += points;
     }
@@ -352,11 +368,7 @@ public class GalagaGame extends JPanel implements ActionListener {
         }
         
         scoreboard.saveScoreToFile(filename); // Save the sorted scores back to the file
-    }
-    
-
-   
-    
+    }  
 }
 
     

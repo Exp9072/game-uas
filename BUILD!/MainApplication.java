@@ -6,22 +6,26 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class MainApplication {
+public class    MainApplication {
     public static void main(String[] args) {
         JFrame frame = new JFrame("Star-Hawk Invasion");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         // Create an instance of GalagaGame
         GalagaGame game = new GalagaGame();
-
-        RTOMainMenu mainMenu = new RTOMainMenu(frame);
-        game.setReturnMenu(mainMenu);
-
+        
+        
         // Create the main panel that contains both the main menu and the scoreboard
         JPanel mainPanel = new JPanel(new CardLayout());
-
+        
         // Create a panel for the main menu
         JPanel mainMenuPanel = new JPanel(new GridBagLayout());
-
+        
+        // Create a panel for the scoreboard
+        JPanel scoreboardPanel = new JPanel(new BorderLayout());
+        
+        RTOMainMenu mainMenu = new RTOMainMenu(frame, mainPanel);
+        SCRButton scoreboardButton = new SCRButton(mainPanel, scoreboardPanel, mainMenuPanel);
+        game.setReturnMenu(mainMenu);
         // Add your main menu components to the mainMenuPanel
         JLabel gameNameLabel = new JLabel("Star-Hawk Invasion");
         Font gameNameFont = new Font("Arial", Font.BOLD, 96);
@@ -45,36 +49,33 @@ public class MainApplication {
         JPanel buttonPanel = new JPanel(new GridBagLayout());
 
         StartButton startButton = new StartButton(frame, game);
-        SCRButton scoreboardButton = new SCRButton(mainMenuPanel, mainPanel);
         ExitButton exitButton = new ExitButton();
-
+        
         Dimension buttonSize = new Dimension(200, 50);
-
+        
         startButton.setPreferredSize(buttonSize);
         scoreboardButton.setPreferredSize(buttonSize);
         exitButton.setPreferredSize(buttonSize);
-
+        
         GridBagConstraints buttonGbc = new GridBagConstraints();
         buttonGbc.insets.set(0, 5, 150, 5);
         buttonGbc.anchor = GridBagConstraints.CENTER;
         buttonGbc.fill = GridBagConstraints.HORIZONTAL;
-
+        
         buttonPanel.add(startButton, buttonGbc);
         buttonPanel.add(scoreboardButton, buttonGbc);
         buttonPanel.add(exitButton, buttonGbc);
-
+        
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.CENTER;
-
+        
         mainMenuPanel.add(buttonPanel, gbc);
-
-        // Create a panel for the scoreboard
-        JPanel scoreboardPanel = new JPanel(new BorderLayout());
-
+        
+        
         // Create a JTextArea to display scores
         JTextArea scoreboardTextArea = new JTextArea(10, 40);
         scoreboardTextArea.setEditable(false);
-
+        
         // Load the scores from the file and display them
         try {
             String filename = "SCORESAVE.txt";

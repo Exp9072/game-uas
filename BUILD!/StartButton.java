@@ -25,18 +25,21 @@ public class StartButton extends JButton {
     }
 
     private void startGame() {
+        
         frame.getContentPane().removeAll();
-        frame.repaint();
+        frame.getContentPane().revalidate();
+        frame.getContentPane().repaint();
+
+        game.resetGame();
+        
 
         
         // Initialize the Random object and handle exceptions
-        
         game.initializePlayerShip(frame.getWidth(), frame.getHeight());
         random = new Random();
         game.initializeRandomMovingEnemy(frame.getWidth(), frame.getHeight(), random);
         ArrayList<Enemy> enemies = game.getEnemies();
         game.initializeRespawn(enemies, random, frame.getWidth());
-
         frame.add(game);
         frame.revalidate();
         frame.repaint();
