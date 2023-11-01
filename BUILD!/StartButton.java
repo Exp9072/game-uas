@@ -26,11 +26,11 @@ public class StartButton extends JButton {
 
     private void startGame() {
         
+        game.resetGame();
         frame.getContentPane().removeAll();
         frame.getContentPane().revalidate();
         frame.getContentPane().repaint();
 
-        game.resetGame();
         
 
         
@@ -40,6 +40,7 @@ public class StartButton extends JButton {
         game.initializeRandomMovingEnemy(frame.getWidth(), frame.getHeight(), random);
         ArrayList<Enemy> enemies = game.getEnemies();
         game.initializeRespawn(enemies, random, frame.getWidth());
+        //System.out.println("StartGame jalan");
         frame.add(game);
         frame.revalidate();
         frame.repaint();

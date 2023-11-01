@@ -40,7 +40,7 @@ public class Respawn {
     
     public void respawnEnemies() {
         int numStaticEnemies = random.nextInt(2) + 2;
-        int numRandomMovingEnemies = random.nextInt(2) + 1;
+        int numRandomMovingEnemies = random.nextInt(1) + 1;
         int sectionWidth = screenWidth / 3; // Width of the middle (white) section
         int minSpawnX = sectionWidth + 8;
         int maxSpawnX = 2 * sectionWidth - 8; // Adjust as needed
@@ -57,6 +57,7 @@ public class Respawn {
             //System.out.println("xPosisiton = " + xPosition);
             int yPosition = -5;
             enemies.add(new StaticEnemy(xPosition, yPosition, 40));
+            //System.out.println("Static enemy spawn ");
         }
 
         for (int i = 0; i < numRandomMovingEnemies; i++) {

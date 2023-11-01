@@ -90,7 +90,7 @@ public class    MainApplication {
         }
 
         JScrollPane scrollPane = new JScrollPane(scoreboardTextArea);
-        scoreboardPanel.add(scrollPane, BorderLayout.CENTER);
+        scoreboardPanel.add(scrollPane, BorderLayout.SOUTH);
 
 
         // Add the main menu panel and the scoreboard panel to the main panel

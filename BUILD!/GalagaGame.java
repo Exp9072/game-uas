@@ -296,7 +296,7 @@ public class GalagaGame extends JPanel implements ActionListener {
         
         int sectionEnemy = 100; // Adjust the Y position as needed
     
-        enemies.add(new RandomMovingEnemy(enemyX1, sectionEnemy, 1, sectionWidth, screenWidth, 1500, random));
+        //enemies.add(new RandomMovingEnemy(enemyX1, sectionEnemy, 1, sectionWidth, screenWidth, 1500, random));
         
     }
 
@@ -305,6 +305,7 @@ public class GalagaGame extends JPanel implements ActionListener {
         int sectionWidth = screenWidth / 3;
         respawn = new Respawn(enemies, random, sectionWidth);
         respawn.setScreenWidth(screenWidth);
+        //respawn.startRespawnTimer(); // Start the respawn timer
     }
 
     public ArrayList<Enemy> getEnemies() {

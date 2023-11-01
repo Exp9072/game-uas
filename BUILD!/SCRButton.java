@@ -37,8 +37,10 @@ public class SCRButton extends JButton {
                 // Create a panel to hold the "RETURN" button
                 JPanel returnButtonPanel = new JPanel();
                 returnButtonPanel.add(returnButton);
-
-                // Add the returnButtonPanel to the bottom-left corner of scoreboardPanel
+                // Set layout for the returnButtonPanel to place the button at the center
+                returnButtonPanel.setLayout(new BoxLayout(returnButtonPanel, BoxLayout.PAGE_AXIS));
+                returnButtonPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+                
                 scoreboardPanel.add(returnButtonPanel, BorderLayout.SOUTH);
                 scoreboardPanel.revalidate();
                 scoreboardPanel.repaint();
