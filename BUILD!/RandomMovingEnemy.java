@@ -156,15 +156,29 @@ public class
         x = Math.min(maxRange, Math.max(minRange, x)); // Ensure that the position stays within horizontal boundaries
         //System.out.println("GERAK");
     }
-
+/* 
+private int getRandomMove(Random random) {
+    if (random != null) {
+        return random.nextInt(maxMove - minMove + 1) + minMove; // Mendapatkan jarak perubahan arah secara acak
+    } else {
+        // Handle the case where the 'random' object is null
+        //System.err.println("Random object is null");
+        return (new Random()).nextInt(maxMove - minMove + 1) + minMove; // or any default value you prefer
+    }
+}
+*/
     // Metode untuk mendapatkan jarak perubahan arah secara acak
     private int getRandomMove(Random random) {
-        if (random != null) {
-            return random.nextInt(maxMove - minMove + 1) + minMove; // Mendapatkan jarak perubahan arah secara acak
-        } else {
-            // Handle the case where the 'random' object is null
-            //System.err.println("Random object is null");
-            return (new Random()).nextInt(maxMove - minMove + 1) + minMove; // or any default value you prefer
+        try {
+            if (random != null) {
+                return random.nextInt(maxMove - minMove + 1) + minMove; // Generate a random value
+            } else {
+                throw new NullPointerException("Random object is null"); // Throw a NullPointerException if 'random' is null
+            }
+        } catch (NullPointerException e) {
+            // Handle the exception or provide a default value
+            System.err.println("Caught a NullPointerException: " + e.getMessage());
+            return (new Random()).nextInt(maxMove - minMove + 1) + minMove; // Use a default value
         }
     }
 

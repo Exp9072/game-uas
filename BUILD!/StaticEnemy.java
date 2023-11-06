@@ -25,7 +25,7 @@ public class StaticEnemy extends Enemy {
 
         shootingTimer.start(); // Start the shooting timer
         // Initialize the move timer to control enemy movement
-        moveTimer = new Timer(20, new ActionListener() { // UBAH DELAY UNTUK MENGURANGI LAGG
+        moveTimer = new Timer(30, new ActionListener() { // UBAH DELAY UNTUK MENGURANGI LAGG
             @Override
             public void actionPerformed(ActionEvent e) {
                 move();
