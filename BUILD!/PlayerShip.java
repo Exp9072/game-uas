@@ -31,8 +31,7 @@ public class PlayerShip {
         this.movingUp = false;
         this.destroyed = false; // Awalnya tidak mati
         this.movingLeft = false; // Awalnya tidak bergerak ke kiri
-        this.movingRight = false; // Awalnya tidak bergerak ke kanan
-        
+        this.movingRight = false; // Awalnya tidak bergerak ke kanan 
     }
 
     // Metode untuk mengurangi kesehatan pemain

@@ -5,16 +5,18 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class StaticEnemy extends Enemy {
-    private Timer shootingTimer; // Timer for shooting
-    private int shootingDelay = 2000; // Shooting delay in milliseconds
-    private ArrayList<Laser> enemyLasers; // ArrayList to manage enemy lasers
+    private Timer shootingTimer; // Timer untuk menembak
+    private int shootingDelay = 2000; // Keterlambatan penembakan dalam milidetik
+    private ArrayList<Laser> enemyLasers; // ArrayList untuk mengelola laser musuh
     private int destinationY;
     private Timer moveTimer;
 
+    // Konstruktor untuk StaticEnemy, menerima parameter koordinat x, tinggi layar, dan lebar musuh
     public StaticEnemy(int sectionX, int screenHeight, int enemyWidth) {
-        super(sectionX, screenHeight - 200 - enemyWidth, enemyWidth, enemyWidth); // Memanggil konstruktor kelas induk dengan koordinat x, y, lebar 40, dan tinggi 40
+        // Memanggil konstruktor kelas induk dengan koordinat x, y, lebar 40, dan tinggi 40
+        super(sectionX, screenHeight - 200 - enemyWidth, enemyWidth, enemyWidth);
         enemyLasers = new ArrayList<>();
-        // Initialize the shooting timer
+        // Inisialisasi timer penembakan
         this.destinationY = 100;
         shootingTimer = new Timer(shootingDelay, new ActionListener() {
             @Override
@@ -23,15 +25,15 @@ public class StaticEnemy extends Enemy {
             }
         });
 
-        shootingTimer.start(); // Start the shooting timer
-        // Initialize the move timer to control enemy movement
+        shootingTimer.start(); // Mulai timer penembakan
+        // Inisialisasi timer pergerakan untuk mengendalikan pergerakan musuh
         moveTimer = new Timer(30, new ActionListener() { // UBAH DELAY UNTUK MENGURANGI LAGG
             @Override
             public void actionPerformed(ActionEvent e) {
                 move();
             }
         });
-        moveTimer.start(); // Start the move timer
+        moveTimer.start(); // Mulai timer pergerakan
     }
 
     // Metode untuk mendapatkan daftar laser musuh
@@ -43,18 +45,15 @@ public class StaticEnemy extends Enemy {
     @Override
     public void move() {
         if (y < destinationY) {
-            //System.out.println(destinationY);
-            y += 3; // Move downward until reaching the destinationY
+            y += 3; // Bergerak ke bawah sampai mencapai destinationY
         } else {
-            moveTimer.stop(); // Stop the move timer when the destination is reached
+            moveTimer.stop(); // Hentikan timer pergerakan ketika mencapai tujuan
         }
     }
 
     // Implementasi metode abstrak untuk mengeksekusi penembakan
     @Override
     public void shoot() {
-        //System.out.println("StaticEnemy ID " + this.hashCode() + " is shooting");
-
         // Implementasi logika penembakan untuk musuh statis
         Laser laser = new Laser(x + width / 2, y + height);
         enemyLasers.add(laser);

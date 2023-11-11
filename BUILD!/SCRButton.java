@@ -1,31 +1,45 @@
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JButton;
+import javax.swing.JPanel;
+import javax.swing.JLabel;
+import javax.swing.BoxLayout;
+import java.awt.CardLayout;
+import java.awt.Component;
+import java.awt.GridBagLayout;
+import java.awt.BorderLayout;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
+// Kelas SCRButton merepresentasikan tombol "Scoreboard" pada permainan Galaga.
 public class SCRButton extends JButton {
+    // Referensi ke panel utama, panel scoreboard, dan panel menu utama
     private JPanel mainMenuPanel;
     private JPanel scoreboardPanel;
-    private JPanel mainPanel; // Add a reference to the main panel
+    private JPanel mainPanel;
 
+    // Konstruktor untuk SCRButton, menerima referensi ke panel utama, panel scoreboard, dan panel menu utama sebagai parameter
     public SCRButton(JPanel mainPanel, JPanel scoreboardPanel, JPanel mainMenuPanel) {
         super("Scoreboard");
         this.mainMenuPanel = mainMenuPanel;
         this.scoreboardPanel = scoreboardPanel;
         this.mainPanel = mainPanel;
 
+        // Menambahkan ActionListener untuk menanggapi klik tombol "Scoreboard"
         addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                // Menggunakan CardLayout untuk beralih ke panel scoreboard di dalam panel utama
                 CardLayout cardLayout = (CardLayout) mainPanel.getLayout();
                 cardLayout.show(mainPanel, "scoreboard");
 
+                // Menampilkan skor pada panel scoreboard
                 displayScores();
 
-                // Add "RETURN" button to the scoreboardPanel
+                // Menambahkan tombol "RETURN" untuk kembali ke panel menu utama
                 JButton returnButton = new JButton("RETURN");
                 returnButton.addActionListener(new ActionListener() {
                     @Override
@@ -34,13 +48,15 @@ public class SCRButton extends JButton {
                     }
                 });
 
-                // Create a panel to hold the "RETURN" button
+                // Membuat panel untuk menampung tombol "RETURN"
                 JPanel returnButtonPanel = new JPanel();
                 returnButtonPanel.add(returnButton);
-                // Set layout for the returnButtonPanel to place the button at the center
+
+                // Mengatur tata letak returnButtonPanel untuk menempatkan tombol di tengah
                 returnButtonPanel.setLayout(new BoxLayout(returnButtonPanel, BoxLayout.PAGE_AXIS));
                 returnButtonPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
                 
+                // Menambahkan panel tombol "RETURN" ke bagian selatan panel scoreboard
                 scoreboardPanel.add(returnButtonPanel, BorderLayout.SOUTH);
                 scoreboardPanel.revalidate();
                 scoreboardPanel.repaint();
@@ -48,26 +64,30 @@ public class SCRButton extends JButton {
         });
     }
 
+    // Metode untuk menampilkan skor dari file SCORESAVE.txt ke dalam scoreboardPanel
     private void displayScores() {
         JLabel scoreLabel = new JLabel();
-        Font font = new Font("8BIT WONDER", Font.BOLD, 64); // You can adjust the font size here
+        Font font = new Font("8BIT WONDER", Font.BOLD, 64); // Menyesuaikan ukuran font di sini
         scoreLabel.setFont(font);
 
         try {
+            // Membaca skor dari file SCORESAVE.txt
             String filename = "SCORESAVE.txt";
             StringBuilder scores = new StringBuilder();
             BufferedReader reader = new BufferedReader(new FileReader(filename));
             String line;
             while ((line = reader.readLine()) != null) {
-                scores.append(line).append("<br>"); // Add line breaks for separate scores
+                scores.append(line).append("<br>"); // Menambahkan pemisah baris untuk setiap skor
             }
             reader.close();
-            scoreLabel.setText("<html>" + scores.toString() + "</html>"); // Use HTML for line breaks
+
+            // Mengatur teks label dengan format HTML untuk memungkinkan pemisah baris
+            scoreLabel.setText("<html>" + scores.toString() + "</html>");
         } catch (IOException ex) {
             ex.printStackTrace();
         }
 
-        // Center the scoreLabel within scoreboardPanel
+        // Membersihkan panel scoreboard dan menambahkan label skor di tengah
         scoreboardPanel.removeAll();
         scoreboardPanel.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();

@@ -11,14 +11,6 @@ import java.awt.event.ActionListener;
 
 public class
 
-
-
-
-
-
-
-
-
     RandomMovingEnemy extends Enemy {
     private int speed; // Kecepatan pergerakan musuh
     private int direction; // Arah pergerakan (1 atau -1)

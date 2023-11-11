@@ -1,32 +1,44 @@
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JLabel;
+import javax.swing.JTextArea;
+import javax.swing.JScrollPane;
+import java.awt.CardLayout;
+import java.awt.GridBagLayout;
+import java.awt.BorderLayout;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class    MainApplication {
+// Kelas MainApplication berfungsi sebagai program utama untuk permainan Galaga.
+public class MainApplication {
     public static void main(String[] args) {
+        // Membuat objek JFrame untuk menampung permainan
         JFrame frame = new JFrame("Star-Hawk Invasion");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        // Create an instance of GalagaGame
+
+        // Membuat objek GalagaGame sebagai inti permainan
         GalagaGame game = new GalagaGame();
-        
-        
-        // Create the main panel that contains both the main menu and the scoreboard
+
+        // Membuat panel utama yang berisi menu utama dan panel scoreboard
         JPanel mainPanel = new JPanel(new CardLayout());
-        
-        // Create a panel for the main menu
+
+        // Membuat panel untuk menu utama
         JPanel mainMenuPanel = new JPanel(new GridBagLayout());
-        
-        // Create a panel for the scoreboard
+
+        // Membuat panel untuk scoreboard
         JPanel scoreboardPanel = new JPanel(new BorderLayout());
-        
+
+        // Membuat objek RTOMainMenu dan SCRButton untuk mengatur menu utama dan scoreboard
         RTOMainMenu mainMenu = new RTOMainMenu(frame, mainPanel);
         SCRButton scoreboardButton = new SCRButton(mainPanel, scoreboardPanel, mainMenuPanel);
         game.setReturnMenu(mainMenu);
-        // Add your main menu components to the mainMenuPanel
+
+        // Menambahkan komponen-komponen menu utama ke mainMenuPanel
         JLabel gameNameLabel = new JLabel("Star-Hawk Invasion");
         Font gameNameFont = new Font("Arial", Font.BOLD, 96);
         gameNameLabel.setFont(gameNameFont);
@@ -48,35 +60,37 @@ public class    MainApplication {
 
         JPanel buttonPanel = new JPanel(new GridBagLayout());
 
+        // Membuat tombol StartButton, SCRButton, dan ExitButton
         StartButton startButton = new StartButton(frame, game);
         ExitButton exitButton = new ExitButton();
-        
+
         Dimension buttonSize = new Dimension(200, 50);
-        
+
+        // Mengatur ukuran tombol
         startButton.setPreferredSize(buttonSize);
         scoreboardButton.setPreferredSize(buttonSize);
         exitButton.setPreferredSize(buttonSize);
-        
+
         GridBagConstraints buttonGbc = new GridBagConstraints();
         buttonGbc.insets.set(0, 5, 150, 5);
         buttonGbc.anchor = GridBagConstraints.CENTER;
         buttonGbc.fill = GridBagConstraints.HORIZONTAL;
-        
+
+        // Menambahkan tombol-tombol ke panel tombol
         buttonPanel.add(startButton, buttonGbc);
         buttonPanel.add(scoreboardButton, buttonGbc);
         buttonPanel.add(exitButton, buttonGbc);
-        
+
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.CENTER;
-        
+
         mainMenuPanel.add(buttonPanel, gbc);
-        
-        
-        // Create a JTextArea to display scores
+
+        // Membuat JTextArea untuk menampilkan skor
         JTextArea scoreboardTextArea = new JTextArea(10, 40);
         scoreboardTextArea.setEditable(false);
-        
-        // Load the scores from the file and display them
+
+        // Memuat skor dari file dan menampilkannya
         try {
             String filename = "SCORESAVE.txt";
             BufferedReader reader = new BufferedReader(new FileReader(filename));
@@ -92,23 +106,25 @@ public class    MainApplication {
         JScrollPane scrollPane = new JScrollPane(scoreboardTextArea);
         scoreboardPanel.add(scrollPane, BorderLayout.SOUTH);
 
-
-        // Add the main menu panel and the scoreboard panel to the main panel
+        // Menambahkan panel menu utama dan panel scoreboard ke mainPanel
         mainPanel.add(mainMenuPanel, "mainMenu");
         mainPanel.add(scoreboardPanel, "scoreboard");
 
-        // Initially, set the main menu panel as visible
+        // Secara awal, menampilkan panel menu utama
         CardLayout cardLayout = (CardLayout) mainPanel.getLayout();
         cardLayout.show(mainPanel, "mainMenu");
 
         frame.add(mainPanel);
 
-        // Rest of your code...
+        // Kode lainnya...
+
+        // Mendapatkan ukuran layar
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int width = screenSize.width;
         int height = screenSize.height;
-        frame.setSize(width, height);
 
+        // Mengatur ukuran frame dan posisinya di tengah layar
+        frame.setSize(width, height);
         int x = (screenSize.width - frame.getWidth()) / 2;
         int y = (screenSize.height - frame.getHeight()) / 2;
         frame.setLocation(x, y);
@@ -117,6 +133,7 @@ public class    MainApplication {
         frame.setVisible(true);
     }
 }
+
 
 
 
@@ -189,4 +206,4 @@ public class MainApplication {
 14. GUI | Y
 */
 
-// 1164 lines
+// 1636 lines
