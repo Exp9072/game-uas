@@ -20,7 +20,7 @@ public class MainApplication {
         JFrame frame = new JFrame("Star-Hawk Invasion");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        // Membuat objek GalagaGame sebagai inti permainan
+        // Membuat objek StarHawk sebagai inti permainan
         StarHawk game = new StarHawk();
 
         // Membuat panel utama yang berisi menu utama dan panel scoreboard
