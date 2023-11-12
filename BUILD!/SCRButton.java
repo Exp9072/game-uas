@@ -100,3 +100,5 @@ public class SCRButton extends JButton {
         scoreboardPanel.repaint();
     }
 }
+
+// jangan di ss

@@ -70,3 +70,5 @@ public abstract class Enemy {
         g.fillRect(x, y, width, height);
     }
 }
+
+// jangan di ss

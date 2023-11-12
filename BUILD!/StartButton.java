@@ -55,3 +55,5 @@ public class StartButton extends JButton {
         game.requestFocusInWindow();
     }
 }
+
+// jangan di ss

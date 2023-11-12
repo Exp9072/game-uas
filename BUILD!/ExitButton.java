@@ -17,3 +17,5 @@ public class ExitButton extends JButton {
         });
     }
 }
+
+// jangan di ss

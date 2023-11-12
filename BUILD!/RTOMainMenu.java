@@ -93,3 +93,5 @@ public class RTOMainMenu extends JPanel {
         frame.getContentPane().repaint();
     }
 }
+
+// jangan di ss

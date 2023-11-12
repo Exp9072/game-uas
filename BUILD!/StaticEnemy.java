@@ -59,3 +59,5 @@ public class StaticEnemy extends Enemy {
         enemyLasers.add(laser);
     }
 }
+
+// jangan di ss

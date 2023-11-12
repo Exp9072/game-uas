@@ -201,3 +201,5 @@ private int getRandomMove(Random random) {
     }
 
 }
+
+// jangan di ss

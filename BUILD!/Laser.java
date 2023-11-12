@@ -57,3 +57,5 @@ public class Laser {
         this.collided = collided;
     }
 }
+
+// jangan di ss

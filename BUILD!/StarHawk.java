@@ -367,7 +367,7 @@ public class StarHawk extends JPanel implements ActionListener {
 }
 
     
-
+// jangan di ss
     
 /* 
     private void initializeEnemies(int x, int y) {

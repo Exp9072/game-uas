@@ -169,3 +169,5 @@ public class PlayerShip {
         score += points;
     }
 }
+
+// jangan di ss

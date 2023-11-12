@@ -76,3 +76,5 @@ public class Scoreboard {
         }
     }
 }
+
+// jangan di ss
