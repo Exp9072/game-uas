@@ -55,26 +55,10 @@ public class StarHawk extends JPanel implements ActionListener {
         
         // Membuat daftar objek musuh (enemies) dan menambahkan dua kapal musuh ke dalamnya
         enemies = new ArrayList<>();
-
-
-        
-        
-        // Calculate the X positions for the enemies in the middle section
-        // Width for the enemies
-        int enemyWidth = 50; // Adjust the width as needed
-        
-
-        // X positions for enemies in the middle section
-        int enemyX1 = sectionWidth + 700; // Adjust the values as needed
-        int enemyX2 = sectionWidth * 2 + 900; // Adjust the values as needed // 1088
-        
-        // Y position for enemies in the middle section
-        int sectionEnemy = 100; // Adjust the Y position as needed
         
 
         //enemies.add(new StaticEnemy(enemyX1, sectionEnemy, enemyWidth)); // Create the first enemy
         //enemies.add(new StaticEnemy(enemyX2, sectionEnemy, enemyWidth)); // Create the second enemy
-
 
 
         // Membuat objek Random untuk menghasilkan nilai acak
