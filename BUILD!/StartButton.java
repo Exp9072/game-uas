@@ -9,11 +9,11 @@ import java.util.Random;
 public class StartButton extends JButton {
     // Deklarasi variabel instance untuk JFrame, GalagaGame, dan Random
     private final JFrame frame;
-    private final GalagaGame game;
+    private final StarHawk game;
     private Random random; // Deklarasi objek Random
 
     // Konstruktor untuk StartButton, menerima JFrame dan GalagaGame sebagai parameter
-    public StartButton(JFrame frame, GalagaGame game) {
+    public StartButton(JFrame frame, StarHawk game) {
         super("Mulai"); // Atur teks tombol menjadi "Mulai"
         this.frame = frame; // Inisialisasi variabel instance JFrame
         this.game = game; // Inisialisasi variabel instance GalagaGame

@@ -10,7 +10,7 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Random;    
 
-public class GalagaGame extends JPanel implements ActionListener {
+public class StarHawk extends JPanel implements ActionListener {
     private Timer timer; // Objek Timer untuk mengatur pembaruan game secara berkala
     private PlayerShip playerShip; // Objek kapal pemain
     private RandomMovingEnemy randomMovingEnemy;
@@ -29,7 +29,7 @@ public class GalagaGame extends JPanel implements ActionListener {
     private boolean isGameOver = false;
     
 
-    public GalagaGame() {
+    public StarHawk() {
         // Membuat objek Timer dengan delay 10 milidetik yang akan memicu "this" (biasanya objek saat ini) setiap 10 milidetik.
         timer = new Timer(10, this); //Set timer 10
         timer.start(); // Memulai timer.

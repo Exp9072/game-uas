@@ -3,7 +3,7 @@ import java.util.ArrayList; // Impor kelas ArrayList dari pustaka Java
 
 public class Collision {
     // Metode untuk memeriksa tabrakan antara laser dan musuh
-    public static void checkCollisions(ArrayList<Laser> playerLasers, ArrayList<Enemy> enemies, PlayerShip playerShip, GalagaGame game) {
+    public static void checkCollisions(ArrayList<Laser> playerLasers, ArrayList<Enemy> enemies, PlayerShip playerShip, StarHawk game) {
         // Daftar laser yang akan dihapus setelah tabrakan pemain
         ArrayList<Laser> playerLasersToRemove = new ArrayList<>();
         // Daftar laser musuh yang akan dihapus setelah tabrakan

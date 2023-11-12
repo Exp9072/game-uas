@@ -14,7 +14,6 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-// Kelas MainApplication berfungsi sebagai program utama untuk permainan Galaga.
 public class MainApplication {
     public static void main(String[] args) {
         // Membuat objek JFrame untuk menampung permainan
@@ -22,7 +21,7 @@ public class MainApplication {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Membuat objek GalagaGame sebagai inti permainan
-        GalagaGame game = new GalagaGame();
+        StarHawk game = new StarHawk();
 
         // Membuat panel utama yang berisi menu utama dan panel scoreboard
         JPanel mainPanel = new JPanel(new CardLayout());
@@ -206,4 +205,4 @@ public class MainApplication {
 14. GUI | Y
 */
 
-// 1636 lines
+// 1669 lines
