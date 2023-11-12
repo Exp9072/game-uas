@@ -27,6 +27,11 @@ public class StarHawk extends JPanel implements ActionListener {
     private int score; // Added variable to store the player's score
     private RTOMainMenu returnMenu; // Add this field
     private boolean isGameOver = false;
+    //private long lastLoopTime;
+    //private static final int TARGET_FPS = 360;
+    //private static final long OPTIMAL_TIME = 1000000000 / TARGET_FPS;
+   
+    
     
 
     public StarHawk() {
@@ -127,6 +132,10 @@ public class StarHawk extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        //long currentTime = System.nanoTime();
+        //double delta = (currentTime - lastLoopTime) / ((double) OPTIMAL_TIME);
+        //lastLoopTime = currentTime;
+
         screenWidth = getWidth(); // Set screenWidth in the actionPerformed method
         screenHeight = getHeight(); // Set screenHeight in the actionPerformed method
         playerShip.update(); // Memperbarui kapal pemain

@@ -44,7 +44,7 @@ public class StartButton extends JButton {
         ArrayList<Enemy> enemies = game.getEnemies();
         game.initializeRespawn(enemies, random, frame.getWidth());
 
-        // Tambahkan komponen GalagaGame ke dalam frame
+        
         frame.add(game);
 
         // Perbarui frame

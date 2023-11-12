@@ -44,12 +44,20 @@ public class StaticEnemy extends Enemy {
     // Implementasi metode abstrak untuk pergerakan (musuh statis tidak bergerak)
     @Override
     public void move() {
-        if (y < destinationY) {
-            y += 3; // Bergerak ke bawah sampai mencapai destinationY
-        } else {
-            moveTimer.stop(); // Hentikan timer pergerakan ketika mencapai tujuan
+        // Tentukan arah pergerakan menggunakan Math.signum
+        int arahPergerakan = (int) Math.signum(destinationY - y);
+
+        // Perbarui posisi berdasarkan arah pergerakan
+        y += arahPergerakan + 2;
+
+        // Periksa apakah tujuan telah tercapai
+        if (y == destinationY) {
+            moveTimer.stop(); // Hentikan timer pergerakan ketika tujuan tercapai
         }
     }
+
+
+
 
     // Implementasi metode abstrak untuk mengeksekusi penembakan
     @Override

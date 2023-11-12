@@ -16,6 +16,7 @@ import java.io.IOException;
 
 public class MainApplication {
     public static void main(String[] args) {
+        System.setProperty("sun.java2d.opengl", "true");
         // Membuat objek JFrame untuk menampung permainan
         JFrame frame = new JFrame("Star-Hawk Invasion");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
