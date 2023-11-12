@@ -3,7 +3,6 @@ import java.awt.Color;
 import javax.swing.Timer;
 import java.util.ArrayList;
 
-// Import kelas-kelas yang diperlukan dari paket java.awt
 public abstract class Enemy {
     // Deklarasi variabel instance yang akan digunakan untuk mengelola posisi dan ukuran musuh
     protected int x, y; // Koordinat x dan y musuh

@@ -1,5 +1,5 @@
 import java.util.ArrayList; // Impor kelas ArrayList dari pustaka Java
- // Impor kelas-kelas AWT untuk digunakan di dalam kelas Collision
+
 
 public class Collision {
     // Metode untuk memeriksa tabrakan antara laser dan musuh

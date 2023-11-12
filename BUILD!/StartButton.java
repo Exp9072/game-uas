@@ -4,8 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Random;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
+
 
 public class StartButton extends JButton {
     // Deklarasi variabel instance untuk JFrame, GalagaGame, dan Random
