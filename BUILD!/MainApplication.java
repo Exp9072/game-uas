@@ -137,18 +137,6 @@ public class MainApplication {
 // jangan di ss
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 /* 
 import javax.swing.JFrame;
 import java.awt.Dimension;
