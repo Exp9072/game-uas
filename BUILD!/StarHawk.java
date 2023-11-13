@@ -137,7 +137,7 @@ public class StarHawk extends JPanel implements ActionListener {
 
         screenWidth = getWidth(); // Set screenWidth in the actionPerformed method
         screenHeight = getHeight(); // Set screenHeight in the actionPerformed method
-        System.out.println("Playership = "+playerShip);
+        //System.out.println("Playership = "+playerShip);
         playerShip.update(); // Memperbarui kapal pemain
 
         moveRandomMovingEnemies(); // Memindahkan musuh yang bergerak acak

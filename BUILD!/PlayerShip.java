@@ -50,13 +50,13 @@ public class PlayerShip {
         
         try {
             // Membaca gambar kapal pemain dari lokasi file tertentu
-            ImageIcon ii = new ImageIcon("C:\\Users\\LEGION\\Documents\\Semua File Penting\\Kampus Project VSC\\KampusS3\\UAS\\BUILD!\\2023-10-27_09.08.55.png");
+            ImageIcon ii = new ImageIcon("./2023-10-27_09.08.55.png");
             
             // Mengambil objek Image dari ImageIcon
             playerImage = ii.getImage();
             
             // Print dimensi gambar untuk keperluan debugging
-            System.out.println("Image dimensions: " + playerImage.getWidth(null) + " x " + playerImage.getHeight(null));
+            //System.out.println("Image dimensions: " + playerImage.getWidth(null) + " x " + playerImage.getHeight(null));
         } catch (Exception e) {
             // Menangani exception yang mungkin terjadi saat membaca gambar
             e.printStackTrace();
@@ -149,7 +149,7 @@ public class PlayerShip {
     // Metode untuk menggambar kapal pemain
     public void draw(Graphics g) {
         // Menampilkan pesan di konsol untuk memastikan metode ini dipanggil dengan benar
-        System.out.println("Drawing player ship at: " + x + ", " + y); 
+        //System.out.println("Drawing player ship at: " + x + ", " + y); 
 
         // Membuat objek Graphics2D untuk memberikan fungsionalitas grafis tambahan
         Graphics2D g2d = (Graphics2D) g;
