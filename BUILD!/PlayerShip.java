@@ -1,6 +1,10 @@
 import java.awt.Graphics;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import javax.swing.ImageIcon;
 
 public class PlayerShip {
     private int x, y; // Koordinat x dan y
@@ -15,23 +19,48 @@ public class PlayerShip {
     private boolean movingDown;
     private int screenHeight;
     private int score;
+    private Image playerImage;
 
     // Konstruktor kelas PlayerShip
     public PlayerShip(int x, int y, int screenWidth, int screenHeight) {
+        // Inisialisasi posisi awal kapal pemain di tengah bagian putih layar permainan
         this.x = screenWidth / 3 + (screenWidth / 3 - width) / 2; // Set it to the middle of the white section
+        
+        // Inisialisasi posisi vertikal kapal pemain, diatur agar muncul 200 piksel di atas bagian bawah layar
         this.y = screenHeight - 200 - height; // Spawn 200 pixels above the bottom
-        //System.out.println("screen widht player ship = " + screenWidth);
+
+        // Inisialisasi lebar dan tinggi kapal pemain
         this.width = 32; // Setel lebar kapal pemain
         this.height = 32; // Setel tinggi kapal pemain
+
+        // Inisialisasi kecepatan, nyawa, lebar, dan tinggi layar
         this.speed = 3; // Setel kecepatan pemain
         this.health = 3; // Setel nyawa pemain
         this.screenWidth = screenWidth;
         this.screenHeight = screenHeight;
+
+        // Inisialisasi status pergerakan kapal pemain
         this.movingDown = false;
         this.movingUp = false;
-        this.destroyed = false; // Awalnya tidak mati
         this.movingLeft = false; // Awalnya tidak bergerak ke kiri
         this.movingRight = false; // Awalnya tidak bergerak ke kanan 
+
+        // Inisialisasi status kehancuran kapal pemain
+        this.destroyed = false; // Awalnya tidak mati
+        
+        try {
+            // Membaca gambar kapal pemain dari lokasi file tertentu
+            ImageIcon ii = new ImageIcon("C:\\Users\\LEGION\\Documents\\Semua File Penting\\Kampus Project VSC\\KampusS3\\UAS\\BUILD!\\2023-10-27_09.08.55.png");
+            
+            // Mengambil objek Image dari ImageIcon
+            playerImage = ii.getImage();
+            
+            // Print dimensi gambar untuk keperluan debugging
+            System.out.println("Image dimensions: " + playerImage.getWidth(null) + " x " + playerImage.getHeight(null));
+        } catch (Exception e) {
+            // Menangani exception yang mungkin terjadi saat membaca gambar
+            e.printStackTrace();
+        }
     }
 
     // Metode untuk mengurangi kesehatan pemain
@@ -116,11 +145,23 @@ public class PlayerShip {
         }
     }
 
+    
     // Metode untuk menggambar kapal pemain
     public void draw(Graphics g) {
-        g.setColor(Color.blue); // Atur warna kapal pemain
-        g.fillRect(x, y, width, height); // Gambar kapal pemain
+        // Menampilkan pesan di konsol untuk memastikan metode ini dipanggil dengan benar
+        System.out.println("Drawing player ship at: " + x + ", " + y); 
+
+        // Membuat objek Graphics2D untuk memberikan fungsionalitas grafis tambahan
+        Graphics2D g2d = (Graphics2D) g;
+
+        // place holder
+        //g.setColor(Color.blue); // Atur warna kapal pemain
+        //g.fillRect(x, y, width, height); // Gambar kapal pemain
+
+        // Menggunakan metode drawImage untuk menggambar gambar kapal pemain ke layar
+        g2d.drawImage(playerImage, x, y, width, height, null);
     }
+
 
     // Metode getter untuk mendapatkan nilai x pemain
     public int getX() {

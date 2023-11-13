@@ -57,8 +57,6 @@ public class StaticEnemy extends Enemy {
     }
 
 
-
-
     // Implementasi metode abstrak untuk mengeksekusi penembakan
     @Override
     public void shoot() {

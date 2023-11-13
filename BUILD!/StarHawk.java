@@ -28,13 +28,12 @@ public class StarHawk extends JPanel implements ActionListener {
     private RTOMainMenu returnMenu; // Add this field
     private boolean isGameOver = false;
     //private long lastLoopTime;
-    //private static final int TARGET_FPS = 360;
+    //private static final int TARGET_FPS = 120;
     //private static final long OPTIMAL_TIME = 1000000000 / TARGET_FPS;
    
-    
-    
-
     public StarHawk() {
+        // Menginisialisasi kapal pemain dengan ukuran layar 
+        initializePlayerShip(getWidth(), getHeight());
         // Membuat objek Timer dengan delay 10 milidetik yang akan memicu "this" (biasanya objek saat ini) setiap 10 milidetik.
         timer = new Timer(10, this); //Set timer 10
         timer.start(); // Memulai timer.
@@ -138,9 +137,12 @@ public class StarHawk extends JPanel implements ActionListener {
 
         screenWidth = getWidth(); // Set screenWidth in the actionPerformed method
         screenHeight = getHeight(); // Set screenHeight in the actionPerformed method
+        System.out.println("Playership = "+playerShip);
         playerShip.update(); // Memperbarui kapal pemain
+
         moveRandomMovingEnemies(); // Memindahkan musuh yang bergerak acak
         updateLasers();
+        
         // Update the positions of player ship lasers
         for (Laser laser : lasers) {
             laser.move(-1); // Update player ship laser position
@@ -273,9 +275,18 @@ public class StarHawk extends JPanel implements ActionListener {
     }
 
 
+    // Metode untuk menginisialisasi kapal pemain
     public void initializePlayerShip(int screenWidth, int screenHeight) {
-        playerShip = new PlayerShip(380, 500, screenWidth, screenHeight); // Menginisialisasi kapal pemain dengan posisi awal dan lebar layar
+        // Membuat objek PlayerShip baru dengan posisi awal yang ditentukan
+        playerShip = new PlayerShip(380, 500, screenWidth, screenHeight);
+
+        // Memeriksa apakah objek PlayerShip berhasil dibuat
+        if (playerShip == null) {
+            // Jika gagal, membuat objek PlayerShip baru dengan posisi awal yang sama
+            playerShip = new PlayerShip(380, 500, screenWidth, screenHeight);
+        } 
     }
+
 
     public void initializeRandomMovingEnemy(int screenWidth, int screenHeight, Random random) {
         int sectionWidth = screenWidth / 3;
@@ -323,20 +334,34 @@ public class StarHawk extends JPanel implements ActionListener {
         }
     }
 
+    // Metode untuk mereset permainan
     public void resetGame(){
+        // Menghapus semua musuh dan laser dari layar
         enemies.clear();
         lasers.clear();
-        initializePlayerShip(screenWidth, screenHeight);
-        initializeRandomMovingEnemy(screenWidth, screenHeight, random);
-        initializeRespawn(enemies, random, screenWidth);
-        timer.start();
-        score = 0;
 
+        // Menginisialisasi kembali kapal pemain di tengah layar
+        initializePlayerShip(screenWidth, screenHeight);
+
+        // Menginisialisasi musuh yang bergerak secara acak
+        initializeRandomMovingEnemy(screenWidth, screenHeight, random);
+
+        // Menginisialisasi respawn musuh
+        initializeRespawn(enemies, random, screenWidth);
+
+        // Memulai timer untuk permainan
+        timer.start();
+
+        // Mengatur skor kembali ke 0
+        score = 0;
     }
 
+    // Metode untuk meningkatkan skor permainan
     public void increaseScore(int points) {
+        // Menambahkan jumlah poin ke skor total
         score += points;
     }
+
 
     public void updateScore() {
         String filename = "SCORESAVE.txt";
