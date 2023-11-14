@@ -50,12 +50,15 @@ public class PlayerShip {
         
         try {
             // Membaca gambar kapal pemain dari lokasi file tertentu
-            ImageIcon ii = new ImageIcon("./2023-11-13_19.08.31.png");
+            // No thruster
+            //ImageIcon ii = new ImageIcon("./export202311140837368022.png");
+            // With thruster
+            ImageIcon ii = new ImageIcon("./export202311140837453725.png");
             
             // Mengambil objek Image dari ImageIcon
             playerImage = ii.getImage();
             
-            // Print dimensi gambar untuk keperluan debugging
+            // Print dimensi gambar untuk keperluan debug
             //System.out.println("Image dimensions: " + playerImage.getWidth(null) + " x " + playerImage.getHeight(null));
         } catch (Exception e) {
             // Menangani exception yang mungkin terjadi saat membaca gambar
@@ -159,7 +162,7 @@ public class PlayerShip {
         //g.fillRect(x, y, width, height); // Gambar kapal pemain
 
         // Menggunakan metode drawImage untuk menggambar gambar kapal pemain ke layar
-        g2d.drawImage(playerImage, x, y, width, height, null);
+        g2d.drawImage(playerImage, x, y, width , height , null);
     }
 
 

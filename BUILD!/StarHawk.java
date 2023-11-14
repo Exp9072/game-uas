@@ -8,7 +8,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
-import java.util.Random;    
+import java.util.Random;   
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import javax.swing.ImageIcon;
 
 public class StarHawk extends JPanel implements ActionListener {
     private Timer timer; // Objek Timer untuk mengatur pembaruan game secara berkala
@@ -30,6 +34,7 @@ public class StarHawk extends JPanel implements ActionListener {
     private long lastLoopTime;
     private static final int TARGET_FPS = 240;
     private static final long OPTIMAL_TIME = 1000000000 / TARGET_FPS;
+    private Image BgImage, BgImageL,BgImageR;
    
     public StarHawk() {
         // Menginisialisasi kapal pemain dengan ukuran layar 
@@ -59,7 +64,14 @@ public class StarHawk extends JPanel implements ActionListener {
         
         // Membuat daftar objek musuh (enemies) dan menambahkan dua kapal musuh ke dalamnya
         enemies = new ArrayList<>();
-        
+
+        ImageIcon ii = new ImageIcon("./2023-11-14_09.07.08.png");
+        ImageIcon uu = new ImageIcon("./2023-10-27_09.20.25.png");
+        ImageIcon jj = new ImageIcon("./2023-10-27_09.20.15.png");
+
+        BgImage = ii.getImage();
+        BgImageL = uu.getImage();
+        BgImageR = jj.getImage(); 
 
         //enemies.add(new StaticEnemy(enemyX1, sectionEnemy, enemyWidth)); // Create the first enemy
         //enemies.add(new StaticEnemy(enemyX2, sectionEnemy, enemyWidth)); // Create the second enemy
@@ -219,15 +231,20 @@ public class StarHawk extends JPanel implements ActionListener {
     // Draw the left red section
     g.setColor(Color.MAGENTA);
     g.fillRect(0, 0, sectionWidth, getHeight());
+    Graphics2D bg1 = (Graphics2D) g;
+    bg1.drawImage(BgImageL, 0, 0 , null);
 
     // Draw the middle white section
     g.setColor(Color.WHITE);
     g.fillRect(sectionWidth, 0, sectionWidth, getHeight());
+    Graphics2D bg = (Graphics2D) g;
+    bg.drawImage(BgImage, sectionWidth, 0 , null);
 
     // Draw the right red section
     g.setColor(Color.MAGENTA);
     g.fillRect(2 * sectionWidth, 0, sectionWidth, getHeight());
-
+    Graphics2D bg2 = (Graphics2D) g;
+    bg2.drawImage(BgImageR, 2 * sectionWidth,0  , null);
     // Now you can draw your game elements in these sections
     playerShip.draw(g);
 

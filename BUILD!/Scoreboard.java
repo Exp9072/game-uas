@@ -33,7 +33,7 @@ public class Scoreboard {
                     writer.write("Player 1: " + score + System.lineSeparator());
                 }
             }
-            System.out.println("Berhasil menulis ke file: " + filename);
+            //System.out.println("Berhasil menulis ke file: " + filename);
         } catch (IOException e) {
             System.err.println("Error menulis ke file: " + filename);
             e.printStackTrace();
@@ -52,7 +52,7 @@ public class Scoreboard {
     public void loadScoresFromFile(String filename) {
         scores.clear(); // Menghapus skor yang ada sebelum memuat skor baru
         try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
-            System.out.println(filename);
+            //System.out.println(filename);
             String line;
             while ((line = reader.readLine()) != null) {
                 line = line.trim(); // Menghapus spasi di awal dan akhir
@@ -67,9 +67,9 @@ public class Scoreboard {
                     }
                 }
             }
-            System.out.println("Skor setelah memuat: " + scores); // Pernyataan debug
+            //System.out.println("Skor setelah memuat: " + scores); // Pernyataan debug
             sortScores(); // Mengurutkan skor setelah memuat semuanya
-            System.out.println("Skor setelah pengurutan: " + scores); // Pernyataan debug
+            //System.out.println("Skor setelah pengurutan: " + scores); // Pernyataan debug
         } catch (IOException e) {
             System.err.println("Error membaca dari file: " + filename);
             e.printStackTrace();
