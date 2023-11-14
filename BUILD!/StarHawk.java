@@ -248,7 +248,7 @@ public class StarHawk extends JPanel implements ActionListener {
     // Now you can draw your game elements in these sections
     playerShip.draw(g);
 
-        g.setColor(Color.BLACK);
+        g.setColor(Color.WHITE);
         g.setFont(new Font("Arial", Font.PLAIN, 20));
         g.drawString("Health: " + playerShip.getHealth(), sectionWidth, 30);
         g.drawString("Score: " + playerShip.getScore(), sectionWidth, 60);
