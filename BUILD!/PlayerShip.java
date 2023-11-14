@@ -50,7 +50,7 @@ public class PlayerShip {
         
         try {
             // Membaca gambar kapal pemain dari lokasi file tertentu
-            ImageIcon ii = new ImageIcon("./2023-10-27_09.08.55.png");
+            ImageIcon ii = new ImageIcon("./2023-11-13_19.08.31.png");
             
             // Mengambil objek Image dari ImageIcon
             playerImage = ii.getImage();
