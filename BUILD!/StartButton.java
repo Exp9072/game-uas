@@ -1,9 +1,14 @@
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Random;
+import java.net.URL;
+import java.awt.Image;
+import javax.swing.ImageIcon;
+import java.awt.Dimension;
 
 
 public class StartButton extends JButton {
@@ -14,9 +19,18 @@ public class StartButton extends JButton {
 
     // Konstruktor untuk StartButton, menerima JFrame dan GalagaGame sebagai parameter
     public StartButton(JFrame frame, StarHawk game) {
-        super("Mulai"); // Atur teks tombol menjadi "Mulai"
+        super(""); // Atur teks tombol menjadi "Mulai"
         this.frame = frame; // Inisialisasi variabel instance JFrame
         this.game = game; // Inisialisasi variabel instance GalagaGame
+
+        URL imageUrl = getClass().getResource("./BSTART.png");
+        ImageIcon ii = new ImageIcon(imageUrl);
+        Image scaledImage = ii.getImage().getScaledInstance(272, 110, Image.SCALE_SMOOTH);
+        setIcon(new ImageIcon(scaledImage));
+
+        setPreferredSize(new Dimension(50, 50));
+        setHorizontalTextPosition(JButton.CENTER);
+        setVerticalTextPosition(JButton.CENTER);
 
         // Tambahkan ActionListener ke tombol yang memanggil metode startGame() saat diklik
         addActionListener(new ActionListener() {

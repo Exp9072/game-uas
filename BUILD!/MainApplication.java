@@ -18,6 +18,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import javax.swing.ImageIcon;
+import java.net.URL;
 
 public class MainApplication {
     public static void main(String[] args) {
@@ -25,9 +26,51 @@ public class MainApplication {
         // Membuat objek JFrame untuk menampung permainan
         JFrame frame = new JFrame("Star-Hawk Invasion");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        ImageIcon ii = new ImageIcon("./Bg_Main.png");
+
+        // Membuat objek StarHawk sebagai inti permainan
+        StarHawk game = new StarHawk();
+        // Membuat panel untuk menu utama
+        JPanel mainMenuPanel = new JPanel(new GridBagLayout());
+        
+        // Membuat panel utama yang berisi menu utama dan panel scoreboard
+        JPanel mainPanel = new JPanel(new CardLayout());
+        
+        // Membuat panel untuk scoreboard
+        JPanel scoreboardPanel = new JPanel(new BorderLayout());
+        
+        //JLabel gameNameLabel = new JLabel("Star Hawk Invasion");
+        //Font gameNameFont = new Font("8BIT WONDER", Font.BOLD, 46);
+        //gameNameLabel.setFont(gameNameFont);
+        //gameNameLabel.setForeground(Color.WHITE);
+        // Create a panel for the title label
+        JPanel titlePanel = new JPanel(new GridBagLayout());
+        titlePanel.setOpaque(false);  // Make the panel transparent
+        GridBagConstraints titleGbc = new GridBagConstraints();
+        titleGbc.insets.set(0, 50, 0, 50);
+        titleGbc.gridwidth = GridBagConstraints.REMAINDER;
+        titleGbc.anchor = GridBagConstraints.CENTER;
+        titleGbc.fill = GridBagConstraints.NONE;
+        
+        URL titleImageUrl = MainApplication.class.getResource("./BTitle.png"); 
+        ImageIcon titleImageIcon = new ImageIcon(titleImageUrl);
+        JLabel gameNameLabel = new JLabel(titleImageIcon);
+        
+        titlePanel.add(gameNameLabel, titleGbc);
+        mainMenuPanel.add(titlePanel);
+        /*
+        if (titleImageIcon.getIconWidth() > 0) {
+            System.out.println("ImageIcon loaded successfully.");
+        } else {
+            System.out.println("Failed to load ImageIcon.");
+        }
+        */
+        //./Bg_Main.png
+        //./BgMainUpgrade.png
+        
+        ImageIcon ii = new ImageIcon("./BgMain.png");
         Image BgMain; 
         BgMain = ii.getImage(); 
+        
         JPanel panel = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
@@ -36,11 +79,6 @@ public class MainApplication {
                 g2d.drawImage(BgMain, 0, 0,1707, 1067, this); // Draw the background image
             }
         };
-
-
-
-        frame.getContentPane().add(panel);
-
         
         // Mendapatkan ukuran layar
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -56,73 +94,44 @@ public class MainApplication {
         int x = (screenSize.width - frame.getWidth()) / 2;
         int y = (screenSize.height - frame.getHeight()) / 2;
         frame.setLocation(x, y);
-
-        // Membuat objek StarHawk sebagai inti permainan
-        StarHawk game = new StarHawk();
-
-        // Membuat panel utama yang berisi menu utama dan panel scoreboard
-        JPanel mainPanel = new JPanel(new CardLayout());
-
-        // Membuat panel untuk menu utama
-        JPanel mainMenuPanel = new JPanel(new GridBagLayout());
-
-        // Membuat panel untuk scoreboard
-        JPanel scoreboardPanel = new JPanel(new BorderLayout());
-
+        
+        
         // Membuat objek RTOMainMenu dan SCRButton untuk mengatur menu utama dan scoreboard
         RTOMainMenu mainMenu = new RTOMainMenu(frame, mainPanel);
         SCRButton scoreboardButton = new SCRButton(mainPanel, scoreboardPanel, mainMenuPanel);
         game.setReturnMenu(mainMenu);
-
+        
         // Menambahkan komponen-komponen menu utama ke mainMenuPanel
-        JLabel gameNameLabel = new JLabel("Star Hawk Invasion");
-        Font gameNameFont = new Font("8BIT WONDER", Font.BOLD, 46);
-        gameNameLabel.setFont(gameNameFont);
-        gameNameLabel.setForeground(Color.WHITE);
-
-        GridBagConstraints titleGbc = new GridBagConstraints();
-        titleGbc.insets.set(0, 5, 10, 5);
-        titleGbc.gridwidth = GridBagConstraints.REMAINDER;
-        titleGbc.anchor = GridBagConstraints.CENTER;
-        titleGbc.fill = GridBagConstraints.NONE;
-
-        mainMenuPanel.add(gameNameLabel, titleGbc);
-
-        JPanel emptyPanel = new JPanel();
-        GridBagConstraints emptyGbc = new GridBagConstraints();
-        emptyGbc.insets.set(0, 5, 0, 5);
-        emptyGbc.fill = GridBagConstraints.BOTH;
-
-        mainMenuPanel.add(emptyPanel, emptyGbc);
-
+         
+        
         JPanel buttonPanel = new JPanel(new GridBagLayout());
-
+        
         // Membuat tombol StartButton, SCRButton, dan ExitButton
         StartButton startButton = new StartButton(frame, game);
         ExitButton exitButton = new ExitButton();
-
+        
         Dimension buttonSize = new Dimension(200, 50);
-
+        
         // Mengatur ukuran tombol
         startButton.setPreferredSize(buttonSize);
         scoreboardButton.setPreferredSize(buttonSize);
         exitButton.setPreferredSize(buttonSize);
-
+        
         GridBagConstraints buttonGbc = new GridBagConstraints();
         buttonGbc.insets.set(0, 5, 150, 5);
         buttonGbc.anchor = GridBagConstraints.CENTER;
         buttonGbc.fill = GridBagConstraints.HORIZONTAL;
-
+        
         // Menambahkan tombol-tombol ke panel tombol
         buttonPanel.add(startButton, buttonGbc);
         buttonPanel.add(scoreboardButton, buttonGbc);
         buttonPanel.add(exitButton, buttonGbc);
-
+        
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.CENTER;
-
+        
         mainMenuPanel.add(buttonPanel, gbc);
-
+        
         // Membuat JTextArea untuk menampilkan skor
         JTextArea scoreboardTextArea = new JTextArea(10, 40);
         scoreboardTextArea.setEditable(false);
@@ -143,9 +152,8 @@ public class MainApplication {
         // Adjust the position and size of components to avoid overlap
         int buttonPanelY = frame.getHeight() - 200; // Adjust this value as needed
 
+        gameNameLabel.setBounds(0, 0, frame.getWidth(), 100);
         buttonPanel.setBounds(0, buttonPanelY, frame.getWidth(), 200);
-        gameNameLabel.setBounds(0, 50, frame.getWidth(), 100);
-        emptyPanel.setBounds(0, 150, frame.getWidth(), 50);
 
         JScrollPane scrollPane = new JScrollPane(scoreboardTextArea);
         scoreboardPanel.add(scrollPane, BorderLayout.SOUTH);
@@ -157,9 +165,10 @@ public class MainApplication {
         // Secara awal, menampilkan panel menu utama
         CardLayout cardLayout = (CardLayout) mainPanel.getLayout();
         cardLayout.show(mainPanel, "mainMenu");
+        panel.add(gameNameLabel);
 
-        frame.add(mainPanel);
-
+        frame.getContentPane().add(mainPanel);
+        
         frame.setResizable(false);
         frame.setVisible(true);
     }

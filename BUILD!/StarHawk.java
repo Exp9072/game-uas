@@ -64,6 +64,7 @@ public class StarHawk extends JPanel implements ActionListener {
         // Membuat objek PlayerShip dan menentukan posisinya awal
         randomMovingEnemy = new RandomMovingEnemy(800, -50, 1, 0, screenWidth, 1500, random); // Contoh musuh yang bergerak acak
         //playerShip = new PlayerShip(380, 500, getWidth(), getHeight());
+        //./BInGameBg.png
 
         ImageIcon ii = new ImageIcon("./Bg_Game.png");
         ImageIcon uu = new ImageIcon("./Bg_Left.png");
