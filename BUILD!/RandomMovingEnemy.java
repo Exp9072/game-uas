@@ -8,9 +8,12 @@ import java.util.Random;
 import javax.swing.Timer;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import javax.swing.ImageIcon;
 
 public class
-
     RandomMovingEnemy extends Enemy {
     private int speed; // Kecepatan pergerakan musuh
     private int direction; // Arah pergerakan (1 atau -1)
@@ -30,7 +33,7 @@ public class
     private int screenHeight;
     private int screenWidth;
     private Random random;
-
+    private Image RMEImage;
 
     public RandomMovingEnemy(int x, int y, int speed, int minRange, int screenWidth, int shootingInterval, Random random) {
         super(x, y, 40, 40); // Memanggil konstruktor kelas dasar (Enemy) dengan posisi awal dan ukuran musuh
@@ -51,6 +54,10 @@ public class
         this.destinationY = 200;
         this.random = random;
         enemyLasers = new ArrayList<>();
+
+        ImageIcon ii = new ImageIcon("./ARandomEnemy.png");
+        RMEImage = ii.getImage();
+
         shootingTimer = new Timer(shootingInterval, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -176,8 +183,12 @@ private int getRandomMove(Random random) {
 
     // Metode untuk menggambar musuh
     public void draw(Graphics g) {
-        g.setColor(Color.green); // Mengatur warna musuh
-        g.fillRect(x, y, width, height); // Menggambar musuh
+        //Place holder
+        //g.setColor(Color.green); // Mengatur warna musuh
+        //g.fillRect(x, y, width, height); // Menggambar musuh
+        Graphics2D g2d = (Graphics2D) g;
+        g2d.drawImage(RMEImage, x, y, width, height, null);
+        
     }
 
     // Metode untuk mendapatkan posisi horizontal musuh

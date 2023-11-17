@@ -46,6 +46,10 @@ public class StarHawk extends JPanel implements ActionListener {
         this.setReturnMenu(returnMenu);
         
         random = new Random();
+        lasers = new ArrayList<>(); // Daftar proyektil laser yang ditembakkan oleh pemain
+        
+        // Membuat daftar objek musuh (enemies) dan menambahkan dua kapal musuh ke dalamnya
+        enemies = new ArrayList<>();
         // Inisialisasi keybool sebagai false, ini menandakan bahwa awalnya tidak ada kunci yang sedang ditekan.
         keybool = false;
 
@@ -60,14 +64,10 @@ public class StarHawk extends JPanel implements ActionListener {
         // Membuat objek PlayerShip dan menentukan posisinya awal
         randomMovingEnemy = new RandomMovingEnemy(800, -50, 1, 0, screenWidth, 1500, random); // Contoh musuh yang bergerak acak
         //playerShip = new PlayerShip(380, 500, getWidth(), getHeight());
-        lasers = new ArrayList<>(); // Daftar proyektil laser yang ditembakkan oleh pemain
-        
-        // Membuat daftar objek musuh (enemies) dan menambahkan dua kapal musuh ke dalamnya
-        enemies = new ArrayList<>();
 
-        ImageIcon ii = new ImageIcon("./2023-11-14_09.07.08.png");
-        ImageIcon uu = new ImageIcon("./2023-10-27_09.20.25.png");
-        ImageIcon jj = new ImageIcon("./2023-10-27_09.20.15.png");
+        ImageIcon ii = new ImageIcon("./Bg_Game.png");
+        ImageIcon uu = new ImageIcon("./Bg_Left.png");
+        ImageIcon jj = new ImageIcon("./Bg_Right.png");
 
         BgImage = ii.getImage();
         BgImageL = uu.getImage();
@@ -223,35 +223,35 @@ public class StarHawk extends JPanel implements ActionListener {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-    // Define the section widths
-    int screenWidth = getWidth();
-    //System.out.println(screenWidth);
-    int sectionWidth = screenWidth / 3;
+        // Define the section widths
+        int screenWidth = getWidth();
+        //System.out.println(screenWidth);
+        int sectionWidth = screenWidth / 3;
 
-    // Draw the left red section
-    g.setColor(Color.MAGENTA);
-    g.fillRect(0, 0, sectionWidth, getHeight());
-    Graphics2D bg1 = (Graphics2D) g;
-    bg1.drawImage(BgImageL, 0, 0 , null);
+        // Draw the left red section
+        g.setColor(Color.MAGENTA);
+        g.fillRect(0, 0, sectionWidth, getHeight());
+        Graphics2D bg1 = (Graphics2D) g;
+        bg1.drawImage(BgImageL, 0, 0 , null);
 
-    // Draw the middle white section
-    g.setColor(Color.WHITE);
-    g.fillRect(sectionWidth, 0, sectionWidth, getHeight());
-    Graphics2D bg = (Graphics2D) g;
-    bg.drawImage(BgImage, sectionWidth, 0 , null);
+        // Draw the middle white section
+        g.setColor(Color.WHITE);
+        g.fillRect(sectionWidth, 0, sectionWidth, getHeight());
+        Graphics2D bg = (Graphics2D) g;
+        bg.drawImage(BgImage, sectionWidth, 0 , null);
 
-    // Draw the right red section
-    g.setColor(Color.MAGENTA);
-    g.fillRect(2 * sectionWidth, 0, sectionWidth, getHeight());
-    Graphics2D bg2 = (Graphics2D) g;
-    bg2.drawImage(BgImageR, 2 * sectionWidth,0  , null);
-    // Now you can draw your game elements in these sections
-    playerShip.draw(g);
+        // Draw the right red section
+        g.setColor(Color.MAGENTA);
+        g.fillRect(2 * sectionWidth, 0, sectionWidth, getHeight());
+        Graphics2D bg2 = (Graphics2D) g;
+        bg2.drawImage(BgImageR, 2 * sectionWidth,0  , null);
+        // Now you can draw your game elements in these sections
+        playerShip.draw(g);
 
         g.setColor(Color.WHITE);
-        g.setFont(new Font("Arial", Font.PLAIN, 20));
-        g.drawString("Health: " + playerShip.getHealth(), sectionWidth, 30);
-        g.drawString("Score: " + playerShip.getScore(), sectionWidth, 60);
+        g.setFont(new Font("8BIT WONDER", Font.PLAIN, 12));
+        g.drawString("Health " + playerShip.getHealth(), sectionWidth, 30);
+        g.drawString("Score " + playerShip.getScore(), sectionWidth, 60);
 
         for (Enemy enemy : enemies) {
             enemy.draw(g); // Menggambar musuh
@@ -341,6 +341,7 @@ public class StarHawk extends JPanel implements ActionListener {
     }
 
     private void moveRandomMovingEnemies() {
+        
         for (Enemy enemy : enemies) {
             if (enemy instanceof RandomMovingEnemy) {
                 ((RandomMovingEnemy) enemy).moveRandomlyLeftRight(random); // Memindahkan musuh yang bergerak acak

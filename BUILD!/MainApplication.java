@@ -4,6 +4,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.GridBagLayout;
 import java.awt.BorderLayout;
 import java.awt.Font;
@@ -13,6 +14,10 @@ import java.awt.Toolkit;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import javax.swing.ImageIcon;
 
 public class MainApplication {
     public static void main(String[] args) {
@@ -20,6 +25,37 @@ public class MainApplication {
         // Membuat objek JFrame untuk menampung permainan
         JFrame frame = new JFrame("Star-Hawk Invasion");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        ImageIcon ii = new ImageIcon("./Bg_Main.png");
+        Image BgMain; 
+        BgMain = ii.getImage(); 
+        JPanel panel = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                Graphics2D g2d = (Graphics2D) g;
+                g2d.drawImage(BgMain, 0, 0,1707, 1067, this); // Draw the background image
+            }
+        };
+
+
+
+        frame.getContentPane().add(panel);
+
+        
+        // Mendapatkan ukuran layar
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int width = screenSize.width;
+        int height = screenSize.height;
+        System.out.println(height+ " | " + width);
+        
+        frame.setLayout(new BorderLayout()); // Set layout to null
+        panel.setBounds(0, 0, 1707, 1067); // Set the bounds of the panel
+        frame.add(panel);
+        // Mengatur ukuran frame dan posisinya di tengah layar
+        frame.setSize(width, height);
+        int x = (screenSize.width - frame.getWidth()) / 2;
+        int y = (screenSize.height - frame.getHeight()) / 2;
+        frame.setLocation(x, y);
 
         // Membuat objek StarHawk sebagai inti permainan
         StarHawk game = new StarHawk();
@@ -39,12 +75,13 @@ public class MainApplication {
         game.setReturnMenu(mainMenu);
 
         // Menambahkan komponen-komponen menu utama ke mainMenuPanel
-        JLabel gameNameLabel = new JLabel("Star-Hawk Invasion");
-        Font gameNameFont = new Font("Arial", Font.BOLD, 96);
+        JLabel gameNameLabel = new JLabel("Star Hawk Invasion");
+        Font gameNameFont = new Font("8BIT WONDER", Font.BOLD, 46);
         gameNameLabel.setFont(gameNameFont);
+        gameNameLabel.setForeground(Color.WHITE);
 
         GridBagConstraints titleGbc = new GridBagConstraints();
-        titleGbc.insets.set(0, 5, 0, 5);
+        titleGbc.insets.set(0, 5, 10, 5);
         titleGbc.gridwidth = GridBagConstraints.REMAINDER;
         titleGbc.anchor = GridBagConstraints.CENTER;
         titleGbc.fill = GridBagConstraints.NONE;
@@ -103,6 +140,13 @@ public class MainApplication {
             ex.printStackTrace();
         }
 
+        // Adjust the position and size of components to avoid overlap
+        int buttonPanelY = frame.getHeight() - 200; // Adjust this value as needed
+
+        buttonPanel.setBounds(0, buttonPanelY, frame.getWidth(), 200);
+        gameNameLabel.setBounds(0, 50, frame.getWidth(), 100);
+        emptyPanel.setBounds(0, 150, frame.getWidth(), 50);
+
         JScrollPane scrollPane = new JScrollPane(scoreboardTextArea);
         scoreboardPanel.add(scrollPane, BorderLayout.SOUTH);
 
@@ -115,19 +159,6 @@ public class MainApplication {
         cardLayout.show(mainPanel, "mainMenu");
 
         frame.add(mainPanel);
-
-        // Kode lainnya...
-
-        // Mendapatkan ukuran layar
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        int width = screenSize.width;
-        int height = screenSize.height;
-
-        // Mengatur ukuran frame dan posisinya di tengah layar
-        frame.setSize(width, height);
-        int x = (screenSize.width - frame.getWidth()) / 2;
-        int y = (screenSize.height - frame.getHeight()) / 2;
-        frame.setLocation(x, y);
 
         frame.setResizable(false);
         frame.setVisible(true);

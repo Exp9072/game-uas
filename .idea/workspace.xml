@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="4d4eddb6-9175-4be3-b87e-60c43c2d387b" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/BUILD!/.idea/artifacts/STAR_HAWK_INVASION_jar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BUILD!/Collision.class" beforeDir="false" afterPath="$PROJECT_DIR$/BUILD!/Collision.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BUILD!/Collision.java" beforeDir="false" afterPath="$PROJECT_DIR$/BUILD!/Collision.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BUILD!/Enemy.class" beforeDir="false" afterPath="$PROJECT_DIR$/BUILD!/Enemy.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BUILD!/Enemy.java" beforeDir="false" afterPath="$PROJECT_DIR$/BUILD!/Enemy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BUILD!/GalagaGame$1$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BUILD!/GalagaGame$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BUILD!/GalagaGame.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BUILD!/GalagaGame.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BUILD!/Laser.java" beforeDir="false" afterPath="$PROJECT_DIR$/BUILD!/Laser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BUILD!/MainApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/BUILD!/MainApplication.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BUILD!/MainApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/BUILD!/MainApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BUILD!/PlayerShip.class" beforeDir="false" afterPath="$PROJECT_DIR$/BUILD!/PlayerShip.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BUILD!/PlayerShip.java" beforeDir="false" afterPath="$PROJECT_DIR$/BUILD!/PlayerShip.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BUILD!/RandomMovingEnemy$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/BUILD!/RandomMovingEnemy$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BUILD!/RandomMovingEnemy$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/BUILD!/RandomMovingEnemy$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BUILD!/RandomMovingEnemy.class" beforeDir="false" afterPath="$PROJECT_DIR$/BUILD!/RandomMovingEnemy.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BUILD!/RandomMovingEnemy.java" beforeDir="false" afterPath="$PROJECT_DIR$/BUILD!/RandomMovingEnemy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BUILD!/Respawn.class" beforeDir="false" afterPath="$PROJECT_DIR$/BUILD!/Respawn.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BUILD!/Respawn.java" beforeDir="false" afterPath="$PROJECT_DIR$/BUILD!/Respawn.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BUILD!/SCRButton.class" beforeDir="false" afterPath="$PROJECT_DIR$/BUILD!/SCRButton.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BUILD!/SCRButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/BUILD!/SCRButton.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BUILD!/StartButton$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/BUILD!/StartButton$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BUILD!/StartButton.class" beforeDir="false" afterPath="$PROJECT_DIR$/BUILD!/StartButton.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BUILD!/StartButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/BUILD!/StartButton.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BUILD!/StaticEnemy$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/BUILD!/StaticEnemy$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BUILD!/StaticEnemy$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/BUILD!/StaticEnemy$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BUILD!/StaticEnemy.class" beforeDir="false" afterPath="$PROJECT_DIR$/BUILD!/StaticEnemy.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BUILD!/StaticEnemy.java" beforeDir="false" afterPath="$PROJECT_DIR$/BUILD!/StaticEnemy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BUILD/!/out/production/BUILD!/MainApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/BUILD/!/out/production/BUILD!/MainApplication.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BUILD/!/out/production/BUILD!/StarHawk.class" beforeDir="false" afterPath="$PROJECT_DIR$/BUILD/!/out/production/BUILD!/StarHawk.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UAS.iml" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 8
+}]]></component>
+  <component name="ProjectId" id="2Y9lmw2ZLxEoX8jxBIupn8IEZHj" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "C:/Users/LEGION/Documents/Semua File Penting/Kampus Project VSC/KampusS3/UAS/BUILD!"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="4d4eddb6-9175-4be3-b87e-60c43c2d387b" name="Changes" comment="" />
+      <created>1699945838433</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1699945838433</updated>
+    </task>
+    <servers />
+  </component>
+</project>

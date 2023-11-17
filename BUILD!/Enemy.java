@@ -2,6 +2,10 @@ import java.awt.Graphics;
 import java.awt.Color;
 import javax.swing.Timer;
 import java.util.ArrayList;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import javax.swing.ImageIcon;
 
 public abstract class Enemy {
     // Deklarasi variabel instance yang akan digunakan untuk mengelola posisi dan ukuran musuh
@@ -12,6 +16,7 @@ public abstract class Enemy {
     protected Timer shootingTimer; // Timer untuk menembakkan laser
     protected int shootingInterval; // Interval penembakan
     protected ArrayList<Laser> enemyLasers; // Daftar laser musuh
+    private Image SEImage;
 
     // Konstruktor kelas Enemy
     public Enemy(int x, int y, int width, int height) {
@@ -25,6 +30,9 @@ public abstract class Enemy {
         this.health = 1; // Menginisialisasi kesehatan musuh dengan 1
         this.enemyLasers = new ArrayList<>(); // Inisialisasi daftar laser musuh
         this.shootingInterval = 3000; // Mengatur interval penembakan
+        
+        ImageIcon ii = new ImageIcon("./AEnemy_Static.png");
+        SEImage = ii.getImage();
     }
 
     // Metode getter untuk mendapatkan nilai x
@@ -65,9 +73,14 @@ public abstract class Enemy {
     // Metode untuk menggambar musuh
     public void draw(Graphics g) {
         // Mengatur warna gambar menjadi merah
-        g.setColor(Color.red);
         // Menggambar musuh sebagai persegi dengan posisi dan ukuran yang sesuai
-        g.fillRect(x, y, width, height);
+        //Place holder
+        //g.setColor(Color.red);
+        //g.fillRect(x, y, width, height);
+        Graphics2D g2d = (Graphics2D) g;
+        g2d.drawImage(SEImage, x, y, width, height, null);
+
+        
     }
 }
 
