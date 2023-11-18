@@ -71,7 +71,7 @@ public class MainApplication {
         //./Bg_Main.png
         //./BgMainUpgrade.png
         
-        ImageIcon ii = new ImageIcon("./BgMain.png");
+        ImageIcon ii = new ImageIcon("./BgMain+BackStory(WarpedGrey).png");
         Image BgMain; 
         BgMain = ii.getImage(); 
         
@@ -111,7 +111,7 @@ public class MainApplication {
         SCRButton scoreboardButton = new SCRButton(cardLayout, mainPanel, scoreboardPanel, mainMenuPanel, frame, panel, gameNameLabel);
         //panel.add(gameNameLabel, BorderLayout.CENTER);
         // Membuat objek RTOMainMenu dan SCRButton untuk mengatur menu utama dan scoreboard
-        RTOMainMenu mainMenu = new RTOMainMenu(frame, mainPanel);
+        RTOMainMenu mainMenu = new RTOMainMenu(frame, mainPanel, panel, cardLayout);
         mainPanel.add(mainMenuPanel, "mainMenu");
 
         game.setReturnMenu(mainMenu);
@@ -187,7 +187,7 @@ public class MainApplication {
         
         //panel.add(buttonPanel, BorderLayout.SOUTH);
 
-        System.out.println("\n mainpanel = "+mainPanel);
+        //System.out.println("\n mainpanel = "+mainPanel);
         cardLayout.show(mainPanel, "mainMenu");
         panel.add(gameNameLabel, BorderLayout.CENTER);
         panel.add(startButton);

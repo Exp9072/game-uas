@@ -52,7 +52,7 @@ public class SCRButton extends JButton {
                         // Switch back to the original main panel
                         CardLayout cardLayout = (CardLayout) mainPanel.getLayout();
                         cardLayout.show(mainPanel, "mainMenu");
-                        System.out.println("\n SCR mainpanel = "+mainPanel);
+                        //System.out.println("\n SCR mainpanel = "+mainPanel);
 
                         // Clear the scoreboard panel
                         scoreboardPanel.removeAll();
