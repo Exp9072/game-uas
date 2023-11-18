@@ -19,7 +19,6 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-
 import java.net.URL;
 
 public class MainApplication {
@@ -104,9 +103,6 @@ public class MainApplication {
         CardLayout cardLayout = new CardLayout();
         mainPanel.setLayout(cardLayout);
         mainPanel.add(scoreboardPanel, "scoreboard");
-
-        
-
         
         SCRButton scoreboardButton = new SCRButton(cardLayout, mainPanel, scoreboardPanel, mainMenuPanel, frame, panel, gameNameLabel);
         //panel.add(gameNameLabel, BorderLayout.CENTER);
@@ -273,4 +269,4 @@ public class MainApplication {
 14. GUI | Y
 */
 
-// 1669 lines
+// 1846 lines

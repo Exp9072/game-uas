@@ -23,9 +23,9 @@ public class StartButton extends JButton {
         this.frame = frame; // Inisialisasi variabel instance JFrame
         this.game = game; // Inisialisasi variabel instance GalagaGame
 
-        URL imageUrl = getClass().getResource("./BSTART.png");
+        URL imageUrl = getClass().getResource("./BStartButton.png");
         ImageIcon ii = new ImageIcon(imageUrl);
-        Image scaledImage = ii.getImage().getScaledInstance(272, 110, Image.SCALE_SMOOTH);
+        Image scaledImage = ii.getImage().getScaledInstance(205, 55, Image.SCALE_SMOOTH);
         setIcon(new ImageIcon(scaledImage));
 
         setPreferredSize(new Dimension(50, 50));

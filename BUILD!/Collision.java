@@ -1,6 +1,5 @@
 import java.util.ArrayList; // Impor kelas ArrayList dari pustaka Java
 
-
 public class Collision {
     // Metode untuk memeriksa tabrakan antara laser dan musuh
     public static void checkCollisions(ArrayList<Laser> playerLasers, ArrayList<Enemy> enemies, PlayerShip playerShip, StarHawk game) {

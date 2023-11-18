@@ -3,6 +3,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+
 import java.awt.CardLayout;
 import java.awt.Component;
 import java.awt.GridBagLayout;
@@ -14,6 +16,9 @@ import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.URL;
+import java.awt.Image;
+import java.awt.Dimension;
 
 // Kelas SCRButton merepresentasikan tombol "Scoreboard" pada permainan Galaga.
 public class SCRButton extends JButton {
@@ -24,10 +29,18 @@ public class SCRButton extends JButton {
 
     // Konstruktor untuk SCRButton, menerima referensi ke panel utama, panel scoreboard, dan panel menu utama sebagai parameter
     public SCRButton(CardLayout cardLayout, JPanel mainPanel, JPanel scoreboardPanel, JPanel mainMenuPanel, JFrame frame, JPanel panel, JLabel gameNameLabel) {
-        super("Scoreboard");
+        super("");
         this.mainMenuPanel = mainMenuPanel;
         this.scoreboardPanel = scoreboardPanel;
         this.mainPanel = mainPanel;
+        URL imageUrl = getClass().getResource("./BScoreboardButton.png");
+        ImageIcon ii = new ImageIcon(imageUrl);
+        Image scaledImage = ii.getImage().getScaledInstance(205, 55, Image.SCALE_SMOOTH);
+        setIcon(new ImageIcon(scaledImage));
+
+        setPreferredSize(new Dimension(50, 50));
+        setHorizontalTextPosition(JButton.CENTER);
+        setVerticalTextPosition(JButton.CENTER);
 
         // Menambahkan ActionListener untuk menanggapi klik tombol "Scoreboard"
         addActionListener(new ActionListener() {
@@ -45,7 +58,17 @@ public class SCRButton extends JButton {
                 displayScores();
 
                 // Menambahkan tombol "RETURN" untuk kembali ke panel menu utama
-                JButton returnButton = new JButton("RETURN");
+                JButton returnButton = new JButton("");
+ 
+                URL imageUrl = getClass().getResource("./BMainMenuButtonBlue.png");
+                ImageIcon ii = new ImageIcon(imageUrl);
+                Image scaledImage = ii.getImage().getScaledInstance(205, 55, Image.SCALE_SMOOTH);
+                
+                returnButton.setIcon(new ImageIcon(scaledImage));
+                returnButton.setPreferredSize(new Dimension(200, 50));
+                returnButton.setHorizontalTextPosition(JButton.CENTER);
+                returnButton.setVerticalTextPosition(JButton.CENTER);
+
                 returnButton.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
@@ -85,7 +108,7 @@ public class SCRButton extends JButton {
                 returnButtonPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
                 // Menambahkan panel tombol "RETURN" ke bagian selatan panel scoreboard
-                scoreboardPanel.add(returnButtonPanel, BorderLayout.SOUTH);
+                scoreboardPanel.add(returnButtonPanel, BorderLayout.CENTER);
                 scoreboardPanel.revalidate();
                 scoreboardPanel.repaint();
             }

@@ -1,5 +1,6 @@
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import java.awt.GridBagLayout;
@@ -7,10 +8,18 @@ import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.URL;
+import java.net.URL;
+import java.awt.Image;
+import javax.swing.ImageIcon;
+import java.awt.Dimension;
+import java.awt.Graphics;
+
 
 // Kelas RTOMainMenu merepresentasikan panel menu utama dalam permainan Galaga.
 public class RTOMainMenu extends JPanel {
@@ -29,9 +38,10 @@ public class RTOMainMenu extends JPanel {
 
         // Tombol untuk kembali ke menu utama
         JButton returnButton = new JButton("Kembali ke Menu Utama");
-        returnButton.setFont(new Font("Arial", Font.PLAIN, 24)); // Mengatur jenis font, gaya, dan ukuran
-        returnButton.setForeground(Color.WHITE); // Mengatur warna teks tombol menjadi putih
-        returnButton.setBackground(Color.RED); // Mengatur warna latar tombol menjadi merah
+        //returnButton.setFont(new Font("Arial", Font.PLAIN, 24)); // Mengatur jenis font, gaya, dan ukuran
+        //returnButton.setForeground(Color.WHITE); // Mengatur warna teks tombol menjadi putih
+        //returnButton.setBackground(Color.RED); // Mengatur warna latar tombol menjadi merah
+
 
         returnButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -41,10 +51,15 @@ public class RTOMainMenu extends JPanel {
         });
         
         GridBagConstraints gbc = new GridBagConstraints(); // Menggunakan GridBagConstraints untuk mengatur posisi komponen
+
         gbc.gridx = 0; // Menentukan kolom ke-0
-        gbc.gridy = 1; // Menentukan baris ke-1
-        gbc.insets = new Insets(0, 0, 300, 0); // Mengatur jarak antara komponen (top, left, bottom, right)
-        
+        gbc.gridy = 0; // Menentukan baris ke-1
+        gbc.weightx = 1.0; // Make the button expand horizontally
+        gbc.weighty = 1.0; // Make the button expand vertically
+        gbc.insets.set(1000, 0, 0, 0); // Mengatur jarak antara komponen (top, left, bottom, right)
+        //gbc.fill = GridBagConstraints.CENTER;
+        gbc.anchor = GridBagConstraints.CENTER;
+  
         add(returnButton, gbc); // Menambahkan tombol kembali ke panel dengan menggunakan GridBagConstraints
     }
     
@@ -71,26 +86,45 @@ public class RTOMainMenu extends JPanel {
     // Metode untuk menampilkan layar permainan berakhir
     public void showGameOverScreen() {
         // Membuat panel permainan berakhir
-        JPanel gameOverPanel = new JPanel();
+        ImageIcon ll = new ImageIcon("./BYouDied.png");
+        Image BgDeath; 
+        BgDeath = ll.getImage(); 
+        JPanel gameOverPanel = new JPanel(){
+            @Override
+            protected void paintComponent(Graphics g ){
+                super.paintComponent(g);
+                Graphics2D g2d = (Graphics2D) g;
+                g2d.drawImage(BgDeath, 0, 0, 1707, 1067, this);
+            }
+        };
         gameOverPanel.setLayout(new GridBagLayout()); // Mengatur tata letak panel menggunakan GridBagLayout
-        gameOverPanel.setBackground(Color.BLACK); // Mengatur warna latar belakang panel menjadi hitam
+        //gameOverPanel.setBackground(Color.BLACK); // Mengatur warna latar belakang panel menjadi hitam
         
         // Membuat dan menyesuaikan label permainan berakhir
-        JLabel gameOverLabel = new JLabel("Game Over");
-        gameOverLabel.setFont(new Font("Arial", Font.BOLD, 36)); // Mengatur jenis font, gaya, dan ukuran
-        gameOverLabel.setForeground(Color.RED); // Mengatur warna teks label menjadi merah
+        //JLabel gameOverLabel = new JLabel("Game Over");
+        //gameOverLabel.setFont(new Font("Arial", Font.BOLD, 36)); // Mengatur jenis font, gaya, dan ukuran
+        //gameOverLabel.setForeground(Color.RED); // Mengatur warna teks label menjadi merah
         
         // Membuat tombol untuk kembali ke menu utama
-        JButton returnButton = new JButton("Kembali ke Menu Utama");
-        returnButton.setFont(new Font("Arial", Font.PLAIN, 24)); // Mengatur jenis font, gaya, dan ukuran
-        returnButton.setForeground(Color.WHITE); // Mengatur warna teks tombol menjadi putih
-        returnButton.setBackground(Color.RED); // Mengatur warna latar tombol menjadi merah
+        JButton returnButton = new JButton("");
+        //returnButton.setFont(new Font("Arial", Font.PLAIN, 24)); // Mengatur jenis font, gaya, dan ukuran
+        //returnButton.setForeground(Color.WHITE); // Mengatur warna teks tombol menjadi putih
+        //returnButton.setBackground(Color.RED); // Mengatur warna latar tombol menjadi merah
         
+        URL imageUrl = getClass().getResource("./BMainMenuButtonRed.png");
+        ImageIcon ii = new ImageIcon(imageUrl);
+        Image scaledImage = ii.getImage().getScaledInstance(205, 55, Image.SCALE_SMOOTH);
+        
+        returnButton.setIcon(new ImageIcon(scaledImage));
+        returnButton.setPreferredSize(new Dimension(200, 50));
+        returnButton.setHorizontalTextPosition(JButton.CENTER);
+        returnButton.setVerticalTextPosition(JButton.CENTER);
+
         returnButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 //frame.removeAll(); // Menghapus semua komponen dari content pane
-                gameOverPanel.removeAll();
-                gameOverLabel.removeAll();
+                //gameOverPanel.removeAll();
+                //gameOverLabel.removeAll();
                 //gameOverPanel.revalidate();
                 //gameOverPanel.repaint();
                 //System.out.println("RTO bawah");
@@ -100,13 +134,14 @@ public class RTOMainMenu extends JPanel {
     
         // Menambahkan label permainan berakhir dan tombol kembali ke panel permainan berakhir
         GridBagConstraints gbc = new GridBagConstraints(); // Menggunakan GridBagConstraints untuk mengatur posisi komponen
-        gbc.gridx = 0; // Menentukan kolom ke-0
-        gbc.gridy = 0; // Menentukan baris ke-0
-        gbc.insets = new Insets(0, 0, 0, 0); // Mengatur jarak antara komponen (top, left, bottom, right)
-        gameOverPanel.add(gameOverLabel, gbc); // Menambahkan label permainan berakhir ke panel
-    
-        gbc.gridy = 1; // Menentukan baris ke-1
-        gbc.insets = new Insets(00, 0, 0, 0); // Mengatur jarak antara komponen (top, left, bottom, right)
+        //gbc.gridx = 0; // Menentukan kolom ke-0
+        //gbc.gridy = 0; // Menentukan baris ke-1
+        //gbc.weightx = 1.0; // Make the button expand horizontally
+        //gbc.weighty = 1.0; // Make the button expand vertically
+        //gbc.insets = new Insets(1000, 0, 0, 0); // Mengatur jarak antara komponen (top, left, bottom, right)
+        //gbc.fill = GridBagConstraints.CENTER;
+        //gbc.anchor = GridBagConstraints.CENTER;
+        //System.out.println("gbc = "+gbc);
         gameOverPanel.add(returnButton, gbc); // Menambahkan tombol kembali ke panel
     
         // Menghapus konten frame dan menambahkan panel permainan berakhir
