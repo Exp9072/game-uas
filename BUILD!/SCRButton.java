@@ -1,4 +1,5 @@
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.BoxLayout;
@@ -22,7 +23,7 @@ public class SCRButton extends JButton {
     private JPanel mainPanel;
 
     // Konstruktor untuk SCRButton, menerima referensi ke panel utama, panel scoreboard, dan panel menu utama sebagai parameter
-    public SCRButton(JPanel mainPanel, JPanel scoreboardPanel, JPanel mainMenuPanel) {
+    public SCRButton(CardLayout cardLayout, JPanel mainPanel, JPanel scoreboardPanel, JPanel mainMenuPanel, JFrame frame, JPanel panel, JLabel gameNameLabel) {
         super("Scoreboard");
         this.mainMenuPanel = mainMenuPanel;
         this.scoreboardPanel = scoreboardPanel;
@@ -35,6 +36,10 @@ public class SCRButton extends JButton {
                 // Menggunakan CardLayout untuk beralih ke panel scoreboard di dalam panel utama
                 CardLayout cardLayout = (CardLayout) mainPanel.getLayout();
                 cardLayout.show(mainPanel, "scoreboard");
+                frame.remove(mainMenuPanel);
+                frame.remove(panel);
+                //System.out.println("\n SB mainmenupanel = "+ mainMenuPanel);
+                //System.out.println("\n SB mainpanel = "+mainPanel);
 
                 // Menampilkan skor pada panel scoreboard
                 displayScores();
@@ -44,7 +49,30 @@ public class SCRButton extends JButton {
                 returnButton.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
+                        // Switch back to the original main panel
+                        CardLayout cardLayout = (CardLayout) mainPanel.getLayout();
                         cardLayout.show(mainPanel, "mainMenu");
+                        System.out.println("\n SCR mainpanel = "+mainPanel);
+
+                        // Clear the scoreboard panel
+                        scoreboardPanel.removeAll();
+                        scoreboardPanel.revalidate();
+                        scoreboardPanel.repaint();
+                        //frame.add(panel, BorderLayout.CENTER);
+                        
+                        panel.add(mainPanel, BorderLayout.CENTER);
+                        
+                        frame.add(panel);
+                        frame.getContentPane().add(mainPanel);
+                        frame.setResizable(false);
+                        frame.setVisible(true);
+                        frame.repaint();
+
+                        panel.revalidate();
+                        panel.setVisible(true);
+                        panel.repaint();
+                        
+                        
                     }
                 });
 
@@ -55,7 +83,7 @@ public class SCRButton extends JButton {
                 // Mengatur tata letak returnButtonPanel untuk menempatkan tombol di tengah
                 returnButtonPanel.setLayout(new BoxLayout(returnButtonPanel, BoxLayout.PAGE_AXIS));
                 returnButtonPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
-                
+
                 // Menambahkan panel tombol "RETURN" ke bagian selatan panel scoreboard
                 scoreboardPanel.add(returnButtonPanel, BorderLayout.SOUTH);
                 scoreboardPanel.revalidate();
@@ -100,5 +128,6 @@ public class SCRButton extends JButton {
         scoreboardPanel.repaint();
     }
 }
+
 
 // jangan di ss

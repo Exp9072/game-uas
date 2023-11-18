@@ -13,12 +13,12 @@ import java.awt.event.ActionListener;
 // Kelas RTOMainMenu merepresentasikan panel menu utama dalam permainan Galaga.
 public class RTOMainMenu extends JPanel {
     private final JFrame frame;
-    private JPanel mainMenuPanel;
+    private JPanel mainPanel;
 
     // Konstruktor untuk RTOMainMenu, menerima JFrame dan panel menu utama sebagai parameter
-    public RTOMainMenu(JFrame frame, JPanel mainMenuPanel) {
+    public RTOMainMenu(JFrame frame, JPanel mainPanel) {
         this.frame = frame;
-        this.mainMenuPanel = mainMenuPanel;
+        this.mainPanel = mainPanel;
 
         setLayout(new GridBagLayout()); // Mengatur tata letak panel menggunakan GridBagLayout
         setBackground(Color.BLACK); // Mengatur warna latar belakang panel menjadi hitam
@@ -46,7 +46,7 @@ public class RTOMainMenu extends JPanel {
     // Metode untuk kembali ke panel menu utama
     public void returnToMainMenu() {
         frame.getContentPane().removeAll(); // Menghapus semua komponen dari content pane
-        frame.getContentPane().add(mainMenuPanel); // Menambahkan panel menu utama asli
+        frame.getContentPane().add(mainPanel); // Menambahkan panel menu utama asli
         frame.getContentPane().revalidate(); // Memvalidasi kembali hierarki komponen
         frame.getContentPane().repaint(); // Menggambar ulang frame
     }

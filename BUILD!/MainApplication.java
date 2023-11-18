@@ -18,9 +18,12 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
+
 import java.net.URL;
 
 public class MainApplication {
+    private static JPanel panel;
     public static void main(String[] args) {
         System.setProperty("sun.java2d.opengl", "true");
         // Membuat objek JFrame untuk menampung permainan
@@ -56,7 +59,8 @@ public class MainApplication {
         JLabel gameNameLabel = new JLabel(titleImageIcon);
         
         titlePanel.add(gameNameLabel, titleGbc);
-        mainMenuPanel.add(titlePanel);
+        
+        
         /*
         if (titleImageIcon.getIconWidth() > 0) {
             System.out.println("ImageIcon loaded successfully.");
@@ -71,7 +75,7 @@ public class MainApplication {
         Image BgMain; 
         BgMain = ii.getImage(); 
         
-        JPanel panel = new JPanel() {
+        panel = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
@@ -80,11 +84,13 @@ public class MainApplication {
             }
         };
         
+        //System.out.println("Title Image Width: " + titleImageIcon.getIconWidth());
+        //System.out.println("Background Image Width: " + ii.getIconWidth());
         // Mendapatkan ukuran layar
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int width = screenSize.width;
         int height = screenSize.height;
-        System.out.println(height+ " | " + width);
+        //System.out.println(height+ " | " + width);
         
         frame.setLayout(new BorderLayout()); // Set layout to null
         panel.setBounds(0, 0, 1707, 1067); // Set the bounds of the panel
@@ -94,15 +100,23 @@ public class MainApplication {
         int x = (screenSize.width - frame.getWidth()) / 2;
         int y = (screenSize.height - frame.getHeight()) / 2;
         frame.setLocation(x, y);
+
+        CardLayout cardLayout = new CardLayout();
+        mainPanel.setLayout(cardLayout);
+        mainPanel.add(scoreboardPanel, "scoreboard");
+
         
+
         
+        SCRButton scoreboardButton = new SCRButton(cardLayout, mainPanel, scoreboardPanel, mainMenuPanel, frame, panel, gameNameLabel);
+        //panel.add(gameNameLabel, BorderLayout.CENTER);
         // Membuat objek RTOMainMenu dan SCRButton untuk mengatur menu utama dan scoreboard
         RTOMainMenu mainMenu = new RTOMainMenu(frame, mainPanel);
-        SCRButton scoreboardButton = new SCRButton(mainPanel, scoreboardPanel, mainMenuPanel);
+        mainPanel.add(mainMenuPanel, "mainMenu");
+
         game.setReturnMenu(mainMenu);
         
-        // Menambahkan komponen-komponen menu utama ke mainMenuPanel
-         
+        // Menambahkan komponen-komponen menu utama ke mainMenuPanel 
         
         JPanel buttonPanel = new JPanel(new GridBagLayout());
         
@@ -118,7 +132,7 @@ public class MainApplication {
         exitButton.setPreferredSize(buttonSize);
         
         GridBagConstraints buttonGbc = new GridBagConstraints();
-        buttonGbc.insets.set(0, 5, 150, 5);
+        buttonGbc.insets.set(0, 5, 0, 5);
         buttonGbc.anchor = GridBagConstraints.CENTER;
         buttonGbc.fill = GridBagConstraints.HORIZONTAL;
         
@@ -130,12 +144,14 @@ public class MainApplication {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.CENTER;
         
-        mainMenuPanel.add(buttonPanel, gbc);
-        
         // Membuat JTextArea untuk menampilkan skor
         JTextArea scoreboardTextArea = new JTextArea(10, 40);
         scoreboardTextArea.setEditable(false);
 
+        //startButton.setVisible(true);
+        //scoreboardButton.setVisible(true);
+        //exitButton.setVisible(true);
+        
         // Memuat skor dari file dan menampilkannya
         try {
             String filename = "SCORESAVE.txt";
@@ -148,29 +164,50 @@ public class MainApplication {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-
+        mainMenuPanel.add(gameNameLabel, titleGbc);
+        mainMenuPanel.add(titlePanel);
+        mainPanel.add(mainMenuPanel, "mainMenu");
+        
         // Adjust the position and size of components to avoid overlap
         int buttonPanelY = frame.getHeight() - 200; // Adjust this value as needed
-
+        
         gameNameLabel.setBounds(0, 0, frame.getWidth(), 100);
         buttonPanel.setBounds(0, buttonPanelY, frame.getWidth(), 200);
-
+        
         JScrollPane scrollPane = new JScrollPane(scoreboardTextArea);
         scoreboardPanel.add(scrollPane, BorderLayout.SOUTH);
-
-        // Menambahkan panel menu utama dan panel scoreboard ke mainPanel
-        mainPanel.add(mainMenuPanel, "mainMenu");
-        mainPanel.add(scoreboardPanel, "scoreboard");
-
-        // Secara awal, menampilkan panel menu utama
-        CardLayout cardLayout = (CardLayout) mainPanel.getLayout();
-        cardLayout.show(mainPanel, "mainMenu");
-        panel.add(gameNameLabel);
-
-        frame.getContentPane().add(mainPanel);
         
+        //mainPanel.add(scoreboardPanel, "scoreboard");
+        // Menambahkan panel menu utama dan panel scoreboard ke mainPanel
+        //mainMenuPanel.add(buttonPanel);
+        
+        
+        // Secara awal, menampilkan panel menu utama
+        //CardLayout cardLayout = (CardLayout) mainPanel.getLayout();
+        
+        //panel.add(buttonPanel, BorderLayout.SOUTH);
+
+        System.out.println("\n mainpanel = "+mainPanel);
+        cardLayout.show(mainPanel, "mainMenu");
+        panel.add(gameNameLabel, BorderLayout.CENTER);
+        panel.add(startButton);
+        panel.add(scoreboardButton);
+        panel.add(exitButton);
+        frame.add(panel);
+        frame.getContentPane().add(mainPanel);
+        frame.revalidate();
         frame.setResizable(false);
         frame.setVisible(true);
+        frame.repaint();
+        panel.revalidate();
+        panel.setVisible(true);
+        panel.repaint();
+        buttonPanel.revalidate();
+        buttonPanel.setVisible(true);
+        buttonPanel.repaint();
+        //startButton.repaint();
+        //scoreboardButton.repaint();
+        //exitButton.repaint();
     }
 }
 
