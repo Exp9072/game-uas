@@ -7,11 +7,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Random;   
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.ImageIcon;
 
 public class StarHawk extends JPanel implements ActionListener {
@@ -35,6 +39,7 @@ public class StarHawk extends JPanel implements ActionListener {
     private static final int TARGET_FPS = 240;
     private static final long OPTIMAL_TIME = 1000000000 / TARGET_FPS;
     private Image BgImage, BgImageL,BgImageR;
+    private static Clip ShootSound;
    
     public StarHawk() {
         // Menginisialisasi kapal pemain dengan ukuran layar 
@@ -92,6 +97,17 @@ public class StarHawk extends JPanel implements ActionListener {
             }
         }
 
+        try {
+            // Muat suara menembak dari file
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("./CPlayerShoot_1.wav"));
+            ShootSound = AudioSystem.getClip();
+            ShootSound.open(audioInputStream);
+        } catch (Exception e) {
+            // Cetak jejak tumpukan jika terjadi pengecualian saat inisialisasi suara
+            e.printStackTrace();
+        }
+
+
         // Menangani input dari pemain (keyboard)
         // catch handeling null ubah
         addKeyListener(new KeyAdapter() {
@@ -102,6 +118,8 @@ public class StarHawk extends JPanel implements ActionListener {
                     // Memeriksa apakah keybool saat ini bernilai false
                     if (keybool == false) {
                         keybool = true; // Mengatur keybool ke true untuk mencegah penggunaan spacebar lagi
+                        ShootSound.setFramePosition(0);
+                        ShootSound.start();
                         lasers.add(new Laser(playerShip.getX() + playerShip.getWidth() / 2, playerShip.getY()));
                         int delay = 1000; // Penundaan dalam milidetik
                         Timer spacebarDelayTimer = new Timer(delay, new ActionListener() {
@@ -128,8 +146,6 @@ public class StarHawk extends JPanel implements ActionListener {
                 }
                 playerShip.handleKeyRelease(e.getKeyCode()); // Menangani pelepasan tombol kunci pemain
             }
-
-            
         } );
 
         setFocusable(true); // Mengatur fokus panel game

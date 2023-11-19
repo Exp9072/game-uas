@@ -12,6 +12,7 @@ import java.awt.GridBagConstraints;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.awt.Graphics;
@@ -20,9 +21,13 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.net.URL;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 
 public class MainApplication {
     private static JPanel panel;
+    private static Clip backgroundMusic;
     public static void main(String[] args) {
         System.setProperty("sun.java2d.opengl", "true");
         // Membuat objek JFrame untuk menampung permainan
@@ -36,7 +41,7 @@ public class MainApplication {
         
         // Membuat panel utama yang berisi menu utama dan panel scoreboard
         JPanel mainPanel = new JPanel(new CardLayout());
-        ImageIcon ll = new ImageIcon("./BScoreboardBG.png");
+        ImageIcon ll = new ImageIcon("./BScoreboardBGLeft.png");
         Image BgScore; 
         BgScore = ll.getImage();
         // Membuat panel untuk scoreboard
@@ -48,6 +53,21 @@ public class MainApplication {
                 g2d.drawImage(BgScore, 0, 0, 1707, 1067, this);
             }
         };
+
+        // ./CBGUndertale-Hopes-and-Dreams.wav
+        // ./CBGSpace-Oddity.wav
+        try {
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("./CBGUndertale-Hopes-and-Dreams.wav"));
+            backgroundMusic = AudioSystem.getClip();
+            backgroundMusic.open(audioInputStream);
+            backgroundMusic.loop(Clip.LOOP_CONTINUOUSLY);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        
+        backgroundMusic.start();
+
         
         //JLabel gameNameLabel = new JLabel("Star Hawk Invasion");
         //Font gameNameFont = new Font("8BIT WONDER", Font.BOLD, 46);
@@ -126,7 +146,7 @@ public class MainApplication {
         JPanel buttonPanel = new JPanel(new GridBagLayout());
         
         // Membuat tombol StartButton, SCRButton, dan ExitButton
-        StartButton startButton = new StartButton(frame, game);
+        StartButton startButton = new StartButton(frame, game, backgroundMusic);
         ExitButton exitButton = new ExitButton();
         
         Dimension buttonSize = new Dimension(200, 50);

@@ -1,5 +1,8 @@
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -13,6 +16,7 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.net.URL;
 import java.net.URL;
 import java.awt.Image;
@@ -26,12 +30,16 @@ public class RTOMainMenu extends JPanel {
     private final JFrame frame;
     private JPanel mainPanel;
     private JPanel panel;
+    private static Clip Death;
+    private Clip backgroundMusic;
 
     // Konstruktor untuk RTOMainMenu, menerima JFrame dan panel menu utama sebagai parameter
     public RTOMainMenu(JFrame frame, JPanel mainPanel, JPanel panel, CardLayout cardLayout) {
         this.frame = frame;
         this.mainPanel = mainPanel;
         this.panel = panel;
+        this.backgroundMusic = StartButton.getBackgroundMusicClip();
+
 
         setLayout(new GridBagLayout()); // Mengatur tata letak panel menggunakan GridBagLayout
         setBackground(Color.BLACK); // Mengatur warna latar belakang panel menjadi hitam
@@ -86,6 +94,22 @@ public class RTOMainMenu extends JPanel {
     // Metode untuk menampilkan layar permainan berakhir
     public void showGameOverScreen() {
         // Membuat panel permainan berakhir
+        StartButton.getBackgroundMusicClip().stop();
+
+        try {
+            // Muat suara menembak dari file
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("./CBGDeath_1.wav"));
+            Death = AudioSystem.getClip();
+            Death.open(audioInputStream);
+        } catch (Exception e) {
+            // Cetak jejak tumpukan jika terjadi pengecualian saat inisialisasi suara
+            e.printStackTrace();
+        }
+
+
+        Death.setFramePosition(0);
+        Death.start();
+
         ImageIcon ll = new ImageIcon("./BYouDied.png");
         Image BgDeath; 
         BgDeath = ll.getImage(); 

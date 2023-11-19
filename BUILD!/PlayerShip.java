@@ -200,6 +200,7 @@ public class PlayerShip {
     public void destroy() {
         destroyed = true;
         health = 0;  // Reset health to 0
+        
         // Set the player ship's position off-screen to hide it
         x = -getWidth();
         y = -getHeight();
