@@ -4,7 +4,6 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
-
 import java.awt.CardLayout;
 import java.awt.Component;
 import java.awt.GridBagLayout;
@@ -19,6 +18,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.awt.Image;
 import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 
 // Kelas SCRButton merepresentasikan tombol "Scoreboard" pada permainan Galaga.
 public class SCRButton extends JButton {
@@ -99,8 +100,11 @@ public class SCRButton extends JButton {
                     }
                 });
 
+
+
                 // Membuat panel untuk menampung tombol "RETURN"
                 JPanel returnButtonPanel = new JPanel();
+                
                 returnButtonPanel.add(returnButton);
 
                 // Mengatur tata letak returnButtonPanel untuk menempatkan tombol di tengah
@@ -117,7 +121,10 @@ public class SCRButton extends JButton {
 
     // Metode untuk menampilkan skor dari file SCORESAVE.txt ke dalam scoreboardPanel
     private void displayScores() {
+
         JLabel scoreLabel = new JLabel();
+
+
         Font font = new Font("8BIT WONDER", Font.BOLD, 64); // Menyesuaikan ukuran font di sini
         scoreLabel.setFont(font);
 

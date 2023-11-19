@@ -36,9 +36,18 @@ public class MainApplication {
         
         // Membuat panel utama yang berisi menu utama dan panel scoreboard
         JPanel mainPanel = new JPanel(new CardLayout());
-        
+        ImageIcon ll = new ImageIcon("./BScoreboardBG.png");
+        Image BgScore; 
+        BgScore = ll.getImage();
         // Membuat panel untuk scoreboard
-        JPanel scoreboardPanel = new JPanel(new BorderLayout());
+        JPanel scoreboardPanel = new JPanel(new BorderLayout()){
+            @Override
+            protected void paintComponent(Graphics g ){
+                super.paintComponent(g);
+                Graphics2D g2d = (Graphics2D) g;
+                g2d.drawImage(BgScore, 0, 0, 1707, 1067, this);
+            }
+        };
         
         //JLabel gameNameLabel = new JLabel("Star Hawk Invasion");
         //Font gameNameFont = new Font("8BIT WONDER", Font.BOLD, 46);
@@ -269,4 +278,4 @@ public class MainApplication {
 14. GUI | Y
 */
 
-// 1846 lines
+// 1920 lines
