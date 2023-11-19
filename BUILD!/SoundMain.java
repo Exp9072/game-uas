@@ -9,7 +9,7 @@ public class SoundMain {
     private static Clip StartSound;
     private static Clip backgroundMusic;
 
-    // Initialize the sounds when the class is loaded
+    // Inisialisasi suara ketika kelas dimuat
     static {
         initSound("hurtSound", "./CPlayerHurt_1.wav");
         initSound("PlayerShoot", "./CPlayerShoot_1.wav");
@@ -18,16 +18,16 @@ public class SoundMain {
         initSound("backgroundMusic", "./CBGUndertale-Hopes-and-Dreams.wav");
     }
 
-    // Method to initialize a sound
+    // Metode untuk menginisialisasi suara
     private static void initSound(String soundName, String filePath) {
         AudioInputStream audioInputStream = null;
         try {
-            // Load the sound from file
+            // Muat suara dari file
             audioInputStream = AudioSystem.getAudioInputStream(new File(filePath));
             Clip soundClip = AudioSystem.getClip();
             soundClip.open(audioInputStream);
 
-            // Assign the clip to the corresponding variable based on the soundName
+            // Tetapkan clip ke variabel yang sesuai berdasarkan soundName
             switch (soundName) {
                 case "hurtSound":
                     hurtSound = soundClip;
@@ -44,13 +44,12 @@ public class SoundMain {
                 case "backgroundMusic":
                     backgroundMusic = soundClip;
                     break;
-                // Add more cases for additional sounds
             }
         } catch (Exception e) {
-            // Print stack trace if an exception occurs during sound initialization
+            // Cetak jejak tumpukan jika terjadi pengecualian selama inisialisasi suara
             e.printStackTrace();
         } finally {
-            // Close the audioInputStream
+            // Tutup audioInputStream
             if (audioInputStream != null) {
                 try {
                     audioInputStream.close();
@@ -61,63 +60,67 @@ public class SoundMain {
         }
     }
 
-    // Method to play the hurt sound
+    // Metode untuk memutar suara cedera
     public static void playHurtSound() {
         playSound(hurtSound);
     }
 
-    // Method to play the laser sound
+    // Metode untuk memutar suara tembakan pemain
     public static void playLaserSound() {
         playSound(PlayerShoot);
     }
 
-    // Method to play the Death sound
+    // Metode untuk memutar suara kematian
     public static void playDeathSound() {
         playSound(DeathSound);
     }
 
-    // Method to play the Start sound
+    // Metode untuk memutar suara awal permainan
     public static void playStartSound() {
         playSound(StartSound);
     }
 
-    // Method to play the background music
+    // Metode untuk memutar musik latar belakang
     public static void playBackgroundMusic() {
         playSound(backgroundMusic);
     }
 
-    // Method to stop the background music
+    // Metode untuk menghentikan musik latar belakang
     public static void stopBackgroundMusic() {
         if (backgroundMusic != null) {
             backgroundMusic.stop();
         }
     }
 
+    // Metode untuk menghentikan suara cedera
     public static void stopHurtSound() {
         if (hurtSound != null) {
             hurtSound.stop();
         }
     }
 
+    // Metode untuk menghentikan suara awal permainan
     public static void stopStartSound() {
         if (StartSound != null) {
             StartSound.stop();
         }
     }
 
+    // Metode untuk menghentikan suara kematian
     public static void stopDeathSound() {
         if (DeathSound != null) {
             DeathSound.stop();
         }
     }
 
+    // Metode untuk menghentikan suara tembakan pemain
     public static void stopPlayerLaserSound() {
         if (PlayerShoot != null) {
             PlayerShoot.stop();
         }
     }
 
-    // Method to play a generic sound
+   
     private static void playSound(Clip soundClip) {
         if (soundClip != null) {
             soundClip.setFramePosition(0);
