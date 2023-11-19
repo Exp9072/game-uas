@@ -39,7 +39,7 @@ public class
         super(x, y, 40, 40); // Memanggil konstruktor kelas dasar (Enemy) dengan posisi awal dan ukuran musuh
         this.speed = speed;
         this.middleSectionEndX =  2 * screenWidth / 3 - 40;
-        this.middleSectionStartX = screenWidth/3 - 8;
+        this.middleSectionStartX = screenWidth/3 + 10;
         this.screenWidth = screenWidth;
         //System.out.println("screenwidth randommovingenemy = " + screenWidth);
         this.UpDirection = 1;
@@ -51,7 +51,7 @@ public class
         this.maxMove = 550; // Jarak maksimum perubahan arah
         this.shootingInterval = shootingInterval;
         this.currentMove = getRandomMove(random); // Mendapatkan jarak perubahan arah secara acak
-        this.destinationY = 200;
+        this.destinationY = 250;
         this.random = random;
         enemyLasers = new ArrayList<>();
 

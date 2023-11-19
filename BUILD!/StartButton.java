@@ -22,7 +22,7 @@ public class StartButton extends JButton {
     private static Clip BGGame;
 
     // Konstruktor untuk StartButton, menerima JFrame dan GalagaGame sebagai parameter
-    public StartButton(JFrame frame, StarHawk game, Clip backgroundMusic) {
+    public StartButton(JFrame frame, StarHawk game, Clip BGMusic) {
         super(""); // Atur teks tombol menjadi "Mulai"
         this.frame = frame; // Inisialisasi variabel instance JFrame
         this.game = game; // Inisialisasi variabel instance GalagaGame
@@ -41,7 +41,7 @@ public class StartButton extends JButton {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Inside the action listener for your StartButton or any button that switches panels
-                backgroundMusic.stop();
+                BGMusic.stop();
                 startGame();
             }
         });

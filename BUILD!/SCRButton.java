@@ -2,6 +2,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import java.awt.CardLayout;
@@ -61,7 +62,7 @@ public class SCRButton extends JButton {
                 // Menambahkan tombol "RETURN" untuk kembali ke panel menu utama
                 JButton returnButton = new JButton("");
  
-                URL imageUrl = getClass().getResource("./BMainMenuButtonBlue.png");
+                URL imageUrl = getClass().getResource("./BMainMenuButtonYellow.png");
                 ImageIcon ii = new ImageIcon(imageUrl);
                 Image scaledImage = ii.getImage().getScaledInstance(205, 55, Image.SCALE_SMOOTH);
                 
@@ -100,19 +101,21 @@ public class SCRButton extends JButton {
                     }
                 });
 
-
-
                 // Membuat panel untuk menampung tombol "RETURN"
                 JPanel returnButtonPanel = new JPanel();
                 
+                
                 returnButtonPanel.add(returnButton);
-
                 // Mengatur tata letak returnButtonPanel untuk menempatkan tombol di tengah
-                returnButtonPanel.setLayout(new BoxLayout(returnButtonPanel, BoxLayout.PAGE_AXIS));
-                returnButtonPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
-
+                returnButtonPanel.setLayout(new BoxLayout(returnButtonPanel, BoxLayout.Y_AXIS));
+                //returnButtonPanel.setAlignmentX(Component.CENTER_ALIGNMENT_ALIGNMENT);
+                //returnButtonPanel.setBounds(990,-100,0,0);
+                //returnButtonPanel.setAlignmentY(Component.BOTTOM_ALIGNMENT);
+                
                 // Menambahkan panel tombol "RETURN" ke bagian selatan panel scoreboard
-                scoreboardPanel.add(returnButtonPanel, BorderLayout.CENTER);
+                scoreboardPanel.add(returnButtonPanel);
+                //scoreboardPanel.add(returnButton);
+                
                 scoreboardPanel.revalidate();
                 scoreboardPanel.repaint();
             }
@@ -151,7 +154,9 @@ public class SCRButton extends JButton {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;
-        gbc.fill = GridBagConstraints.CENTER;
+        gbc.weighty = -1.0;
+        //gbc.fill = GridBagConstraints.CENTER;
+        gbc.anchor = GridBagConstraints.PAGE_END;
         scoreboardPanel.add(scoreLabel, gbc);
 
         scoreboardPanel.revalidate();

@@ -17,7 +17,7 @@ public class StaticEnemy extends Enemy {
         super(sectionX, screenHeight - 200 - enemyWidth, enemyWidth, enemyWidth);
         enemyLasers = new ArrayList<>();
         // Inisialisasi timer penembakan
-        this.destinationY = 100;
+        this.destinationY = 256;
         shootingTimer = new Timer(shootingDelay, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -49,6 +49,8 @@ public class StaticEnemy extends Enemy {
 
         // Perbarui posisi berdasarkan arah pergerakan
         y += arahPergerakan + 2;
+        //System.err.println(y);
+        //System.out.println(destinationY);
 
         // Periksa apakah tujuan telah tercapai
         if (y == destinationY) {

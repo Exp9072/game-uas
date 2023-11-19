@@ -27,7 +27,7 @@ import javax.sound.sampled.Clip;
 
 public class MainApplication {
     private static JPanel panel;
-    private static Clip backgroundMusic;
+    private static Clip BGMusic;
     public static void main(String[] args) {
         System.setProperty("sun.java2d.opengl", "true");
         // Membuat objek JFrame untuk menampung permainan
@@ -41,6 +41,8 @@ public class MainApplication {
         
         // Membuat panel utama yang berisi menu utama dan panel scoreboard
         JPanel mainPanel = new JPanel(new CardLayout());
+        //BRightScoreboardBg.png
+        //BScoreboardBGLeft.png
         ImageIcon ll = new ImageIcon("./BScoreboardBGLeft.png");
         Image BgScore; 
         BgScore = ll.getImage();
@@ -58,15 +60,15 @@ public class MainApplication {
         // ./CBGSpace-Oddity.wav
         try {
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("./CBGUndertale-Hopes-and-Dreams.wav"));
-            backgroundMusic = AudioSystem.getClip();
-            backgroundMusic.open(audioInputStream);
-            backgroundMusic.loop(Clip.LOOP_CONTINUOUSLY);
+            BGMusic = AudioSystem.getClip();
+            BGMusic.open(audioInputStream);
+            BGMusic.loop(Clip.LOOP_CONTINUOUSLY);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         
-        backgroundMusic.start();
+        BGMusic.start();
 
         
         //JLabel gameNameLabel = new JLabel("Star Hawk Invasion");
@@ -134,9 +136,11 @@ public class MainApplication {
         mainPanel.add(scoreboardPanel, "scoreboard");
         
         SCRButton scoreboardButton = new SCRButton(cardLayout, mainPanel, scoreboardPanel, mainMenuPanel, frame, panel, gameNameLabel);
+        
+
         //panel.add(gameNameLabel, BorderLayout.CENTER);
         // Membuat objek RTOMainMenu dan SCRButton untuk mengatur menu utama dan scoreboard
-        RTOMainMenu mainMenu = new RTOMainMenu(frame, mainPanel, panel, cardLayout);
+        RTOMainMenu mainMenu = new RTOMainMenu(frame, mainPanel, panel, cardLayout, BGMusic);
         mainPanel.add(mainMenuPanel, "mainMenu");
 
         game.setReturnMenu(mainMenu);
@@ -146,7 +150,7 @@ public class MainApplication {
         JPanel buttonPanel = new JPanel(new GridBagLayout());
         
         // Membuat tombol StartButton, SCRButton, dan ExitButton
-        StartButton startButton = new StartButton(frame, game, backgroundMusic);
+        StartButton startButton = new StartButton(frame, game, BGMusic);
         ExitButton exitButton = new ExitButton();
         
         Dimension buttonSize = new Dimension(200, 50);

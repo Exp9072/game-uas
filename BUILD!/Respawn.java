@@ -37,14 +37,14 @@ public class Respawn {
 
     // Metode untuk melakukan respawn musuh
     public void respawnEnemies() {
-        int numStaticEnemies = random.nextInt(2) + 2; // Jumlah musuh statis yang akan di-respawn
-        int numRandomMovingEnemies = random.nextInt(1) + 1; // Jumlah musuh acak yang akan di-respawn
+        int numStaticEnemies = random.nextInt(2) + 3; // Jumlah musuh statis yang akan di-respawn
+        int numRandomMovingEnemies = random.nextInt(1) + 2; // Jumlah musuh acak yang akan di-respawn
         int sectionWidth = screenWidth / 3; // Lebar bagian tengah (putih)
         int minSpawnX = sectionWidth + 8;
         int maxSpawnX = 2 * sectionWidth - 8; // Sesuaikan sesuai kebutuhan
 
         for (int i = 0; i < numStaticEnemies; i++) {
-            int xPosition = minSpawnX + random.nextInt(maxSpawnX - minSpawnX); // Spawn di dalam bagian tengah
+            int xPosition = minSpawnX + random.nextInt(maxSpawnX -minSpawnX-50); // Spawn di dalam bagian tengah
             int yPosition = -5;
             enemies.add(new StaticEnemy(xPosition, yPosition, 40)); // Tambahkan musuh statis ke daftar
         }

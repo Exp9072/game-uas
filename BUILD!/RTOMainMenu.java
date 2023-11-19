@@ -32,13 +32,15 @@ public class RTOMainMenu extends JPanel {
     private JPanel panel;
     private static Clip Death;
     private Clip backgroundMusic;
+    private Clip BGMusic;
 
     // Konstruktor untuk RTOMainMenu, menerima JFrame dan panel menu utama sebagai parameter
-    public RTOMainMenu(JFrame frame, JPanel mainPanel, JPanel panel, CardLayout cardLayout) {
+    public RTOMainMenu(JFrame frame, JPanel mainPanel, JPanel panel, CardLayout cardLayout, Clip BGMusic) {
         this.frame = frame;
         this.mainPanel = mainPanel;
         this.panel = panel;
         this.backgroundMusic = StartButton.getBackgroundMusicClip();
+        this.BGMusic = BGMusic;
 
 
         setLayout(new GridBagLayout()); // Mengatur tata letak panel menggunakan GridBagLayout
@@ -74,6 +76,8 @@ public class RTOMainMenu extends JPanel {
     // Metode untuk kembali ke panel menu utama
     public void returnToMainMenu() {
         frame.getContentPane().removeAll();
+        Death.stop();
+        BGMusic.start();
         CardLayout cardLayout = (CardLayout) mainPanel.getLayout();
         //System.out.println("atas");
         cardLayout.show(mainPanel, "mainMenu");
@@ -110,7 +114,7 @@ public class RTOMainMenu extends JPanel {
         Death.setFramePosition(0);
         Death.start();
 
-        ImageIcon ll = new ImageIcon("./BYouDied.png");
+        ImageIcon ll = new ImageIcon("./BbitYouDied.png");
         Image BgDeath; 
         BgDeath = ll.getImage(); 
         JPanel gameOverPanel = new JPanel(){
