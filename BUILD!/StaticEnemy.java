@@ -58,6 +58,11 @@ public class StaticEnemy extends Enemy {
         }
     }
 
+    public void stopTimers() {
+        shootingTimer.stop();
+        moveTimer.stop();
+    }
+
 
     // Implementasi metode abstrak untuk mengeksekusi penembakan
     @Override

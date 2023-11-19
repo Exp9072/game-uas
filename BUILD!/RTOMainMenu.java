@@ -17,6 +17,7 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.net.URL;
 import java.awt.Image;
@@ -31,16 +32,18 @@ public class RTOMainMenu extends JPanel {
     private JPanel mainPanel;
     private JPanel panel;
     private static Clip Death;
-    private Clip backgroundMusic;
-    private Clip BGMusic;
+
+
 
     // Konstruktor untuk RTOMainMenu, menerima JFrame dan panel menu utama sebagai parameter
-    public RTOMainMenu(JFrame frame, JPanel mainPanel, JPanel panel, CardLayout cardLayout, Clip BGMusic) {
+    public RTOMainMenu(JFrame frame, JPanel mainPanel, JPanel panel, CardLayout cardLayout) {
         this.frame = frame;
         this.mainPanel = mainPanel;
         this.panel = panel;
-        this.backgroundMusic = StartButton.getBackgroundMusicClip();
-        this.BGMusic = BGMusic;
+
+        frame.remove(panel);
+        frame.remove(mainPanel);
+        
 
 
         setLayout(new GridBagLayout()); // Mengatur tata letak panel menggunakan GridBagLayout
@@ -76,8 +79,9 @@ public class RTOMainMenu extends JPanel {
     // Metode untuk kembali ke panel menu utama
     public void returnToMainMenu() {
         frame.getContentPane().removeAll();
-        Death.stop();
-        BGMusic.start();
+        SoundMain.stopDeathSound();
+        // Initialize the background music
+        SoundMain.playBackgroundMusic();
         CardLayout cardLayout = (CardLayout) mainPanel.getLayout();
         //System.out.println("atas");
         cardLayout.show(mainPanel, "mainMenu");
@@ -98,21 +102,9 @@ public class RTOMainMenu extends JPanel {
     // Metode untuk menampilkan layar permainan berakhir
     public void showGameOverScreen() {
         // Membuat panel permainan berakhir
-        StartButton.getBackgroundMusicClip().stop();
+        SoundMain.stopStartSound();
 
-        try {
-            // Muat suara menembak dari file
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("./CBGDeath_1.wav"));
-            Death = AudioSystem.getClip();
-            Death.open(audioInputStream);
-        } catch (Exception e) {
-            // Cetak jejak tumpukan jika terjadi pengecualian saat inisialisasi suara
-            e.printStackTrace();
-        }
-
-
-        Death.setFramePosition(0);
-        Death.start();
+        SoundMain.playDeathSound();
 
         ImageIcon ll = new ImageIcon("./BbitYouDied.png");
         Image BgDeath; 

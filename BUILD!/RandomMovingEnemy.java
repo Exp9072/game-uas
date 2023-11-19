@@ -168,18 +168,14 @@ private int getRandomMove(Random random) {
 */
     // Metode untuk mendapatkan jarak perubahan arah secara acak
     private int getRandomMove(Random random) {
-        try {
-            if (random != null) {
-                return random.nextInt(maxMove - minMove + 1) + minMove; // Generate a random value
-            } else {
-                throw new NullPointerException("Random object is null"); // Throw a NullPointerException if 'random' is null
-            }
-        } catch (NullPointerException e) {
-            // Handle the exception or provide a default value
-            System.err.println("Caught a NullPointerException: " + e.getMessage());
-            return (new Random()).nextInt(maxMove - minMove + 1) + minMove; // Use a default value
+        if (random != null) {
+            return random.nextInt(maxMove - minMove + 1) + minMove;
+        } else {
+            System.err.println("Warning: Random object is null. Using a default Random object.");
+            return (new Random()).nextInt(maxMove - minMove + 1) + minMove;
         }
     }
+    
 
     // Metode untuk menggambar musuh
     public void draw(Graphics g) {
@@ -205,6 +201,12 @@ private int getRandomMove(Random random) {
         Laser laser = new Laser(x + width / 2, y + height);
         enemyLasers.add(laser);
     }
+
+    public void stopTimers() {
+        shootingTimer.stop();
+        moveTimer.stop();
+    }
+    
 
     // Memulai timer penembakan
     public void startShootingTimer() {

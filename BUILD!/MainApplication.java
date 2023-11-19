@@ -27,10 +27,11 @@ import javax.sound.sampled.Clip;
 
 public class MainApplication {
     private static JPanel panel;
-    private static Clip BGMusic;
+    
     public static void main(String[] args) {
         System.setProperty("sun.java2d.opengl", "true");
         // Membuat objek JFrame untuk menampung permainan
+        
         JFrame frame = new JFrame("Star-Hawk Invasion");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -58,18 +59,8 @@ public class MainApplication {
 
         // ./CBGUndertale-Hopes-and-Dreams.wav
         // ./CBGSpace-Oddity.wav
-        try {
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("./CBGUndertale-Hopes-and-Dreams.wav"));
-            BGMusic = AudioSystem.getClip();
-            BGMusic.open(audioInputStream);
-            BGMusic.loop(Clip.LOOP_CONTINUOUSLY);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        
-        BGMusic.start();
-
+        // Initialize the background music
+        SoundMain.playBackgroundMusic();
         
         //JLabel gameNameLabel = new JLabel("Star Hawk Invasion");
         //Font gameNameFont = new Font("8BIT WONDER", Font.BOLD, 46);
@@ -140,7 +131,7 @@ public class MainApplication {
 
         //panel.add(gameNameLabel, BorderLayout.CENTER);
         // Membuat objek RTOMainMenu dan SCRButton untuk mengatur menu utama dan scoreboard
-        RTOMainMenu mainMenu = new RTOMainMenu(frame, mainPanel, panel, cardLayout, BGMusic);
+        RTOMainMenu mainMenu = new RTOMainMenu(frame, mainPanel, panel, cardLayout);
         mainPanel.add(mainMenuPanel, "mainMenu");
 
         game.setReturnMenu(mainMenu);
@@ -150,7 +141,7 @@ public class MainApplication {
         JPanel buttonPanel = new JPanel(new GridBagLayout());
         
         // Membuat tombol StartButton, SCRButton, dan ExitButton
-        StartButton startButton = new StartButton(frame, game, BGMusic);
+        StartButton startButton = new StartButton(frame, game);
         ExitButton exitButton = new ExitButton();
         
         Dimension buttonSize = new Dimension(200, 50);
@@ -217,7 +208,7 @@ public class MainApplication {
         //panel.add(buttonPanel, BorderLayout.SOUTH);
 
         //System.out.println("\n mainpanel = "+mainPanel);
-        cardLayout.show(mainPanel, "mainMenu");
+        //cardLayout.show(mainPanel, "mainMenu");
         panel.add(gameNameLabel, BorderLayout.CENTER);
         panel.add(startButton);
         panel.add(scoreboardButton);
@@ -302,4 +293,4 @@ public class MainApplication {
 14. GUI | Y
 */
 
-// 1920 lines
+// 2035 lines

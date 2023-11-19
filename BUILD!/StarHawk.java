@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;   
 import java.awt.Graphics;
@@ -39,7 +40,6 @@ public class StarHawk extends JPanel implements ActionListener {
     private static final int TARGET_FPS = 240;
     private static final long OPTIMAL_TIME = 1000000000 / TARGET_FPS;
     private Image BgImage, BgImageL,BgImageR;
-    private static Clip ShootSound;
    
     public StarHawk() {
         // Menginisialisasi kapal pemain dengan ukuran layar 
@@ -97,17 +97,6 @@ public class StarHawk extends JPanel implements ActionListener {
             }
         }
 
-        try {
-            // Muat suara menembak dari file
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("./CPlayerShoot_1.wav"));
-            ShootSound = AudioSystem.getClip();
-            ShootSound.open(audioInputStream);
-        } catch (Exception e) {
-            // Cetak jejak tumpukan jika terjadi pengecualian saat inisialisasi suara
-            e.printStackTrace();
-        }
-
-
         // Menangani input dari pemain (keyboard)
         // catch handeling null ubah
         addKeyListener(new KeyAdapter() {
@@ -118,8 +107,7 @@ public class StarHawk extends JPanel implements ActionListener {
                     // Memeriksa apakah keybool saat ini bernilai false
                     if (keybool == false) {
                         keybool = true; // Mengatur keybool ke true untuk mencegah penggunaan spacebar lagi
-                        ShootSound.setFramePosition(0);
-                        ShootSound.start();
+                        SoundMain.playLaserSound();
                         lasers.add(new Laser(playerShip.getX() + playerShip.getWidth() / 2, playerShip.getY()));
                         int delay = 1000; // Penundaan dalam milidetik
                         Timer spacebarDelayTimer = new Timer(delay, new ActionListener() {
@@ -140,6 +128,7 @@ public class StarHawk extends JPanel implements ActionListener {
                 if (e.getKeyCode() == KeyEvent.VK_SPACE) {
                     if (spacebarDelayTimer != null) {
                         spacebarDelayTimer.stop(); // Stop the timer if spacebar is released
+                        SoundMain.stopPlayerLaserSound();
                         spacebarDelayTimer = null; // Reset the timer reference
                         keybool = false; // Mengatur keybool kembali ke false
                     }
@@ -188,6 +177,8 @@ public class StarHawk extends JPanel implements ActionListener {
                 enemy.move(); // Move the enemy down
             }
         }
+
+        
         
         // Update the positions of enemy lasers
         for (Enemy enemy : enemies) {
@@ -371,22 +362,35 @@ public class StarHawk extends JPanel implements ActionListener {
 
     // Metode untuk mereset permainan
     public void resetGame(){
+            
+        // Clear enemy lasers
+        for (Enemy enemy : enemies) {
+            if (enemy instanceof StaticEnemy) {
+                ((StaticEnemy) enemy).getEnemyLasers().clear();
+                ((StaticEnemy) enemy).stopTimers(); // Stop timers for StaticEnemy instances
+            }
+        }
+
+        // Clear enemy lasers and stop timers for RandomMovingEnemy instances
+        for (Enemy enemy : enemies) {
+            if (enemy instanceof RandomMovingEnemy) {
+                ((RandomMovingEnemy) enemy).getEnemyLasers().clear();
+                ((RandomMovingEnemy) enemy).stopTimers();
+            }
+        }
+
+        timer.stop();
         // Menghapus semua musuh dan laser dari layar
         enemies.clear();
         lasers.clear();
-
         // Menginisialisasi kembali kapal pemain di tengah layar
         initializePlayerShip(screenWidth, screenHeight);
-
         // Menginisialisasi musuh yang bergerak secara acak
         initializeRandomMovingEnemy(screenWidth, screenHeight, random);
-
         // Menginisialisasi respawn musuh
         initializeRespawn(enemies, random, screenWidth);
-
         // Memulai timer untuk permainan
         timer.start();
-
         // Mengatur skor kembali ke 0
         score = 0;
     }

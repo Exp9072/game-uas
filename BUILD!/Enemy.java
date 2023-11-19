@@ -59,6 +59,7 @@ public abstract class Enemy {
     public abstract void shoot();
 
     // Metode yang digunakan untuk memeriksa apakah musuh bertabrakan dengan kapal pemain
+/* 
     public boolean collidesWith(PlayerShip playerShip) {
         // Check if this enemy collides with the player's ship
         return x < playerShip.getX() + playerShip.getWidth() &&
@@ -66,7 +67,7 @@ public abstract class Enemy {
                y < playerShip.getY() + playerShip.getHeight() &&
                y + height > playerShip.getY();
     }
-
+*/
     // Metode abstrak yang akan diimplementasikan oleh subclass untuk menentukan perilaku pergerakan musuh
     public abstract void move();
 
