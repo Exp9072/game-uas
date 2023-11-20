@@ -1,6 +1,8 @@
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineEvent;
+import javax.sound.sampled.LineListener;
 import java.io.File;
 import java.io.IOException;
 
@@ -27,8 +29,23 @@ public class SoundMain {
             // Muat suara dari file
             audioInputStream = AudioSystem.getAudioInputStream(new File(filePath));
             Clip soundClip = AudioSystem.getClip();
-            soundClip.open(audioInputStream);
 
+                        // Set Loop untuk background sound
+            if (soundName.equals("backgroundMusic") || soundName.equals("StartSound")) {
+                soundClip.loop(Clip.LOOP_CONTINUOUSLY);
+
+                // Add a LineListener to restart the clip when it ends
+                soundClip.addLineListener(new LineListener() {
+                    @Override
+                    public void update(LineEvent event) {
+                        if (event.getType() == LineEvent.Type.STOP) {
+                            soundClip.setFramePosition(0);
+                            soundClip.start();
+                        }
+                    }
+                });
+            }
+            
             // Tetapkan clip ke variabel yang sesuai berdasarkan soundName
             switch (soundName) {
                 case "hurtSound":
@@ -47,6 +64,9 @@ public class SoundMain {
                     backgroundMusic = soundClip;
                     break;
             }
+
+            soundClip.open(audioInputStream);
+
         } catch (Exception e) {
             // Cetak jejak tumpukan jika terjadi pengecualian selama inisialisasi suara
             e.printStackTrace();
@@ -79,11 +99,17 @@ public class SoundMain {
 
     // Metode untuk memutar suara awal permainan
     public static void playStartSound() {
+        if (StartSound == null) {
+            initSound("StartSound", "./CBGStart_1.wav");
+        }
         playSound(StartSound);
     }
 
     // Metode untuk memutar musik latar belakang
     public static void playBackgroundMusic() {
+        if (backgroundMusic == null) {
+            initSound("backgroundMusic", "./CBGUndertale-Hopes-and-Dreams.wav");
+        }
         playSound(backgroundMusic);
     }
 
@@ -91,6 +117,9 @@ public class SoundMain {
     public static void stopBackgroundMusic() {
         if (backgroundMusic != null) {
             backgroundMusic.stop();
+            backgroundMusic.setFramePosition(0);  // lagu mulai dari awal
+            backgroundMusic.close();  // Tutup Clip
+            backgroundMusic = null;  // Di set null untuk dibuka lagi
         }
     }
 
@@ -105,6 +134,9 @@ public class SoundMain {
     public static void stopStartSound() {
         if (StartSound != null) {
             StartSound.stop();
+            StartSound.setFramePosition(0);
+            StartSound.close();  // Tutup Clip
+            StartSound = null; // Di set null untuk di buka lagi 
         }
     }
 

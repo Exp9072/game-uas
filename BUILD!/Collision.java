@@ -23,9 +23,9 @@ public class Collision {
                     enemiesToRemove.add(enemy); // Menandai musuh untuk dihapus
 
                     if (enemy instanceof StaticEnemy) {
-                        playerShip.increaseScore(5); // Add 5 points for hitting a StaticEnemy
+                        playerShip.increaseScore(5); // Add 5 points untuk kena StaticEnemy
                     } else if (enemy instanceof RandomMovingEnemy) {
-                        playerShip.increaseScore(10); // Add 10 points for hitting a RandomMovingEnemy
+                        playerShip.increaseScore(10); // Add 10 points untuk kena RandomMovingEnemy
                     }
                 }
             }
@@ -50,7 +50,6 @@ public class Collision {
                                 SoundMain.playHurtSound(); // Play the hurt sound
                                 enemyLasersToRemove.add(enemyLaser); // Menandai laser musuh untuk dihapus
                                 //System.out.println("Test 1");
-                                // Stop the hurt sound after getting hit once
                                 //SoundMain.stopHurtSound();
                             }
                         }
@@ -81,7 +80,6 @@ public class Collision {
                                 SoundMain.playHurtSound(); // Play the hurt sound
                                 enemyLasersToRemove.add(enemyLaser); // Menandai laser musuh untuk dihapus
                                 //System.out.println("Test 2");
-  
                                 //SoundMain.stopHurtSound();
                             }
                         }

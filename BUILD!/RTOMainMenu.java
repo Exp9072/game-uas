@@ -1,6 +1,5 @@
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.sound.sampled.Clip;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.GridBagLayout;
@@ -22,9 +21,6 @@ public class RTOMainMenu extends JPanel {
     private final JFrame frame;
     private JPanel mainPanel;
     private JPanel panel;
-    private static Clip Death;
-
-
 
     // Konstruktor untuk RTOMainMenu, menerima JFrame dan panel menu utama sebagai parameter
     public RTOMainMenu(JFrame frame, JPanel mainPanel, JPanel panel, CardLayout cardLayout) {
@@ -33,9 +29,7 @@ public class RTOMainMenu extends JPanel {
         this.panel = panel;
 
         frame.remove(panel);
-        frame.remove(mainPanel);
-        
-
+        frame.remove(mainPanel); 
 
         setLayout(new GridBagLayout()); // Mengatur tata letak panel menggunakan GridBagLayout
         setBackground(Color.BLACK); // Mengatur warna latar belakang panel menjadi hitam
@@ -45,7 +39,6 @@ public class RTOMainMenu extends JPanel {
         //returnButton.setFont(new Font("Arial", Font.PLAIN, 24)); // Mengatur jenis font, gaya, dan ukuran
         //returnButton.setForeground(Color.WHITE); // Mengatur warna teks tombol menjadi putih
         //returnButton.setBackground(Color.RED); // Mengatur warna latar tombol menjadi merah
-
 
         returnButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {

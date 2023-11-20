@@ -78,8 +78,6 @@ public abstract class Enemy {
         //g.fillRect(x, y, width, height);
         Graphics2D g2d = (Graphics2D) g;
         g2d.drawImage(SEImage, x, y, width, height, null);
-
-        
     }
 }
 

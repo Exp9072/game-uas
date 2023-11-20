@@ -28,9 +28,7 @@ public class
     private int UpDirection;
     private int middleSectionStartX; // Left boundary of the middle section
     private int middleSectionEndX;   // Right boundary of the middle section
-    private int screenHeight;
-    private int screenWidth;
-    private Random random;
+
     private Image RMEImage;
 
     public RandomMovingEnemy(int x, int y, int speed, int minRange, int screenWidth, int shootingInterval, Random random) {
@@ -38,7 +36,6 @@ public class
         this.speed = speed;
         this.middleSectionEndX =  2 * screenWidth / 3 - 40;
         this.middleSectionStartX = screenWidth/3 + 10;
-        this.screenWidth = screenWidth;
         //System.out.println("screenwidth randommovingenemy = " + screenWidth);
         this.UpDirection = 1;
         this.direction = 1; // Arah awal pergerakan
@@ -50,7 +47,6 @@ public class
         this.shootingInterval = shootingInterval;
         this.currentMove = getRandomMove(random); // Mendapatkan jarak perubahan arah secara acak
         this.destinationY = 250;
-        this.random = random;
         enemyLasers = new ArrayList<>();
 
         ImageIcon ii = new ImageIcon("./ARandomEnemy.png");
@@ -210,7 +206,6 @@ private int getRandomMove(Random random) {
     public void startShootingTimer() {
         shootingTimer.start();
     }
-
 }
 
 // jangan di ss
