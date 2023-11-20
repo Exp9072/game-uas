@@ -2,13 +2,11 @@
 // batas height bawah kurang panjang
 
 import java.awt.Graphics;
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Random;
 import javax.swing.Timer;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import javax.swing.ImageIcon;

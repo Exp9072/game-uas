@@ -122,7 +122,6 @@ public class SoundMain {
         }
     }
 
-   
     private static void playSound(Clip soundClip) {
         if (soundClip != null) {
             soundClip.setFramePosition(0);

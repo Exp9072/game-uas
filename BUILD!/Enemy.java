@@ -1,8 +1,6 @@
 import java.awt.Graphics;
-import java.awt.Color;
 import javax.swing.Timer;
 import java.util.ArrayList;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import javax.swing.ImageIcon;

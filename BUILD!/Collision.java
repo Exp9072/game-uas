@@ -1,12 +1,6 @@
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList; 
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
 
 public class Collision {
-    private static Clip hurtSound;
     
     public static void checkCollisions(ArrayList<Laser> playerLasers, ArrayList<Enemy> enemies, PlayerShip playerShip, StarHawk game) {
         // Daftar laser yang akan dihapus setelah tabrakan pemain
@@ -51,13 +45,13 @@ public class Collision {
                         enemyLaser.getY() < playerShip.getY() + playerShip.getHeight() && // Cek tabrakan  pada sumbu Y (tinggi)
                         enemyLaser.getY() + enemyLaser.getHeight() > playerShip.getY()) { // Cek tabrakan  pada sumbu Y (tinggi)
                             if (!enemyLaser.hasCollided()) {
-                                SoundMain.playHurtSound(); // Play the hurt sound
                                 playerShip.decreaseHealth(1); // Mengurangi kesehatan pemain
                                 enemyLaser.setCollided(true); // Menandai laser musuh sebagai bertabrakan
+                                SoundMain.playHurtSound(); // Play the hurt sound
                                 enemyLasersToRemove.add(enemyLaser); // Menandai laser musuh untuk dihapus
                                 //System.out.println("Test 1");
                                 // Stop the hurt sound after getting hit once
-                                SoundMain.stopHurtSound();
+                                //SoundMain.stopHurtSound();
                             }
                         }
                 }
@@ -83,12 +77,12 @@ public class Collision {
                         enemyLaser.getY() + enemyLaser.getHeight() > playerShip.getY()) { // Cek tabrakan  pada sumbu Y (tinggi)
                             if (!enemyLaser.hasCollided()) {
                                 playerShip.decreaseHealth(1); // Mengurangi kesehatan pemain
-                                SoundMain.playHurtSound(); // Play the hurt sound
                                 enemyLaser.setCollided(true); // Menandai laser musuh sebagai bertabrakan
+                                SoundMain.playHurtSound(); // Play the hurt sound
                                 enemyLasersToRemove.add(enemyLaser); // Menandai laser musuh untuk dihapus
                                 //System.out.println("Test 2");
-                                // Stop the hurt sound after getting hit once
-                                SoundMain.stopHurtSound();
+  
+                                //SoundMain.stopHurtSound();
                             }
                         }
                 }
