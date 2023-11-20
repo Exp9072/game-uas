@@ -76,7 +76,6 @@ public class StarHawk extends JPanel implements ActionListener {
         //enemies.add(new StaticEnemy(enemyX1, sectionEnemy, enemyWidth)); // Create the first enemy
         //enemies.add(new StaticEnemy(enemyX2, sectionEnemy, enemyWidth)); // Create the second enemy
 
-
         // Membuat objek Random untuk menghasilkan nilai acak
 
         enemyLasers = new ArrayList<>(); // Daftar proyektil laser musuh
@@ -139,7 +138,6 @@ public class StarHawk extends JPanel implements ActionListener {
     public void setReturnMenu(RTOMainMenu returnMenu) {
         this.returnMenu = returnMenu;
     }
-    
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -164,15 +162,12 @@ public class StarHawk extends JPanel implements ActionListener {
             resetGame();
             isGameOver = false;  // Reset the game over flag
         }
-
         
         for (Enemy enemy : enemies) {
             if (enemy.getY() < 0) {
                 enemy.move(); // Move the enemy down
             }
         }
-
-        
         
         // Update the positions of enemy lasers
         for (Enemy enemy : enemies) {
@@ -412,7 +407,6 @@ public class StarHawk extends JPanel implements ActionListener {
             scoreboard.scores.add(newScore);
             scoreboard.sortScores();
         }
-        
         scoreboard.saveScoreToFile(filename); // Save the sorted scores back to the file
     }  
 }
