@@ -8,6 +8,7 @@ import java.awt.GridBagLayout;
 import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Toolkit;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -46,7 +47,7 @@ public class MainApplication {
             protected void paintComponent(Graphics g ){
                 super.paintComponent(g);
                 Graphics2D g2d = (Graphics2D) g;
-                g2d.drawImage(BgScore, 0, 0, 1707, 1067, this);
+                g2d.drawImage(BgScore, 0, 0, getWidth(), getHeight(), this);
             }
         };
 
@@ -60,13 +61,13 @@ public class MainApplication {
         //gameNameLabel.setFont(gameNameFont);
         //gameNameLabel.setForeground(Color.WHITE);
         // Create a panel for the title label
-        JPanel titlePanel = new JPanel(new GridBagLayout());
+        JPanel titlePanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         titlePanel.setOpaque(false);  // Make the panel transparent
-        GridBagConstraints titleGbc = new GridBagConstraints();
-        titleGbc.insets.set(0, 50, 0, 50);
-        titleGbc.gridwidth = GridBagConstraints.REMAINDER;
-        titleGbc.anchor = GridBagConstraints.CENTER;
-        titleGbc.fill = GridBagConstraints.NONE;
+        //GridBagConstraints titleGbc = new GridBagConstraints();
+        //titleGbc.insets.set(0, 50, 0, 50);
+        //titleGbc.gridwidth = GridBagConstraints.REMAINDER;
+        //titleGbc.anchor = GridBagConstraints.NORTH;
+        //titleGbc.fill = GridBagConstraints.NONE;
 
 
         URL titleImageUrl = MainApplication.class.getClassLoader().getResource("BTitle.png"); 
@@ -74,7 +75,7 @@ public class MainApplication {
         //System.out.println(titleImageUrl);
         JLabel gameNameLabel = new JLabel(titleImageIcon);
         
-        titlePanel.add(gameNameLabel, titleGbc);
+        titlePanel.add(gameNameLabel);
         
         /*
         if (titleImageIcon.getIconWidth() > 0) {
@@ -94,8 +95,8 @@ public class MainApplication {
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
                 Graphics2D g2d = (Graphics2D) g;
-                g2d.drawImage(BgMain, 0, 0, 1707, 1067, this); // Draw the background image
-                System.out.println(BgMain);
+                g2d.drawImage(BgMain, 0, 0, getWidth(), getHeight(), this); // Draw the background image
+                //System.out.println(BgMain);
             }
         };
         
@@ -109,8 +110,8 @@ public class MainApplication {
         //System.out.println(height+ " | " + width);
         
         frame.setLayout(new BorderLayout()); // Set layout to null
-        panel.setBounds(0, 0, 1707, 1067); // Set the bounds of the panel
-        frame.add(panel);
+        panel.setBounds(0, 0, width, height); // Set the bounds of the panel
+        //frame.add(panel);
         // Mengatur ukuran frame dan posisinya di tengah layar
         frame.setSize(width, height);
         int x = (screenSize.width - frame.getWidth()) / 2;
@@ -134,6 +135,7 @@ public class MainApplication {
         // Menambahkan komponen-komponen menu utama ke mainMenuPanel 
         
         JPanel buttonPanel = new JPanel(new GridBagLayout());
+        buttonPanel.setOpaque(false);
         
         // Membuat tombol StartButton, SCRButton, dan ExitButton
         StartButton startButton = new StartButton(frame, game);
@@ -147,9 +149,10 @@ public class MainApplication {
         exitButton.setPreferredSize(buttonSize);
         
         GridBagConstraints buttonGbc = new GridBagConstraints();
-        buttonGbc.insets.set(0, 5, 0, 5);
+        buttonGbc.insets.set(50, 5, 0, 5);
         buttonGbc.anchor = GridBagConstraints.CENTER;
-        buttonGbc.fill = GridBagConstraints.HORIZONTAL;
+        buttonGbc.fill = GridBagConstraints.NONE;
+        //buttonGbc.gridwidth = GridBagConstraints.REMAINDER;
         
         // Menambahkan tombol-tombol ke panel tombol
         buttonPanel.add(startButton, buttonGbc);
@@ -160,14 +163,15 @@ public class MainApplication {
         gbc.fill = GridBagConstraints.CENTER;
         
         // Membuat JTextArea untuk menampilkan skor
-        JTextArea scoreboardTextArea = new JTextArea(10, 40);
-        scoreboardTextArea.setEditable(false);
+        //JTextArea scoreboardTextArea = new JTextArea(10, 40);
+        //scoreboardTextArea.setEditable(false);
 
         //startButton.setVisible(true);
         //scoreboardButton.setVisible(true);
         //exitButton.setVisible(true);
         
         // Memuat skor dari file dan menampilkannya
+        /* 
         try {
             String filename = "SCORESAVE.txt";
             BufferedReader reader = new BufferedReader(new FileReader(filename));
@@ -179,7 +183,8 @@ public class MainApplication {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-        mainMenuPanel.add(gameNameLabel, titleGbc);
+        */
+        mainMenuPanel.add(gameNameLabel);
         mainMenuPanel.add(titlePanel);
         mainPanel.add(mainMenuPanel, "mainMenu");
         
@@ -189,8 +194,8 @@ public class MainApplication {
         gameNameLabel.setBounds(0, 0, frame.getWidth(), 100);
         buttonPanel.setBounds(0, buttonPanelY, frame.getWidth(), 200);
         
-        JScrollPane scrollPane = new JScrollPane(scoreboardTextArea);
-        scoreboardPanel.add(scrollPane, BorderLayout.SOUTH);
+        //JScrollPane scrollPane = new JScrollPane(scoreboardTextArea);
+        //scoreboardPanel.add(scrollPane, BorderLayout.SOUTH);
         
         //mainPanel.add(scoreboardPanel, "scoreboard");
         // Menambahkan panel menu utama dan panel scoreboard ke mainPanel
@@ -200,26 +205,26 @@ public class MainApplication {
         // Secara awal, menampilkan panel menu utama
         //CardLayout cardLayout = (CardLayout) mainPanel.getLayout();
         
-        //panel.add(buttonPanel, BorderLayout.SOUTH);
-
+        
         //System.out.println("\n mainpanel = "+mainPanel);
         //cardLayout.show(mainPanel, "mainMenu");
-        panel.add(gameNameLabel, BorderLayout.CENTER);
-        panel.add(startButton);
-        panel.add(scoreboardButton);
-        panel.add(exitButton);
-        frame.add(panel);
-        frame.getContentPane().add(mainPanel);
+        //panel.add(startButton);
+        //panel.add(scoreboardButton);
+        //panel.add(exitButton);
+        //frame.add(panel);
+        panel.add(gameNameLabel);
+        panel.add(buttonPanel);
+        frame.getContentPane().add(panel);
         frame.revalidate();
         frame.setResizable(false);
         frame.setVisible(true);
         frame.repaint();
-        panel.revalidate();
-        panel.setVisible(true);
-        panel.repaint();
-        buttonPanel.revalidate();
-        buttonPanel.setVisible(true);
-        buttonPanel.repaint();
+        //panel.revalidate();
+        //panel.setVisible(true);
+        //panel.repaint();
+        //buttonPanel.revalidate();
+        //buttonPanel.setVisible(true);
+        //buttonPanel.repaint();
         //startButton.repaint();
         //scoreboardButton.repaint();
         //exitButton.repaint();
