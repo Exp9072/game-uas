@@ -32,7 +32,7 @@ public class SCRButton extends JButton {
         this.mainMenuPanel = mainMenuPanel;
         this.scoreboardPanel = scoreboardPanel;
         this.mainPanel = mainPanel;
-        URL imageUrl = getClass().getResource("./BScoreboardButton.png");
+        URL imageUrl = SCRButton.class.getClassLoader().getResource("BScoreboardButton.png");
         ImageIcon ii = new ImageIcon(imageUrl);
         Image scaledImage = ii.getImage().getScaledInstance(205, 55, Image.SCALE_SMOOTH);
         setIcon(new ImageIcon(scaledImage));
@@ -59,7 +59,7 @@ public class SCRButton extends JButton {
                 // Menambahkan tombol "RETURN" untuk kembali ke panel menu utama
                 JButton returnButton = new JButton("");
  
-                URL imageUrl = getClass().getResource("./BMainMenuButtonYellow.png");
+                URL imageUrl = SCRButton.class.getClassLoader().getResource("BMainMenuButtonYellow.png");
                 ImageIcon ii = new ImageIcon(imageUrl);
                 Image scaledImage = ii.getImage().getScaledInstance(205, 55, Image.SCALE_SMOOTH);
                 

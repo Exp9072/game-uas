@@ -37,7 +37,7 @@ public class MainApplication {
         JPanel mainPanel = new JPanel(new CardLayout());
         //BRightScoreboardBg.png
         //BScoreboardBGLeft.png
-        ImageIcon ll = new ImageIcon("./BScoreboardBGLeft.png");
+        ImageIcon ll = new ImageIcon(MainApplication.class.getClassLoader().getResource("BScoreboardBGLeft.png"));
         Image BgScore; 
         BgScore = ll.getImage();
         // Membuat panel untuk scoreboard
@@ -67,13 +67,14 @@ public class MainApplication {
         titleGbc.gridwidth = GridBagConstraints.REMAINDER;
         titleGbc.anchor = GridBagConstraints.CENTER;
         titleGbc.fill = GridBagConstraints.NONE;
-        
-        URL titleImageUrl = MainApplication.class.getResource("./BTitle.png"); 
+
+
+        URL titleImageUrl = MainApplication.class.getClassLoader().getResource("BTitle.png"); 
         ImageIcon titleImageIcon = new ImageIcon(titleImageUrl);
+        //System.out.println(titleImageUrl);
         JLabel gameNameLabel = new JLabel(titleImageIcon);
         
         titlePanel.add(gameNameLabel, titleGbc);
-        
         
         /*
         if (titleImageIcon.getIconWidth() > 0) {
@@ -85,18 +86,19 @@ public class MainApplication {
         //./Bg_Main.png
         //./BgMainUpgrade.png
         
-        ImageIcon ii = new ImageIcon("./BgMain+BackStory(WarpedGrey).png");
-        Image BgMain; 
-        BgMain = ii.getImage(); 
+        ImageIcon ii = new ImageIcon(MainApplication.class.getClassLoader().getResource("BgMain+BackStory(WarpedGrey).png"));
+        Image BgMain = ii.getImage();
         
         panel = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
                 Graphics2D g2d = (Graphics2D) g;
-                g2d.drawImage(BgMain, 0, 0,1707, 1067, this); // Draw the background image
+                g2d.drawImage(BgMain, 0, 0, 1707, 1067, this); // Draw the background image
+                System.out.println(BgMain);
             }
         };
+        
         
         //System.out.println("Title Image Width: " + titleImageIcon.getIconWidth());
         //System.out.println("Background Image Width: " + ii.getIconWidth());

@@ -51,7 +51,7 @@ public class PlayerShip {
             // No thruster
             //ImageIcon ii = new ImageIcon("./export202311140837368022.png");
             // With thruster
-            ImageIcon ii = new ImageIcon("./APlayerWithBoost.png");
+            ImageIcon ii = new ImageIcon(MainApplication.class.getClassLoader().getResource("APlayerWithBoost.png"));
             
             // Mengambil objek Image dari ImageIcon
             playerImage = ii.getImage();

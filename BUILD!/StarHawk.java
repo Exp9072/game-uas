@@ -65,9 +65,9 @@ public class StarHawk extends JPanel implements ActionListener {
         //playerShip = new PlayerShip(380, 500, getWidth(), getHeight());
         //./BInGameBg.png
 
-        ImageIcon ii = new ImageIcon("./Bg_Game.png");
-        ImageIcon uu = new ImageIcon("./Bg_Left.png");
-        ImageIcon jj = new ImageIcon("./Bg_Right.png");
+        ImageIcon ii = new ImageIcon(MainApplication.class.getClassLoader().getResource("Bg_Game.png"));
+        ImageIcon uu = new ImageIcon(MainApplication.class.getClassLoader().getResource("Bg_Left.png"));
+        ImageIcon jj = new ImageIcon(MainApplication.class.getClassLoader().getResource("Bg_Right.png"));
 
         BgImage = ii.getImage();
         BgImageL = uu.getImage();

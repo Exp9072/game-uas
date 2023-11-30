@@ -5,6 +5,7 @@ import javax.sound.sampled.LineEvent;
 import javax.sound.sampled.LineListener;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
 public class SoundMain {
     private static Clip hurtSound;
@@ -15,19 +16,20 @@ public class SoundMain {
 
     // Inisialisasi suara ketika kelas dimuat
     static {
-        initSound("hurtSound", "./CPlayerHurt_1.wav");
-        initSound("PlayerShoot", "./CPlayerShoot_1.wav");
-        initSound("DeathSound", "./CBGDeath_1.wav");
-        initSound("StartSound", "./CBGStart_1.wav");
-        initSound("backgroundMusic", "./CBGUndertale-Hopes-and-Dreams.wav");
+        initSound("hurtSound", "/CPlayerHurt_1.wav");
+        initSound("PlayerShoot", "/CPlayerShoot_1.wav");
+        initSound("DeathSound", "/CBGDeath_1.wav");
+        initSound("StartSound", "/CBGStart_1.wav");
+        initSound("backgroundMusic", "/CBGUndertale-Hopes-and-Dreams.wav");
     }
 
     // Metode untuk menginisialisasi suara
     private static void initSound(String soundName, String filePath) {
-        AudioInputStream audioInputStream = null;
+        //AudioInputStream audioInputStream = null;
         try {
             // Muat suara dari file
-            audioInputStream = AudioSystem.getAudioInputStream(new File(filePath));
+            InputStream audioInputStream = SoundMain.class.getResourceAsStream(filePath);
+            AudioInputStream ais = AudioSystem.getAudioInputStream(audioInputStream);
             Clip soundClip = AudioSystem.getClip();
 
                         // Set Loop untuk background sound
@@ -37,7 +39,7 @@ public class SoundMain {
                 // Add a LineListener to restart the clip when it ends
                 soundClip.addLineListener(new LineListener() {
                     @Override
-                    public void update(LineEvent event) {
+                    public void update(LineEvent event) {   
                         if (event.getType() == LineEvent.Type.STOP) {
                             soundClip.setFramePosition(0);
                             soundClip.start();
@@ -65,20 +67,11 @@ public class SoundMain {
                     break;
             }
 
-            soundClip.open(audioInputStream);
+            soundClip.open(ais);
 
         } catch (Exception e) {
             // Cetak jejak tumpukan jika terjadi pengecualian selama inisialisasi suara
             e.printStackTrace();
-        } finally {
-            // Tutup audioInputStream
-            if (audioInputStream != null) {
-                try {
-                    audioInputStream.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
         }
     }
 

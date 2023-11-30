@@ -12,7 +12,7 @@ public class ExitButton extends JButton {
     public ExitButton() {
         super(""); // Mengatur teks tombol menjadi "Exit"
         //2023-11-17_21.41.02.png 2023-11-17_21.44.15.png
-        URL imageUrl = getClass().getResource("./BExitButton.png");
+        URL imageUrl = ExitButton.class.getClassLoader().getResource("BExitButton.png");
         ImageIcon ii = new ImageIcon(imageUrl);
         Image scaledImage = ii.getImage().getScaledInstance(205, 55, Image.SCALE_SMOOTH);
         setIcon(new ImageIcon(scaledImage));

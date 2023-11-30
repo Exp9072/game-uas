@@ -49,7 +49,7 @@ public class
         this.destinationY = 250;
         enemyLasers = new ArrayList<>();
 
-        ImageIcon ii = new ImageIcon("./ARandomEnemy.png");
+        ImageIcon ii = new ImageIcon(MainApplication.class.getClassLoader().getResource("ARandomEnemy.png"));
         RMEImage = ii.getImage();
 
         shootingTimer = new Timer(shootingInterval, new ActionListener() {

@@ -90,7 +90,7 @@ public class RTOMainMenu extends JPanel {
 
         SoundMain.playDeathSound();
 
-        ImageIcon ll = new ImageIcon("./BbitYouDied.png");
+        ImageIcon ll = new ImageIcon(MainApplication.class.getClassLoader().getResource("BbitYouDied.png"));
         Image BgDeath; 
         BgDeath = ll.getImage(); 
         JPanel gameOverPanel = new JPanel(){
@@ -115,7 +115,7 @@ public class RTOMainMenu extends JPanel {
         //returnButton.setForeground(Color.WHITE); // Mengatur warna teks tombol menjadi putih
         //returnButton.setBackground(Color.RED); // Mengatur warna latar tombol menjadi merah
         
-        URL imageUrl = getClass().getResource("./BMainMenuButtonRed.png");
+        URL imageUrl = RTOMainMenu.class.getClassLoader().getResource("BMainMenuButtonRed.png");
         ImageIcon ii = new ImageIcon(imageUrl);
         Image scaledImage = ii.getImage().getScaledInstance(205, 55, Image.SCALE_SMOOTH);
         

@@ -23,7 +23,7 @@ public class Laser {
 
     // Metode untuk menggambar laser
     public void draw(Graphics g) {
-        g.setColor(Color.PINK); // Mengatur warna laser
+        g.setColor(Color.RED); // Mengatur warna laser
         g.fillRect(x, y, width, height); // Gambar laser
     }
 
