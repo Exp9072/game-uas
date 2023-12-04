@@ -4,6 +4,7 @@ from tkinter import filedialog, messagebox as mb
 from PIL import Image
 from tkinterdnd2 import DND_FILES
 
+
 # Creating the basic Python Image Steganography functions
 def generate_data(pixels, data):
     # This function will convert the incoming data to 8-bit binary format using its ASCII values and return them
@@ -41,12 +42,12 @@ def generate_data(pixels, data):
         yield pixels[6:9]
 
 def encryption(img, data):
-    size = img.size[0]
-    (x, y) = (0, 0)
+    width, height = img.size
+    x, y = 0, 0
 
     for pixel in generate_data(img.getdata(), data):
         img.putpixel((x, y), pixel)
-        if x == size - 1:
+        if x == width - 1:
             x = 0
             y += 1
         else:
@@ -57,54 +58,24 @@ def encryption(img, data):
     for char in termination_marker:
         binary_data = format(ord(char), '08b')
         for bit in binary_data:
-            img.putpixel((x, y), (img.getpixel((x, y))[:-1] + (int(bit),)))
-            if x == size - 1:
-                x = 0
-                y += 1
+            pixel = img.getpixel((x, y))
+
+            if len(pixel) == 4:  # Check if the image has an alpha channel
+                r, g, b, a = pixel
+                img.putpixel((x, y), (r & 0b11111110, g & 0b11111110, b & 0b11111110, a))  # Clear the LSBs
+                img.putpixel((x, y), (r | int(bit), g | int(bit), b | int(bit), a))  # Set the LSBs
             else:
-                x += 1
-    # Ensure termination marker has enough space
-    for _ in range(8):
-        img.putpixel((x, y), (img.getpixel((x, y))[:-1] + (0,)))
-        if x == size - 1:
-            x = 0
-            y += 1
-        else:
-            x += 1
+                r, g, b = pixel
+                img.putpixel((x, y), (r & 0b11111110, g & 0b11111110, b & 0b11111110))  # Clear the LSBs
+                img.putpixel((x, y), (r | int(bit), g | int(bit), b | int(bit)))  # Set the LSBs
 
-def main_encryption(img, text, new_image_name):
-    image = Image.open(img, 'r')
-
-    if (len(text) == 0) or (len(img) == 0) or (len(new_image_name) == 0):
-        mb.showerror("Error", 'You have not put a value! Please put all values before pressing the button')
-        return
-
-    new_image = image.copy()
-
-    size = new_image.size[0]
-    (x, y) = (0, 0)
-
-    encryption(new_image, text)
-
-    # Add a termination marker at the end of the message
-    termination_marker = '###END###'
-    for char in termination_marker:
-        binary_data = format(ord(char), '08b')
-        for bit in binary_data:
-            new_image.putpixel((x, y), (new_image.getpixel((x, y))[:-1] + (int(bit),)))
-            if x == size - 1:
+            if x == width - 1:
                 x = 0
                 y += 1
             else:
                 x += 1
 
-    # Update the termination condition in the original termination_pixel block
-    termination_pixel = list(new_image.getpixel((x, y)))
-    termination_pixel[-1] = 1
-    new_image.putpixel((x, y), tuple(termination_pixel))
-
-    new_image_name += '.png'
-    new_image.save(new_image_name, 'png')
+    return img
 
 
 def main_decryption(img):
@@ -117,18 +88,15 @@ def main_decryption(img):
 
     pixels = list(itertools.chain.from_iterable(img.getdata()))
 
-    # Print the first few pixels and termination marker bits
-    print("Pixels:", pixels[:30])
-    marker_bits = [int(bit) for bit in ''.join(format(ord(char), '08b') for char in termination_marker)]
-    print("Termination Marker Bits:", marker_bits)
-
     # Find the termination marker
     termination_marker_bits = [int(bit) for bit in ''.join(format(ord(char), '08b') for char in termination_marker)]
     termination_index = -1
 
-    for i in range(len(pixels) - len(termination_marker_bits)):
-        # Extract least significant bits of the next 8 pixels
-        lsb_pixels = [pixel & 1 for pixel in pixels[i:i + len(termination_marker_bits)]]
+    for i in range(len(pixels) - len(termination_marker_bits) * 3):
+        # Extract least significant bits of the next 8 pixels for each channel
+        lsb_pixels = [
+            pixel & 1 for pixel in pixels[i:i + len(termination_marker_bits) * 3:3]
+        ]
 
         # Compare with termination marker bits
         if lsb_pixels == termination_marker_bits:
@@ -139,12 +107,15 @@ def main_decryption(img):
         mb.showerror("Error", "Termination marker not found. This image may not contain encoded data.")
         return ''
 
-
     # Extract the binary data
     binary_data = pixels[:termination_index]
 
     # Ensure the binary data is padded to multiples of 8
-    padded_data = binary_data + [0] * ((8 - len(binary_data) % 8) % 8)
+    padding_length = (8 - len(binary_data) % 8) % 8
+    if padding_length > 0:
+        mb.showwarning("Warning", f"Padding detected. Data may be corrupted or incomplete.")
+
+    padded_data = binary_data + [0] * padding_length
 
     # Convert binary data to characters
     for i in range(0, len(padded_data), 8):
@@ -156,13 +127,29 @@ def main_decryption(img):
             data += chr(int(byte_str, 2))
         else:
             print(f"Invalid binary string: {byte_str}")
-
+    print("data = " + data)
     return data
+    
 
 
 
 def on_drop(event):
     img_path_label.config(text=event.data)
+
+
+def decode_image():
+    print("Decode image function called.")  # Add this line for debugging
+
+    if not img_path_label.cget("text"):
+        mb.showerror("Error", "Please select an image file first.")
+        return
+
+    img_path = img_path_label.cget("text")
+    image = Image.open(img_path, 'r')
+
+    decoded_message = main_decryption(image)
+    decoded_message_label.config(text=f"Decoded Message: {decoded_message}")
+
 
 def encode_image():
     if not img_path_label.cget("text"):
@@ -184,23 +171,6 @@ def encode_image():
 
     new_image.save(new_image_name, 'png')
     mb.showinfo("Success", f"Image has been encoded and saved as {new_image_name}")
-
-def decode_image():
-    print("Decode image function called.")  # Add this line for debugging
-
-    if not img_path_label.cget("text"):
-        mb.showerror("Error", "Please select an image file first.")
-        return
-
-    img_path = img_path_label.cget("text")
-    image = Image.open(img_path, 'r')
-
-    decoded_message = main_decryption(image)
-    decoded_message_label.config(text=f"Decoded Message: {decoded_message}")
-
-# ... (rest of the code remains unchanged)
-
-
 def select_image():
     img_path = filedialog.askopenfilename(title="Select Image File", filetypes=[("Image files", "*.png;*.jpg;*.jpeg")])
     img_path_label.config(text=img_path)

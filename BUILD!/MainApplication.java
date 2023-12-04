@@ -207,21 +207,23 @@ public class MainApplication {
         
         
         //System.out.println("\n mainpanel = "+mainPanel);
-        //cardLayout.show(mainPanel, "mainMenu");
+        cardLayout.show(mainPanel, "mainMenu");
         //panel.add(startButton);
         //panel.add(scoreboardButton);
         //panel.add(exitButton);
         //frame.add(panel);
+        panel.add(mainPanel);
         panel.add(gameNameLabel);
         panel.add(buttonPanel);
         frame.getContentPane().add(panel);
+        frame.getContentPane().add(mainPanel);
         frame.revalidate();
         frame.setResizable(false);
         frame.setVisible(true);
         frame.repaint();
-        //panel.revalidate();
-        //panel.setVisible(true);
-        //panel.repaint();
+        panel.revalidate();
+        panel.setVisible(true);
+        panel.repaint();
         //buttonPanel.revalidate();
         //buttonPanel.setVisible(true);
         //buttonPanel.repaint();

@@ -30,8 +30,14 @@ public class Scoreboard {
         try (FileWriter writer = new FileWriter(filename)) { // Membuka file dalam mode append
             if (!scores.isEmpty()) {
                 for (Integer score : scores) {
-                    writer.write("Player 1: " + score + System.lineSeparator());
+                    if (score != 0){
+                        writer.write("Player 1: " + score + System.lineSeparator());
+                    } else{
+                        writer.write("Player 1: 000" + System.lineSeparator());
+                    }
                 }
+            } else{
+                writer.write("Player 1: 000" + System.lineSeparator());
             }
             //System.out.println("Berhasil menulis ke file: " + filename);
         } catch (IOException e) {
