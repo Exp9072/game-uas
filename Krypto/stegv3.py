@@ -18,21 +18,22 @@ def encode_text():
             output_image_path = filedialog.asksaveasfilename(defaultextension=".png", filetypes=[("PNG files", "*.png")])
             if output_image_path:
                 encode_text_in_image(original_image_path, secret_text, output_image_path)
-                result_label.config(text=f"Text encoded successfully in {output_image_path}")
+                result_label.configure(text=f"Text encoded successfully in {output_image_path}")
             else:
-                result_label.config(text="Operation canceled.")
+                result_label.configure(text="Operation canceled.")
         else:
-            result_label.config(text="Please enter a secret text.")
+            result_label.configure(text="Please enter a secret text.")
     else:
-        result_label.config(text="Please select an image.")
+        result_label.configure(text="Please select an image.")
 
 def decode_text():
     encoded_image_path = filedialog.askopenfilename(filetypes=[("Image files", "*.png;*.jpg;*.jpeg;*.gif")])
     if encoded_image_path:
         decoded_text = decode_text_from_image(encoded_image_path)
-        result_label.config(text=f"Decoded Text: {decoded_text}")
+        result_label.configure(text=f"Decoded Text: {decoded_text}")
+
     else:
-        result_label.config(text="Please select an encoded image.")
+        result_label.configure(text="Please select an encoded image.")
 
 def encode_text_in_image(original_image_path, secret_text, output_image_path):
     original_image = Image.open(original_image_path)
@@ -117,12 +118,20 @@ decode_button.place(x=435, y=244)
 # Result label
 result_label = customtkinter.CTkLabel(
     input_frame,
+    text="(Decode Message Location)",
+    font=customtkinter.CTkFont(size=12),
+    wraplength=400,
+    text_color='#31304D'
+)
+result_label.place(x=90, y=100)
+
+label_inputTxt = customtkinter.CTkLabel(
+    input_frame,
     text="Input text here :",
     font=customtkinter.CTkFont(size=12),
     wraplength=400,
     text_color='#31304D'
 )
-result_label.place(x=1, y=130)
-
+label_inputTxt.place(x=1, y=130)
 # Application
 root.mainloop()
