@@ -34,6 +34,7 @@ public class StarHawk extends JPanel implements ActionListener {
     private static final int TARGET_FPS = 240;
     private static final long OPTIMAL_TIME = 1000000000 / TARGET_FPS;
     private Image BgImage, BgImageL,BgImageR;
+    private int backgroundOffsetY = 0; // Variable to track the vertical movement of the background
    
     public StarHawk() {
         // Menginisialisasi kapal pemain dengan ukuran layar 
@@ -41,7 +42,7 @@ public class StarHawk extends JPanel implements ActionListener {
         // Membuat objek Timer dengan delay 10 milidetik yang akan memicu "this" (biasanya objek saat ini) setiap 10 milidetik.
         timer = new Timer(10, this); //Set timer 10
         timer.start(); // Memulai timer.
-        
+
         this.setReturnMenu(returnMenu);
         
         random = new Random();
@@ -235,8 +236,22 @@ public class StarHawk extends JPanel implements ActionListener {
         g.setColor(Color.WHITE);
         g.fillRect(sectionWidth, 0, sectionWidth, getHeight());
         Graphics2D bg = (Graphics2D) g;
-        bg.drawImage(BgImage, sectionWidth, 0 , null);
+        // Calculate the number of times the background image needs to be drawn
+    int numTiles = (getHeight() + backgroundOffsetY) / BgImage.getHeight(null) + 1;
 
+    // Draw the background image multiple times to cover the entire height without gaps
+    for (int i = 0; i < numTiles; i++) {
+        int yCoordinate = i * BgImage.getHeight(null) - backgroundOffsetY;
+        bg.drawImage(BgImage, sectionWidth, yCoordinate, null);
+    }
+
+    // Increment the background offset to simulate upward movement
+    backgroundOffsetY += 1;
+
+    // If the background has moved beyond its height, reset the offset to 0
+    if (backgroundOffsetY >= BgImage.getHeight(null)) {
+        backgroundOffsetY = 0;
+    }
         // Draw the right red section
         g.setColor(Color.MAGENTA);
         g.fillRect(2 * sectionWidth, 0, sectionWidth, getHeight());

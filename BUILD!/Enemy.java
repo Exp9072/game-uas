@@ -29,7 +29,7 @@ public abstract class Enemy {
         this.enemyLasers = new ArrayList<>(); // Inisialisasi daftar laser musuh
         this.shootingInterval = 3000; // Mengatur interval penembakan
         
-        ImageIcon ii = new ImageIcon(Enemy.class.getClassLoader().getResource("AEnemy_Static.png"));
+        ImageIcon ii = new ImageIcon(Enemy.class.getClassLoader().getResource("AEnemy_Static.gif"));
         SEImage = ii.getImage();
     }
 

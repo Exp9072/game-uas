@@ -80,7 +80,7 @@ img_label = tk.Label(
     text="PREVIEW IMAGE",
     font=customtkinter.CTkFont(size=12),
     bg="#427D9D",
-    fg="#31304D"  # Use the hexadecimal color code for text color
+    fg="#31304D" 
 )
 img_label.place(x=350, y=-5)
 
